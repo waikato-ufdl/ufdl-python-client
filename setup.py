@@ -1,7 +1,7 @@
 # setup.py
 # Copyright (C) 2019 Fracpete (fracpete at waikato dot ac dot nz)
 
-from setuptools import setup
+from setuptools import setup, find_namespace_packages
 
 
 setup(
@@ -18,7 +18,10 @@ setup(
     package_dir={
         '': 'src'
     },
-    packages=["ufdl_pythonclient"],
+    packages=find_namespace_packages(where='src'),
+    namespace_packages=[
+        "ufdl"
+    ],
     version="0.0.1",
     author='Corey Sterling',
     author_email='coreytsterling@gmail.com',
