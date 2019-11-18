@@ -26,6 +26,7 @@ setup(
     author='Corey Sterling',
     author_email='coreytsterling@gmail.com',
     install_requires=[
-        "requests"
+        "requests",
+        "wai.common"
     ]
 )
