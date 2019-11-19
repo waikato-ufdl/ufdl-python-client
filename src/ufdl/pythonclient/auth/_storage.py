@@ -1,3 +1,8 @@
+"""
+Module with functions for handling the storage and retrieval of
+JWT tokens cached to disk. This is so users can reuse tokens
+between application runs.
+"""
 import os
 import json
 
@@ -8,6 +13,12 @@ def get_ufdl_config_dir() -> str:
     """
     Gets the directory in which to store app configuration. Based on
     code from https://stackoverflow.com/a/3250952.
+
+    On Windows, %APPDATA%\ufdl\
+    On Linux, $XDG_CONFIG_HOME/ufdl/
+
+    If the relevant environment variable for the platform is not set,
+    defaults to ~/.config/ufdl/
 
     :return:    The directory string.
     """
@@ -39,8 +50,13 @@ def store_token_pair(username: str, access_token: str, refresh_token: str):
     :param access_token:    The access token.
     :param refresh_token:   The refresh token.
     """
+    # Load the token file as it currently stands
     tokens = load_token_file()
+
+    # Update the given user's tokens
     tokens[username] = (access_token, refresh_token)
+
+    # Re-save the token file
     save_token_file(tokens)
 
 
@@ -74,9 +90,13 @@ def load_token_file() -> TOKEN_FILE_TYPE:
 
     # Load and parse the file
     with open(TOKEN_FILE, "r") as file:
-        tokens = json.load(file, )
+        tokens = json.load(file)
 
-    return {user: tuple(token_pair) for user, token_pair in tokens.items()}
+    # Arrays are converted to Python lists by default.
+    # Reformat to tuples instead for the token pairs
+    tokens = {user: tuple(token_pair) for user, token_pair in tokens.items()}
+
+    return tokens
 
 
 def save_token_file(tokens: TOKEN_FILE_TYPE):
