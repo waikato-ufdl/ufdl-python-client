@@ -1,3 +1,7 @@
+"""
+Context module for auth. Takes the user's username and password,
+and provides functions for converting them into JWT tokens.
+"""
 import requests
 
 from ..functional import jwt_obtain, jwt_refresh
@@ -19,11 +23,13 @@ def set_context(username: str, password: str):
     :param username:    The username.
     :param password:    The password.
     """
+    # Set the username/password context
     global _username, _password
-
     _username = username
     _password = password
 
+    # Clear the token context so the new user's token are
+    # loaded on next request
     clear_token_context()
 
 
@@ -91,7 +97,7 @@ def refresh():
 def set_token_context() -> bool:
     """
     Sets the token context by either loading the tokens from
-    cache, or obtaining new tokens from the server.
+    disk cache, or obtaining new tokens from the server.
 
     :return:    True if the tokens were obtained from the server,
                 False if loaded from cache.
@@ -102,10 +108,10 @@ def set_token_context() -> bool:
     if _username == "":
         raise ValueError("Username not set. Call auth.set_context(username, password)")
 
-    # Attempt to load the tokens from cache
+    # Attempt to load the tokens from disk cache
     _access_token, _refresh_token = load_token_pair(_username)
 
-    # If cache missed, obtain tokens from server
+    # If disk cache missed, obtain tokens from server
     if _access_token == "":
         _access_token, _refresh_token = obtain_tokens_from_server()
         return True
@@ -121,10 +127,10 @@ def obtain_tokens_from_server() -> TOKEN_PAIR_TYPE:
     """
     global _username, _password, _access_token, _refresh_token
 
-    # Network call
+    # Get the tokens from the server
     tokens = jwt_obtain(_username, _password)
 
-    # Cache the tokens
+    # Cache the tokens in the disk cache
     store_token_pair(_username, *tokens)
 
     return tokens
