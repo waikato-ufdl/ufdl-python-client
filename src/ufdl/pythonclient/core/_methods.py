@@ -1,3 +1,13 @@
+"""
+Module for HTTP verb functions (GET, POST, PUT, PATCH, DELETE) specifically
+suited to communicating with the UFDL server. Each function takes a URL on
+the server (just the host-relative portion), and for methods where it is
+relevant (POST, PUT, PATCH), the JSON data payload. Each function also
+has a keyword-only argument 'auth', which can be set to False to disable
+the use of JWT authentication. The functions all return the response
+object from the server, and automatically raise a requests.HTTPError on
+4XX/5XX return status.
+"""
 from typing import Any, Dict
 
 import requests
@@ -25,8 +35,13 @@ def set_auth_headers(kwargs):
 
     :param kwargs:  The keyword arguments.
     """
+    # Get the current set of headers from the kwargs, if any
     headers = kwargs.pop("headers", {})
+
+    # Add the authentication headers
     headers.update(get_auth_headers())
+
+    # Put the headers back into the kwargs
     kwargs["headers"] = headers
 
 
@@ -41,16 +56,19 @@ def retry_on_expired_access_token(method, *args, **kwargs) -> requests.Response:
     :return:            The result of calling the method.
     """
     try:
+        # Set the authentication token in the headers
         set_auth_headers(kwargs)
+
+        # Call the method and raise any response errors
         return raise_for_response(method(*args, **kwargs))
     except requests.HTTPError as e:
         # If we errored on an expired token, refresh and retry
         if e.response.status_code == requests.codes.unauthorized:
-            # Refresh
+            # Refresh the access token
             from ..auth import refresh
             refresh()
 
-            # Retry
+            # Retry the request (same as try block above)
             set_auth_headers(kwargs)
             return raise_for_response(method(*args, **kwargs))
 
