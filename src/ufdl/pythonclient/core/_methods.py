@@ -12,7 +12,7 @@ from typing import Any, Dict
 
 import requests
 
-from ._util import format_url, get_auth_headers
+from ._util import format_url, get_auth_headers, format_params
 
 
 def raise_for_response(response: requests.Response) -> requests.Response:
@@ -97,8 +97,8 @@ def post(url: str, json: Dict[str, Any], *, auth: bool = True) -> requests.Respo
     return handle_auth(auth, requests.post, format_url(url), json=json)
 
 
-def get(url: str, *, auth: bool = True) -> requests.Response:
-    return handle_auth(auth, requests.get, format_url(url))
+def get(url: str, *, auth: bool = True, **params) -> requests.Response:
+    return handle_auth(auth, requests.get, f"{format_url(url)}{format_params(params)}")
 
 
 def put(url: str, json: Dict[str, Any], *, auth: bool = True) -> requests.Response:
