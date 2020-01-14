@@ -8,7 +8,7 @@ the use of JWT authentication. The functions all return the response
 object from the server, and automatically raise a requests.HTTPError on
 4XX/5XX return status.
 """
-from typing import Any, Dict
+from typing import Any, Dict, Union, IO
 
 import requests
 
@@ -111,3 +111,13 @@ def patch(url: str, json: Dict[str, Any], *, auth: bool = True) -> requests.Resp
 
 def delete(url: str, *, auth: bool = True) -> requests.Response:
     return handle_auth(auth, requests.delete, format_url(url))
+
+
+def upload(url: str, filename: str, data: Union[bytes, IO[bytes]], *, auth: bool = True) -> requests.Response:
+    return handle_auth(auth, requests.post, format_url(url), data=data,
+                       headers={"Content-Disposition": f"attachment; filename={filename}"})
+
+
+def upload_file(url: str, filename: str, *, auth: bool = True) -> requests.Response:
+    with open(filename, 'rb') as file:
+        return upload(url, filename, file, auth=auth)
