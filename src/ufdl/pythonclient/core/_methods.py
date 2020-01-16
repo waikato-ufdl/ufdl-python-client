@@ -24,7 +24,12 @@ def raise_for_response(response: requests.Response) -> requests.Response:
     :return:            The same response object.
     """
     # Call raise for status
-    response.raise_for_status()
+    try:
+        response.raise_for_status()
+    except requests.HTTPError as e:
+        # Attach the detail message to the error if there is one
+        e.detail = response.content.decode()
+        raise
 
     return response
 
