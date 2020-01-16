@@ -14,7 +14,7 @@ def get_ufdl_config_dir() -> str:
     Gets the directory in which to store app configuration. Based on
     code from https://stackoverflow.com/a/3250952.
 
-    On Windows, %APPDATA%\ufdl\
+    On Windows, %APPDATA%\\ufdl\
     On Linux, $XDG_CONFIG_HOME/ufdl/
 
     If the relevant environment variable for the platform is not set,
