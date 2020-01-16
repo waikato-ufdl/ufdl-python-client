@@ -123,6 +123,5 @@ def upload(url: str, filename: str, data: Union[bytes, IO[bytes]], *, auth: bool
                        headers={"Content-Disposition": f"attachment; filename={filename}"})
 
 
-def upload_file(url: str, filename: str, *, auth: bool = True) -> requests.Response:
-    with open(filename, 'rb') as file:
-        return upload(url, filename, file, auth=auth)
+def download(url: str, *, auth: bool = True, **params) -> requests.Response:
+    return handle_auth(auth, requests.get, f"{format_url(url)}{format_params(params)}", stream=True)
