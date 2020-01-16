@@ -32,16 +32,16 @@ def download(url: str, pk: int, file_format: str, **params) -> Iterator[bytes]:
 # ==================== #
 
 
-def add_file(url: str, pk: int, filename: str, data: Union[bytes, IO[bytes]]):
-    return upload(detail_url(url, pk) + "files/" + filename, filename, data)
+def add_file(url: str, pk: int, filename: str, data: Union[bytes, IO[bytes]]) -> RawJSONObject:
+    return upload(detail_url(url, pk) + "files/" + filename, filename, data).json()
 
 
-def get_file(url: str, pk: int, filename: str):
-    return core_download(detail_url(url, pk) + "files/" + filename)
+def get_file(url: str, pk: int, filename: str) -> Iterator[bytes]:
+    return core_download(detail_url(url, pk) + "files/" + filename).iter_content(chunk_size=None)
 
 
-def delete_file(url: str, pk: int, filename: str):
-    return delete(detail_url(url, pk) + "files/" + filename)
+def delete_file(url: str, pk: int, filename: str) -> RawJSONObject:
+    return delete(detail_url(url, pk) + "files/" + filename).json()
 
 
 # ================= #
@@ -49,5 +49,5 @@ def delete_file(url: str, pk: int, filename: str):
 # ================= #
 
 
-def add_member(url: str, pk: int, username: str, permissions: Optional[str] = "R"):
-    return post(detail_url(url, pk) + "add-member", {"username": username, "permissions": permissions})
+def add_member(url: str, pk: int, username: str, permissions: Optional[str] = "R") -> RawJSONObject:
+    return post(detail_url(url, pk) + "add-member", {"username": username, "permissions": permissions}).json()

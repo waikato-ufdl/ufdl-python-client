@@ -12,21 +12,21 @@ def list(url: str) -> RawJSONArray:
     return get(url).json()
 
 
-def create(url: str, **params):
-    post(url, params)
+def create(url: str, **params) -> RawJSONObject:
+    return post(url, params).json()
 
 
 def retrieve(url: str, pk: int) -> RawJSONObject:
     return get(detail_url(url, pk)).json()
 
 
-def update(url: str, pk: int, **params):
-    put(detail_url(url, pk), params)
+def update(url: str, pk: int, **params) -> RawJSONObject:
+    return put(detail_url(url, pk), params).json()
 
 
-def partial_update(url: str, pk: int, **params):
-    patch(detail_url(url, pk), params)
+def partial_update(url: str, pk: int, **params) -> RawJSONObject:
+    return patch(detail_url(url, pk), params).json()
 
 
-def destroy(url: str, pk: int):
-    delete(detail_url(url, pk))
+def destroy(url: str, pk: int) -> RawJSONObject:
+    return delete(detail_url(url, pk)).json()

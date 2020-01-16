@@ -15,13 +15,13 @@ def create(username: str,
            password: str,
            email: str,
            first_name: str = "",
-           last_name: str = ""):
-    _base_actions.create(USERS_URL,
-                         username=username,
-                         password=password,
-                         email=email,
-                         first_name=first_name,
-                         last_name=last_name)
+           last_name: str = "") -> RawJSONObject:
+    return _base_actions.create(USERS_URL,
+                                username=username,
+                                password=password,
+                                email=email,
+                                first_name=first_name,
+                                last_name=last_name)
 
 
 def retrieve(pk: int) -> RawJSONObject:
@@ -33,13 +33,13 @@ def update(pk: int, *,
            password: str,
            first_name: str,
            last_name: str,
-           email: str):
-    _base_actions.update(USERS_URL, pk,
-                         username=username,
-                         password=password,
-                         first_name=first_name,
-                         last_name=last_name,
-                         email=email)
+           email: str) -> RawJSONObject:
+    return _base_actions.update(USERS_URL, pk,
+                                username=username,
+                                password=password,
+                                first_name=first_name,
+                                last_name=last_name,
+                                email=email)
 
 
 def partial_update(pk: int, *,
@@ -47,13 +47,13 @@ def partial_update(pk: int, *,
                    password: Optional[str] = None,
                    first_name: Optional[str] = None,
                    last_name: Optional[str] = None,
-                   email: Optional[str] = None):
-    _base_actions.partial_update(USERS_URL, pk, **partial_kwargs(username=username,
-                                                                 password=password,
-                                                                 first_name=first_name,
-                                                                 last_name=last_name,
-                                                                 email=email))
+                   email: Optional[str] = None) -> RawJSONObject:
+    return _base_actions.partial_update(USERS_URL, pk, **partial_kwargs(username=username,
+                                                                        password=password,
+                                                                        first_name=first_name,
+                                                                        last_name=last_name,
+                                                                        email=email))
 
 
-def destroy(pk: int):
-    _base_actions.destroy(USERS_URL, pk)
+def destroy(pk: int) -> RawJSONObject:
+    return _base_actions.destroy(USERS_URL, pk)
