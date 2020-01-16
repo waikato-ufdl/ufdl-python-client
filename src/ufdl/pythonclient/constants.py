@@ -8,8 +8,7 @@ JWT_REFRESH_TOKEN_URL = "v1/auth/refresh/"  # URL to refresh the JWT access toke
 JWT_VERIFY_TOKEN_URL = "v1/auth/verify/"  # URL to verify a JWT token
 
 # CORE
-ORGANISATIONS_URL = "v1/core/teams/"
-MEMBERSHIPS_URL = "v1/core/memberships/"
+TEAMS_URL = "v1/core/teams/"
 PROJECTS_URL = "v1/core/projects/"
 DATASETS_URL = "v1/core/datasets/"
 USERS_URL = "v1/core/users/"

@@ -110,11 +110,4 @@ venv3.7/
 .idea/
 *.iml
 
-# Auto-generated source files
-src/ufdl/pythonclient/functional/dataset/
-src/ufdl/pythonclient/functional/membership/
-src/ufdl/pythonclient/functional/organisation/
-src/ufdl/pythonclient/functional/project/
-src/ufdl/pythonclient/functional/user/
-
 corey/*
