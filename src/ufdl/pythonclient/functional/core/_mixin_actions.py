@@ -5,8 +5,8 @@ from typing import Union, IO, Iterator, Optional
 
 from wai.common.json import RawJSONObject
 
-from ..core import post, upload, download as core_download, delete
-from ._util import detail_url
+from ...core import post, upload, download as core_download, delete
+from .._util import detail_url
 
 # =============== #
 # CopyableViewSet #

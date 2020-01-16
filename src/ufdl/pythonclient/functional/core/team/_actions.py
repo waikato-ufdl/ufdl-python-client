@@ -3,7 +3,8 @@ from typing import Optional
 from wai.common.json import RawJSONObject, RawJSONArray
 
 from ....constants import TEAMS_URL
-from ... import _base_actions, _mixin_actions
+from ... import _base_actions
+from .. import _mixin_actions
 from ..._util import partial_kwargs
 
 
