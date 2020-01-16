@@ -120,7 +120,8 @@ def delete(url: str, *, auth: bool = True) -> requests.Response:
 
 def upload(url: str, filename: str, data: Union[bytes, IO[bytes]], *, auth: bool = True) -> requests.Response:
     return handle_auth(auth, requests.post, format_url(url), data=data,
-                       headers={"Content-Disposition": f"attachment; filename={filename}"})
+                       headers={"Content-Disposition": f"attachment; filename={filename}",
+                                "Content-Type": "application/data"})
 
 
 def download(url: str, *, auth: bool = True, **params) -> requests.Response:
