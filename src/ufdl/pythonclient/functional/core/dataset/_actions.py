@@ -66,7 +66,7 @@ def destroy(pk: int) -> RawJSONObject:
     return _base_actions.destroy(DATASETS_URL, pk)
 
 
-def download(pk: int, file_format: str) -> Iterator[bytes]:
+def download(pk: int, file_format: str = "zip") -> Iterator[bytes]:
     return _mixin_actions.download(DATASETS_URL, pk, file_format)
 
 
