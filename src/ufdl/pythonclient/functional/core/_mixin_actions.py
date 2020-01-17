@@ -22,9 +22,9 @@ def copy(url: str, pk: int, **params) -> RawJSONObject:
 # =================== #
 
 
-def download(url: str, pk: int, file_format: str, **params) -> Iterator[bytes]:
+def download(url: str, pk: int, filetype: str, **params) -> Iterator[bytes]:
     return core_download(detail_url(url, pk) + "download",
-                         file_format=file_format, **params).iter_content(chunk_size=None)
+                         filetype=filetype, **params).iter_content(chunk_size=None)
 
 
 # ==================== #
