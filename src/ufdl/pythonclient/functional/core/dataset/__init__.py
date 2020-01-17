@@ -6,6 +6,8 @@ from ._actions import (
     partial_update,
     destroy,
 
+    download,
+
     add_file,
     get_file,
     delete_file,
