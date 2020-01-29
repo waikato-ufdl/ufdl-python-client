@@ -5,7 +5,7 @@ from setuptools import setup, find_namespace_packages
 
 
 setup(
-    name="ufdl-python-client",
+    name="ufdl.pythonclient",
     description="Core Python library for accessing the UFDL backend, managing the communication.",
     url="https://github.com/waikato-ufdl/ufdl-python-client",
     classifiers=[
