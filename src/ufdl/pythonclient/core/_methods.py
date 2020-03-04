@@ -122,6 +122,10 @@ def delete(url: str, json: Optional[Dict[str, Any]] = None, *, auth: bool = True
 
 
 def upload(url: str, filename: str, data: Union[bytes, IO[bytes]], *, auth: bool = True) -> requests.Response:
+    # Make sure a filename is set
+    if filename == "":
+        filename = 'UNKNOWN'
+
     return handle_auth(auth, requests.post, format_url(url), data=data,
                        headers={"Content-Disposition": f"attachment; filename={filename}",
                                 "Content-Type": "application/data"})
