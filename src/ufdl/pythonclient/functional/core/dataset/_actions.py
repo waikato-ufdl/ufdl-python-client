@@ -1,6 +1,6 @@
 from typing import Optional, Union, IO, Iterator
 
-from wai.common.json import RawJSONObject, RawJSONArray
+from wai.json.raw import RawJSONObject, RawJSONArray
 
 from ....constants import DATASETS_URL
 from ... import _base_actions

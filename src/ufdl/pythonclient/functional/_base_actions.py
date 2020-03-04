@@ -2,7 +2,7 @@
 Contains the base implementations of the common actions
 for all models.
 """
-from wai.common.json import RawJSONObject, RawJSONArray
+from wai.json.raw import RawJSONObject, RawJSONArray
 
 from ..core import get, post, patch, put, delete
 from ._util import detail_url

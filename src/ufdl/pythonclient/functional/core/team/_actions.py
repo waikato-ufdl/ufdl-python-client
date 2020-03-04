@@ -1,6 +1,6 @@
 from typing import Optional
 
-from wai.common.json import RawJSONObject, RawJSONArray
+from wai.json.raw import RawJSONObject, RawJSONArray
 
 from ....constants import TEAMS_URL
 from ... import _base_actions

@@ -1,6 +1,6 @@
 from typing import List, Optional, Iterator, Union, IO
 
-from wai.common.json import RawJSONObject, RawJSONArray
+from wai.json.raw import RawJSONObject, RawJSONArray
 
 from .. import _mixin_actions
 from ....constants import IMAGE_CLASSIFICATION_DATASETS_URL

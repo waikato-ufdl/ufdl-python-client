@@ -3,7 +3,7 @@ Contains actions implemented as mixin views on the server.
 """
 from typing import Union, IO, Iterator, Optional
 
-from wai.common.json import RawJSONObject
+from wai.json.raw import RawJSONObject
 
 from ...core import post, upload, download as core_download, delete
 from .._util import detail_url
