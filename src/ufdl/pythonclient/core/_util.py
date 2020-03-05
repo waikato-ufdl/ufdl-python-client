@@ -17,21 +17,6 @@ def format_url(url: str) -> str:
     return f"http://{get_host()}:{get_port()}/{url}"
 
 
-def format_params(params: Dict[str, str]) -> str:
-    """
-    Formats the parameters string for supplying parameters
-    to a GET request.
-
-    :param params:  The dictionary of parameters.
-    :return:        The formatted parameter string.
-    """
-    # No params means no parameter string
-    if len(params) == 0:
-        return ""
-
-    return "?" + "&".join(f"{key}={value}" for key, value in params.items())
-
-
 def get_auth_headers() -> Dict[str, str]:
     """
     Creates the authorisation header required for access to

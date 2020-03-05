@@ -12,7 +12,7 @@ from typing import Any, Dict, Union, IO, Optional
 
 import requests
 
-from ._util import format_url, get_auth_headers, format_params
+from ._util import format_url, get_auth_headers
 
 
 def raise_for_response(response: requests.Response) -> requests.Response:
@@ -103,7 +103,7 @@ def post(url: str, json: Dict[str, Any], *, auth: bool = True) -> requests.Respo
 
 
 def get(url: str, *, auth: bool = True, **params) -> requests.Response:
-    return handle_auth(auth, requests.get, f"{format_url(url)}{format_params(params)}")
+    return handle_auth(auth, requests.get, f"{format_url(url)}", params=params)
 
 
 def put(url: str, json: Dict[str, Any], *, auth: bool = True) -> requests.Response:
@@ -132,4 +132,4 @@ def upload(url: str, filename: str, data: Union[bytes, IO[bytes]], *, auth: bool
 
 
 def download(url: str, *, auth: bool = True, **params) -> requests.Response:
-    return handle_auth(auth, requests.get, f"{format_url(url)}{format_params(params)}", stream=True)
+    return handle_auth(auth, requests.get, f"{format_url(url)}", params=params, stream=True)
