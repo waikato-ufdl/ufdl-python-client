@@ -27,6 +27,8 @@ setup(
     author_email='coreytsterling@gmail.com',
     install_requires=[
         "requests",
-        "wai.common"
+        "wai.common",
+        "wai.json",
+        "ufdl.json"
     ]
 )
