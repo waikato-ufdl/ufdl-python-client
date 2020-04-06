@@ -78,13 +78,11 @@ def destroy(pk: int) -> RawJSONObject:
 
 def download(pk: int,
              filetype: str = "zip",
-             annotations_format: str = "adams",
              annotations_args: Optional[List[str]] = None) -> Iterator[bytes]:
     return core_download(OBJECT_DETECTION_DATASETS_URL,
                          pk,
                          filetype,
-                         annotations_format=annotations_format,
-                         annotations_args=annotations_args if annotations_args is not None else [])
+                         annotations_args=annotations_args)
 
 
 def add_file(pk: int, filename: str, data: Union[bytes, IO[bytes]]) -> RawJSONObject:
