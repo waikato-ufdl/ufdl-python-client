@@ -103,7 +103,7 @@ def post(url: str, json: Dict[str, Any], *, auth: bool = True) -> requests.Respo
 
 
 def get(url: str, *, auth: bool = True, **params) -> requests.Response:
-    return handle_auth(auth, requests.get, f"{format_url(url)}", params=params)
+    return handle_auth(auth, requests.get, format_url(url), params=params)
 
 
 def put(url: str, json: Dict[str, Any], *, auth: bool = True) -> requests.Response:
