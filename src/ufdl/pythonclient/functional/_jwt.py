@@ -33,3 +33,7 @@ def jwt_verify(token: str) -> bool:
                         auth=False)
     except requests.HTTPError:
         return False
+    except Exception:
+        raise
+    else:
+        return True
