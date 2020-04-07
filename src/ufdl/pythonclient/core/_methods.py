@@ -132,4 +132,4 @@ def upload(url: str, filename: str, data: Union[bytes, IO[bytes]], *, auth: bool
 
 
 def download(url: str, *, auth: bool = True, **params) -> requests.Response:
-    return handle_auth(auth, requests.get, f"{format_url(url)}", params=params, stream=True)
+    return handle_auth(auth, requests.get, format_url(url), params=params, stream=True)
