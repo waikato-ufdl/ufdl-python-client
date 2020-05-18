@@ -29,6 +29,6 @@ setup(
         "requests",
         "wai.common",
         "wai.json",
-        "ufdl.json"
+        "ufdl-json-messages"
     ]
 )
