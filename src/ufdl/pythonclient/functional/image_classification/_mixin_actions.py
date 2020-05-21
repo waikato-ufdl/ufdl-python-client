@@ -2,7 +2,7 @@ from typing import List
 
 from wai.json.raw import RawJSONObject
 
-from ...core import get, post, delete
+from ...core import get, patch
 from .._util import detail_url
 
 # ================= #
@@ -15,8 +15,9 @@ def get_categories(url: str, pk: int) -> RawJSONObject:
 
 
 def add_categories(url: str, pk: int, images: List[str], categories: List[str]) -> RawJSONObject:
-    return post(detail_url(url, pk) + "categories", {"images": images, "categories": categories}).json()
+    return patch(detail_url(url, pk) + "categories", {"method": "add", "images": images, "categories": categories}).json()
 
 
 def remove_categories(url: str, pk: int, images: List[str], categories: List[str]) -> RawJSONObject:
-    return delete(detail_url(url, pk) + "categories", {"images": images, "categories": categories}).json()
+    return patch(detail_url(url, pk) + "categories", {"method": "remove", "images": images, "categories": categories}).json()
+
