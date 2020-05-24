@@ -5,7 +5,7 @@ from typing import Union, IO, Iterator, Optional
 
 from wai.json.raw import RawJSONObject
 
-from ...core import post, upload, download as core_download, delete
+from ...core import post, upload, download as core_download, delete, patch
 from .._util import detail_url
 
 # =============== #
@@ -49,5 +49,13 @@ def delete_file(url: str, pk: int, filename: str) -> RawJSONObject:
 # ================= #
 
 
-def add_member(url: str, pk: int, username: str, permissions: Optional[str] = "R") -> RawJSONObject:
-    return post(detail_url(url, pk) + "add-member", {"username": username, "permissions": permissions}).json()
+def add_membership(url: str, pk: int, username: str, permissions: Optional[str] = "R") -> RawJSONObject:
+    return patch(detail_url(url, pk) + "memberships", {"method": "add", "username": username, "permissions": permissions}).json()
+
+
+def remove_membership(url: str, pk: int, username: str) -> RawJSONObject:
+    return patch(detail_url(url, pk) + "memberships", {"method": "remove", "username": username}).json()
+
+
+def update_membership(url: str, pk: int, username: str, permissions: Optional[str] = "R") -> RawJSONObject:
+    return patch(detail_url(url, pk) + "memberships", {"method": "update", "username": username, "permissions": permissions}).json()

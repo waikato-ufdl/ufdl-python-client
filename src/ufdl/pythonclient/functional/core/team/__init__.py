@@ -6,5 +6,7 @@ from ._actions import (
     partial_update,
     destroy,
 
-    add_member
+    add_membership,
+    remove_membership,
+    update_membership
 )
