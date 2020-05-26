@@ -22,17 +22,16 @@ def list() -> RawJSONArray:
 
 def create(name: str,
            project: int,
+           licence: int,
            description: str = "",
-           licence: str = "proprietary",
            is_public: bool = False,
            tags: str = "") -> RawJSONObject:
-    return _base_actions.create(IMAGE_CLASSIFICATION_DATASETS_URL,
-                                name=name,
-                                project=project,
-                                description=description,
-                                licence=licence,
-                                is_public=is_public,
-                                tags=tags)
+    return _base_actions.create(IMAGE_CLASSIFICATION_DATASETS_URL, {"name": name,
+                                                                    "project": project,
+                                                                    "description": description,
+                                                                    "licence": licence,
+                                                                    "is_public": is_public,
+                                                                    "tags": tags})
 
 
 def retrieve(pk: int) -> RawJSONObject:
@@ -43,31 +42,30 @@ def update(pk: int, *,
            name: str,
            description: str,
            project: int,
-           licence: str,
+           licence: int,
            is_public: bool,
            tags: str) -> RawJSONObject:
-    return _base_actions.update(IMAGE_CLASSIFICATION_DATASETS_URL, pk,
-                                name=name,
-                                description=description,
-                                project=project,
-                                licence=licence,
-                                is_public=is_public,
-                                tags=tags)
+    return _base_actions.update(IMAGE_CLASSIFICATION_DATASETS_URL, pk, {"name": name,
+                                                                        "project": project,
+                                                                        "description": description,
+                                                                        "licence": licence,
+                                                                        "is_public": is_public,
+                                                                        "tags": tags})
 
 
 def partial_update(pk: int, *,
                    name: Optional[str] = None,
                    description: Optional[str] = None,
                    project: Optional[int] = None,
-                   licence: Optional[str] = None,
+                   licence: Optional[int] = None,
                    is_public: Optional[bool] = None,
                    tags: Optional[str] = None) -> RawJSONObject:
-    return _base_actions.partial_update(IMAGE_CLASSIFICATION_DATASETS_URL, pk, **partial_kwargs(name=name,
-                                                                           description=description,
-                                                                           project=project,
-                                                                           licence=licence,
-                                                                           is_public=is_public,
-                                                                           tags=tags))
+    return _base_actions.partial_update(IMAGE_CLASSIFICATION_DATASETS_URL, pk, partial_kwargs(name=name,
+                                                                                              description=description,
+                                                                                              project=project,
+                                                                                              licence=licence,
+                                                                                              is_public=is_public,
+                                                                                              tags=tags))
 
 
 def destroy(pk: int) -> RawJSONObject:

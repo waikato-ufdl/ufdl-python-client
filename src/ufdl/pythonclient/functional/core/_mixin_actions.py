@@ -1,7 +1,7 @@
 """
 Contains actions implemented as mixin views on the server.
 """
-from typing import Union, IO, Iterator, Optional
+from typing import Union, IO, Iterator, Optional, List
 
 from wai.json.raw import RawJSONObject
 
@@ -42,6 +42,19 @@ def get_file(url: str, pk: int, filename: str) -> Iterator[bytes]:
 
 def delete_file(url: str, pk: int, filename: str) -> RawJSONObject:
     return delete(detail_url(url, pk) + "files/" + filename).json()
+
+
+# =========================== #
+# LicenceSubdescriptorViewSet #
+# =========================== #
+
+
+def add_subdescriptors(url: str, pk: int, type: str, names: List[Union[int, str]]) -> RawJSONObject:
+    return patch(detail_url(url, pk) + "subdescriptors/", {"method": "add", "type": type, "names": names}).json()
+
+
+def remove_subdescriptors(url: str, pk: int, type: str, names: List[Union[int, str]]) -> RawJSONObject:
+    return patch(detail_url(url, pk) + "subdescriptors/", {"method": "remove", "type": type, "names": names}).json()
 
 
 # ================= #

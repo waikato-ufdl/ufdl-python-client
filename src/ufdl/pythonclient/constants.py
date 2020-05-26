@@ -12,6 +12,7 @@ TEAMS_URL = "v1/core/teams/"
 PROJECTS_URL = "v1/core/projects/"
 DATASETS_URL = "v1/core/datasets/"
 USERS_URL = "v1/core/users/"
+LICENCES_URL = "v1/core/licences/"
 
 # IMAGE CLASSIFICATION
 IMAGE_CLASSIFICATION_DATASETS_URL = "v1/classify/datasets/"

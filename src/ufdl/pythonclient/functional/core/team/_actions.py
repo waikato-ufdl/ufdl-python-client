@@ -13,8 +13,7 @@ def list() -> RawJSONArray:
 
 
 def create(name: str) -> RawJSONObject:
-    return _base_actions.create(TEAMS_URL,
-                                name=name)
+    return _base_actions.create(TEAMS_URL, {"name": name})
 
 
 def retrieve(pk: int) -> RawJSONObject:
@@ -23,12 +22,11 @@ def retrieve(pk: int) -> RawJSONObject:
 
 def update(pk: int, *,
            name: str) -> RawJSONObject:
-    return _base_actions.update(TEAMS_URL, pk,
-                                name=name)
+    return _base_actions.update(TEAMS_URL, pk, {"name": name})
 
 
 def partial_update(pk: int, *, name: Optional[str] = None) -> RawJSONObject:
-    return _base_actions.partial_update(TEAMS_URL, pk, **partial_kwargs(name=name))
+    return _base_actions.partial_update(TEAMS_URL, pk, partial_kwargs(name=name))
 
 
 def destroy(pk: int) -> RawJSONObject:
