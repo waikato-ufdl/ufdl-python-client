@@ -80,6 +80,14 @@ def delete_file(pk: int, filename: str) -> RawJSONObject:
     return _mixin_actions.delete_file(DATASETS_URL, pk, filename)
 
 
+def set_metadata(pk: int, filename: str, metadata: str) -> str:
+    return _mixin_actions.set_metadata(DATASETS_URL, pk, filename, metadata)
+
+
+def get_metadata(pk: int, filename: str) -> str:
+    return _mixin_actions.get_metadata(DATASETS_URL, pk, filename)
+
+
 def copy(pk: int, new_name: Optional[str] = None) -> RawJSONObject:
     params = {"new_name": new_name} if new_name is not None else {}
     return _mixin_actions.copy(DATASETS_URL, pk, **params)

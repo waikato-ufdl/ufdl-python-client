@@ -5,7 +5,7 @@ from typing import Union, IO, Iterator, Optional, List
 
 from wai.json.raw import RawJSONObject
 
-from ...core import post, upload, download as core_download, delete, patch
+from ...core import get, post, upload, download as core_download, delete, patch
 from .._util import detail_url
 
 # =============== #
@@ -42,6 +42,14 @@ def get_file(url: str, pk: int, filename: str) -> Iterator[bytes]:
 
 def delete_file(url: str, pk: int, filename: str) -> RawJSONObject:
     return delete(detail_url(url, pk) + "files/" + filename).json()
+
+
+def set_metadata(url: str, pk: int, filename: str, metadata: str) -> str:
+    return post(detail_url(url, pk) + "metadata/" + filename, {"metadata": metadata}).json()['metadata']
+
+
+def get_metadata(url: str, pk: int, filename: str) -> str:
+    return get(detail_url(url, pk) + "metadata/" + filename).json()['metadata']
 
 
 # =========================== #

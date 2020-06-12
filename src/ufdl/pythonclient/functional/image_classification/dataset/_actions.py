@@ -13,6 +13,8 @@ from ...core import (
     add_file as core_add_file,
     get_file as core_get_file,
     delete_file as core_delete_file,
+    set_metadata as core_set_metadata,
+    get_metadata as core_get_metadata
 )
 
 
@@ -86,6 +88,14 @@ def get_file(pk: int, filename: str) -> Iterator[bytes]:
 
 def delete_file(pk: int, filename: str) -> RawJSONObject:
     return core_delete_file(IMAGE_CLASSIFICATION_DATASETS_URL, pk, filename)
+
+
+def set_metadata(pk: int, filename: str, metadata: str) -> str:
+    return core_set_metadata(IMAGE_CLASSIFICATION_DATASETS_URL, pk, filename, metadata)
+
+
+def get_metadata(pk: int, filename: str) -> str:
+    return core_get_metadata(IMAGE_CLASSIFICATION_DATASETS_URL, pk, filename)
 
 
 def copy(pk: int, new_name: Optional[str] = None) -> RawJSONObject:
