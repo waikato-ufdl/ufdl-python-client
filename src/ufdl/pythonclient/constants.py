@@ -20,3 +20,6 @@ IMAGE_CLASSIFICATION_DATASETS_URL = "v1/classify/datasets/"
 
 # OBJECT DETECTION
 OBJECT_DETECTION_DATASETS_URL = "v1/objdet/datasets/"
+
+# SPEECH
+SPEECH_DATASETS_URL = "v1/speech/datasets/"
