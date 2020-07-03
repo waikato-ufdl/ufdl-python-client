@@ -28,5 +28,5 @@ def partial_update(url: str, pk: int, params: RawJSONObject) -> RawJSONObject:
     return patch(detail_url(url, pk), params).json()
 
 
-def destroy(url: str, pk: int) -> RawJSONObject:
-    return delete(detail_url(url, pk)).json()
+def destroy(url: str, pk: int):
+    delete(detail_url(url, pk))
