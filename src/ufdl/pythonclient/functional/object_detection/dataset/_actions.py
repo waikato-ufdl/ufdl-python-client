@@ -16,7 +16,9 @@ from ...core import (
     get_file as core_get_file,
     delete_file as core_delete_file,
     set_metadata as core_set_metadata,
-    get_metadata as core_get_metadata
+    get_metadata as core_get_metadata,
+    hard_delete as core_hard_delete,
+    reinstate as core_reinstate
 )
 
 
@@ -108,6 +110,14 @@ def get_metadata(pk: int, filename: str) -> str:
 def copy(pk: int, new_name: Optional[str] = None) -> RawJSONObject:
     params = {"new_name": new_name} if new_name is not None else {}
     return core_copy(OBJECT_DETECTION_DATASETS_URL, pk, **params)
+
+
+def hard_delete(pk: int) -> RawJSONObject:
+    return core_hard_delete(OBJECT_DETECTION_DATASETS_URL, pk)
+
+
+def reinstate(pk: int) -> RawJSONObject:
+    return core_reinstate(OBJECT_DETECTION_DATASETS_URL, pk)
 
 
 def get_annotations(pk: int) -> RawJSONObject:

@@ -8,5 +8,8 @@ from ._actions import (
 
     add_membership,
     remove_membership,
-    update_membership
+    update_membership,
+
+    hard_delete,
+    reinstate
 )

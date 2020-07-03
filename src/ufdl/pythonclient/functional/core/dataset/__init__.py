@@ -14,6 +14,8 @@ from ._actions import (
     set_metadata,
     get_metadata,
 
-    copy
+    copy,
 
+    hard_delete,
+    reinstate
 )

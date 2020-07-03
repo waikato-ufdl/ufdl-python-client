@@ -10,5 +10,7 @@ from ._mixin_actions import (
     remove_subdescriptors,
     add_membership,
     remove_membership,
-    update_membership
+    update_membership,
+    hard_delete,
+    reinstate
 )

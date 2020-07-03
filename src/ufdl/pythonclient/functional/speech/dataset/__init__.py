@@ -16,6 +16,9 @@ from ._actions import (
 
     copy,
 
+    hard_delete,
+    reinstate,
+
     get_transcriptions,
     get_transcription_for_file,
     set_transcription_for_file

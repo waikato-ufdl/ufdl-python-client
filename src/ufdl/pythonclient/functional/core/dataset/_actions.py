@@ -91,3 +91,11 @@ def get_metadata(pk: int, filename: str) -> str:
 def copy(pk: int, new_name: Optional[str] = None) -> RawJSONObject:
     params = {"new_name": new_name} if new_name is not None else {}
     return _mixin_actions.copy(DATASETS_URL, pk, **params)
+
+
+def hard_delete(pk: int) -> RawJSONObject:
+    return _mixin_actions.hard_delete(DATASETS_URL, pk)
+
+
+def reinstate(pk: int) -> RawJSONObject:
+    return _mixin_actions.reinstate(DATASETS_URL, pk)

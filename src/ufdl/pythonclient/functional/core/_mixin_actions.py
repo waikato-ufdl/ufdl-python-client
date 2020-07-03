@@ -80,3 +80,15 @@ def remove_membership(url: str, pk: int, username: str) -> RawJSONObject:
 
 def update_membership(url: str, pk: int, username: str, permissions: Optional[str] = "R") -> RawJSONObject:
     return patch(detail_url(url, pk) + "memberships", {"method": "update", "username": username, "permissions": permissions}).json()
+
+
+# ================= #
+# SoftDeleteViewSet #
+# ================= #
+
+def hard_delete(url: str, pk: int) -> RawJSONObject:
+    return delete(detail_url(url, pk) + "hard").json()
+
+
+def reinstate(url: str, pk: int) -> RawJSONObject:
+    return delete(detail_url(url, pk) + "reinstate").json()

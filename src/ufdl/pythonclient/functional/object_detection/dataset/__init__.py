@@ -16,6 +16,9 @@ from ._actions import (
 
     copy,
 
+    hard_delete,
+    reinstate,
+
     get_annotations,
     get_annotations_for_image,
     set_annotations_for_image,

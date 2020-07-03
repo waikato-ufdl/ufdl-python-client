@@ -43,3 +43,11 @@ def remove_membership(pk: int, username: str) -> RawJSONObject:
 
 def update_membership(pk: int, username: str, permissions: Optional[str] = "R") -> RawJSONObject:
     return _mixin_actions.update_membership(TEAMS_URL, pk, username, permissions)
+
+
+def hard_delete(pk: int) -> RawJSONObject:
+    return _mixin_actions.hard_delete(TEAMS_URL, pk)
+
+
+def reinstate(pk: int) -> RawJSONObject:
+    return _mixin_actions.reinstate(TEAMS_URL, pk)
