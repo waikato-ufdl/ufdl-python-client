@@ -1,5 +1,6 @@
-from typing import Optional, Union, IO, Iterator
+from typing import Union, IO, Iterator
 
+from wai.json.object import Absent, OptionallyPresent
 from wai.json.raw import RawJSONObject, RawJSONArray
 
 from ....constants import DATASETS_URL
@@ -46,12 +47,12 @@ def update(pk: int, *,
 
 
 def partial_update(pk: int, *,
-                   name: Optional[str] = None,
-                   description: Optional[str] = None,
-                   project: Optional[int] = None,
-                   licence: Optional[int] = None,
-                   is_public: Optional[bool] = None,
-                   tags: Optional[str] = None) -> RawJSONObject:
+                   name: OptionallyPresent[str] = Absent,
+                   description: OptionallyPresent[str] = Absent,
+                   project: OptionallyPresent[int] = Absent,
+                   licence: OptionallyPresent[int] = Absent,
+                   is_public: OptionallyPresent[bool] = Absent,
+                   tags: OptionallyPresent[str] = Absent) -> RawJSONObject:
     return _base_actions.partial_update(DATASETS_URL, pk, partial_kwargs(name=name,
                                                                          description=description,
                                                                          project=project,
@@ -88,9 +89,8 @@ def get_metadata(pk: int, filename: str) -> str:
     return _mixin_actions.get_metadata(DATASETS_URL, pk, filename)
 
 
-def copy(pk: int, new_name: Optional[str] = None) -> RawJSONObject:
-    params = {"new_name": new_name} if new_name is not None else {}
-    return _mixin_actions.copy(DATASETS_URL, pk, **params)
+def copy(pk: int, new_name: OptionallyPresent[str] = Absent) -> RawJSONObject:
+    return _mixin_actions.copy(DATASETS_URL, pk, **partial_kwargs(new_name=new_name))
 
 
 def hard_delete(pk: int) -> RawJSONObject:

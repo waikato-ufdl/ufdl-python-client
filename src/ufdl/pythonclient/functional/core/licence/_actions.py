@@ -1,5 +1,6 @@
-from typing import Optional, List, Union
+from typing import List, Union
 
+from wai.json.object import OptionallyPresent, Absent
 from wai.json.raw import RawJSONObject, RawJSONArray
 
 from ....constants import LICENCES_URL
@@ -29,8 +30,8 @@ def update(pk: int, *,
 
 
 def partial_update(pk: int, *,
-                   name: Optional[str] = None,
-                   url: Optional[str] = None) -> RawJSONObject:
+                   name: OptionallyPresent[str] = Absent,
+                   url: OptionallyPresent[str] = Absent) -> RawJSONObject:
     return _base_actions.partial_update(LICENCES_URL, pk, partial_kwargs(name=name,
                                                                          url=url))
 

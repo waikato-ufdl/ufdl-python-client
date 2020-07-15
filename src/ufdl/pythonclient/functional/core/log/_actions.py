@@ -1,5 +1,4 @@
-from typing import Optional
-
+from wai.json.object import OptionallyPresent, Absent
 from wai.json.raw import RawJSONObject, RawJSONArray
 
 from ....constants import LOG_URL
@@ -28,8 +27,8 @@ def update(pk: int, *,
 
 
 def partial_update(pk: int, *,
-                   level: Optional[int] = None,
-                   message: Optional[str] = None) -> RawJSONObject:
+                   level: OptionallyPresent[int] = Absent,
+                   message: OptionallyPresent[str] = Absent) -> RawJSONObject:
     return _base_actions.partial_update(LOG_URL, pk, partial_kwargs(level=level,
                                                                     message=message))
 

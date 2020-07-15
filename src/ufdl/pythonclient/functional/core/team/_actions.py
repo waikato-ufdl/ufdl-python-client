@@ -1,5 +1,4 @@
-from typing import Optional
-
+from wai.json.object import OptionallyPresent, Absent
 from wai.json.raw import RawJSONObject, RawJSONArray
 
 from ....constants import TEAMS_URL
@@ -25,7 +24,7 @@ def update(pk: int, *,
     return _base_actions.update(TEAMS_URL, pk, {"name": name})
 
 
-def partial_update(pk: int, *, name: Optional[str] = None) -> RawJSONObject:
+def partial_update(pk: int, *, name: OptionallyPresent[str] = Absent) -> RawJSONObject:
     return _base_actions.partial_update(TEAMS_URL, pk, partial_kwargs(name=name))
 
 

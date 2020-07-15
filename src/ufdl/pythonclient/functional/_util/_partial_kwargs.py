@@ -1,5 +1,7 @@
 from typing import Any, Dict
 
+from wai.json.object import Absent
+
 
 def partial_kwargs(**kwargs) -> Dict[str, Any]:
     """
@@ -13,5 +15,5 @@ def partial_kwargs(**kwargs) -> Dict[str, Any]:
     return {
         key: value
         for key, value in kwargs.items()
-        if value is not None
+        if value is not Absent
     }
