@@ -70,7 +70,7 @@ def remove_subdescriptors(url: str, pk: int, type: str, names: List[Union[int, s
 # ================= #
 
 
-def add_membership(url: str, pk: int, username: str, permissions: Optional[str] = "R") -> RawJSONObject:
+def add_membership(url: str, pk: int, username: str, permissions: str = "R") -> RawJSONObject:
     return patch(detail_url(url, pk) + "memberships", {"method": "add", "username": username, "permissions": permissions}).json()
 
 
@@ -78,7 +78,7 @@ def remove_membership(url: str, pk: int, username: str) -> RawJSONObject:
     return patch(detail_url(url, pk) + "memberships", {"method": "remove", "username": username}).json()
 
 
-def update_membership(url: str, pk: int, username: str, permissions: Optional[str] = "R") -> RawJSONObject:
+def update_membership(url: str, pk: int, username: str, permissions: str = "R") -> RawJSONObject:
     return patch(detail_url(url, pk) + "memberships", {"method": "update", "username": username, "permissions": permissions}).json()
 
 

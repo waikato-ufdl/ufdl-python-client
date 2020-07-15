@@ -33,7 +33,7 @@ def destroy(pk: int) -> RawJSONObject:
     return _base_actions.destroy(TEAMS_URL, pk)
 
 
-def add_membership(pk: int, username: str, permissions: Optional[str] = "R") -> RawJSONObject:
+def add_membership(pk: int, username: str, permissions: str = "R") -> RawJSONObject:
     return _mixin_actions.add_membership(TEAMS_URL, pk, username, permissions)
 
 
@@ -41,7 +41,7 @@ def remove_membership(pk: int, username: str) -> RawJSONObject:
     return _mixin_actions.remove_membership(TEAMS_URL, pk, username)
 
 
-def update_membership(pk: int, username: str, permissions: Optional[str] = "R") -> RawJSONObject:
+def update_membership(pk: int, username: str, permissions: str = "R") -> RawJSONObject:
     return _mixin_actions.update_membership(TEAMS_URL, pk, username, permissions)
 
 
