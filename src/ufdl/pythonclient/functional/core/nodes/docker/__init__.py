@@ -1,0 +1,11 @@
+"""
+Package for actions involving Docker images.
+"""
+from ._actions import (
+    list,
+    create,
+    retrieve,
+    update,
+    partial_update,
+    destroy
+)

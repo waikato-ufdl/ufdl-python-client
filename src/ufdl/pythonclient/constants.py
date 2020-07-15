@@ -14,6 +14,9 @@ DATASETS_URL = "v1/core/datasets/"
 USERS_URL = "v1/core/users/"
 LICENCES_URL = "v1/core/licences/"
 LOG_URL = "v1/core/log/"
+HARDWARE_URL = "v1/core/hardware/"
+CUDA_URL = "v1/core/cuda/"
+DOCKER_URL = "v1/core/docker/"
 
 # IMAGE CLASSIFICATION
 IMAGE_CLASSIFICATION_DATASETS_URL = "v1/classify/datasets/"
