@@ -31,12 +31,14 @@ def update(pk: int, *,
            password: str,
            first_name: str,
            last_name: str,
-           email: str) -> RawJSONObject:
+           email: str,
+           is_active: bool) -> RawJSONObject:
     return _base_actions.update(USERS_URL, pk, {"username": username,
                                                 "password": password,
                                                 "email": email,
                                                 "first_name": first_name,
-                                                "last_name": last_name})
+                                                "last_name": last_name,
+                                                "is_active": is_active})
 
 
 def partial_update(pk: int, *,
@@ -44,12 +46,14 @@ def partial_update(pk: int, *,
                    password: OptionallyPresent[str] = Absent,
                    first_name: OptionallyPresent[str] = Absent,
                    last_name: OptionallyPresent[str] = Absent,
-                   email: OptionallyPresent[str] = Absent) -> RawJSONObject:
+                   email: OptionallyPresent[str] = Absent,
+                   is_active: OptionallyPresent[bool] = Absent) -> RawJSONObject:
     return _base_actions.partial_update(USERS_URL, pk, partial_kwargs(username=username,
                                                                       password=password,
                                                                       first_name=first_name,
                                                                       last_name=last_name,
-                                                                      email=email))
+                                                                      email=email,
+                                                                      is_active=is_active))
 
 
 def destroy(pk: int) -> RawJSONObject:
