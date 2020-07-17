@@ -4,15 +4,16 @@ from wai.json.object import OptionallyPresent, Absent
 from wai.json.raw import RawJSONObject, RawJSONArray
 
 from .....constants import DOCKER_URL
+from .....util import partial_kwargs
+from ....._UFDLServerContext import UFDLServerContext
 from .... import _base_actions
-from ...._util import partial_kwargs
 
 
-def list() -> RawJSONArray:
-    return _base_actions.list(DOCKER_URL)
+def list(context: UFDLServerContext) -> RawJSONArray:
+    return _base_actions.list(context, DOCKER_URL)
 
 
-def create(name: str,
+def create(context: UFDLServerContext, name: str,
            version: str,
            url: str,
            registry_url: str,
@@ -24,25 +25,25 @@ def create(name: str,
            domain: str,
            task: str,
            min_hardware_generation: str) -> RawJSONObject:
-    return _base_actions.create(DOCKER_URL, {"name": name,
-                                             "version": version,
-                                             "url": url,
-                                             "registry_url": registry_url,
-                                             "registry_username": registry_username,
-                                             "registry_password": registry_password,
-                                             "cuda_version": cuda_version,
-                                             "framework": framework,
-                                             "framework_version": framework_version,
-                                             "domain": domain,
-                                             "task": task,
-                                             "min_hardware_generation": min_hardware_generation})
+    return _base_actions.create(context, DOCKER_URL, {"name": name,
+                                                      "version": version,
+                                                      "url": url,
+                                                      "registry_url": registry_url,
+                                                      "registry_username": registry_username,
+                                                      "registry_password": registry_password,
+                                                      "cuda_version": cuda_version,
+                                                      "framework": framework,
+                                                      "framework_version": framework_version,
+                                                      "domain": domain,
+                                                      "task": task,
+                                                      "min_hardware_generation": min_hardware_generation})
 
 
-def retrieve(pk: int) -> RawJSONObject:
-    return _base_actions.retrieve(DOCKER_URL, pk)
+def retrieve(context: UFDLServerContext, pk: int) -> RawJSONObject:
+    return _base_actions.retrieve(context, DOCKER_URL, pk)
 
 
-def update(pk: int, *,
+def update(context: UFDLServerContext, pk: int, *,
            name: str,
            version: str,
            url: str,
@@ -55,21 +56,21 @@ def update(pk: int, *,
            domain: str,
            task: str,
            min_hardware_generation: str) -> RawJSONObject:
-    return _base_actions.update(DOCKER_URL, pk, {"name": name,
-                                                 "version": version,
-                                                 "url": url,
-                                                 "registry_url": registry_url,
-                                                 "registry_username": registry_username,
-                                                 "registry_password": registry_password,
-                                                 "cuda_version": cuda_version,
-                                                 "framework": framework,
-                                                 "framework_version": framework_version,
-                                                 "domain": domain,
-                                                 "task": task,
-                                                 "min_hardware_generation": min_hardware_generation})
+    return _base_actions.update(context, DOCKER_URL, pk, {"name": name,
+                                                          "version": version,
+                                                          "url": url,
+                                                          "registry_url": registry_url,
+                                                          "registry_username": registry_username,
+                                                          "registry_password": registry_password,
+                                                          "cuda_version": cuda_version,
+                                                          "framework": framework,
+                                                          "framework_version": framework_version,
+                                                          "domain": domain,
+                                                          "task": task,
+                                                          "min_hardware_generation": min_hardware_generation})
 
 
-def partial_update(pk: int, *,
+def partial_update(context: UFDLServerContext, pk: int, *,
                    name: OptionallyPresent[str] = Absent,
                    version: OptionallyPresent[str] = Absent,
                    url: OptionallyPresent[str] = Absent,
@@ -82,19 +83,19 @@ def partial_update(pk: int, *,
                    domain: OptionallyPresent[str] = Absent,
                    task: OptionallyPresent[str] = Absent,
                    min_hardware_generation: OptionallyPresent[str] = Absent) -> RawJSONObject:
-    return _base_actions.partial_update(DOCKER_URL, pk, partial_kwargs(name=name,
-                                                                       version=version,
-                                                                       url=url,
-                                                                       registry_url=registry_url,
-                                                                       registry_username=registry_username,
-                                                                       registry_password=registry_password,
-                                                                       cuda_version=cuda_version,
-                                                                       framework=framework,
-                                                                       framework_version=framework_version,
-                                                                       domain=domain,
-                                                                       task=task,
-                                                                       min_hardware_generation=min_hardware_generation))
+    return _base_actions.partial_update(context, DOCKER_URL, pk, partial_kwargs(name=name,
+                                                                                version=version,
+                                                                                url=url,
+                                                                                registry_url=registry_url,
+                                                                                registry_username=registry_username,
+                                                                                registry_password=registry_password,
+                                                                                cuda_version=cuda_version,
+                                                                                framework=framework,
+                                                                                framework_version=framework_version,
+                                                                                domain=domain,
+                                                                                task=task,
+                                                                                min_hardware_generation=min_hardware_generation))
 
 
-def destroy(pk: int) -> RawJSONObject:
-    return _base_actions.destroy(DOCKER_URL, pk)
+def destroy(context: UFDLServerContext, pk: int) -> RawJSONObject:
+    return _base_actions.destroy(context, DOCKER_URL, pk)

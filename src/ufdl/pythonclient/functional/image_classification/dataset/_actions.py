@@ -3,10 +3,11 @@ from typing import List, Iterator, Union, IO
 from wai.json.object import OptionallyPresent, Absent
 from wai.json.raw import RawJSONObject, RawJSONArray
 
-from .. import _mixin_actions
 from ....constants import IMAGE_CLASSIFICATION_DATASETS_URL
-from ..._util import partial_kwargs
+from ....util import partial_kwargs
+from ...._UFDLServerContext import UFDLServerContext
 from ... import _base_actions
+from .. import _mixin_actions
 
 from ...core import (
     copy as core_copy,
@@ -21,105 +22,106 @@ from ...core import (
 )
 
 
-def list() -> RawJSONArray:
-    return _base_actions.list(IMAGE_CLASSIFICATION_DATASETS_URL)
+def list(context: UFDLServerContext) -> RawJSONArray:
+    return _base_actions.list(context, IMAGE_CLASSIFICATION_DATASETS_URL)
 
 
-def create(name: str,
+def create(context: UFDLServerContext,
+           name: str,
            project: int,
            licence: int,
            description: str = "",
            is_public: bool = False,
            tags: str = "") -> RawJSONObject:
-    return _base_actions.create(IMAGE_CLASSIFICATION_DATASETS_URL, {"name": name,
-                                                                    "project": project,
-                                                                    "description": description,
-                                                                    "licence": licence,
-                                                                    "is_public": is_public,
-                                                                    "tags": tags})
+    return _base_actions.create(context, IMAGE_CLASSIFICATION_DATASETS_URL, {"name": name,
+                                                                             "project": project,
+                                                                             "description": description,
+                                                                             "licence": licence,
+                                                                             "is_public": is_public,
+                                                                             "tags": tags})
 
 
-def retrieve(pk: int) -> RawJSONObject:
-    return _base_actions.retrieve(IMAGE_CLASSIFICATION_DATASETS_URL, pk)
+def retrieve(context: UFDLServerContext, pk: int) -> RawJSONObject:
+    return _base_actions.retrieve(context, IMAGE_CLASSIFICATION_DATASETS_URL, pk)
 
 
-def update(pk: int, *,
+def update(context: UFDLServerContext, pk: int, *,
            name: str,
            description: str,
            project: int,
            licence: int,
            is_public: bool,
            tags: str) -> RawJSONObject:
-    return _base_actions.update(IMAGE_CLASSIFICATION_DATASETS_URL, pk, {"name": name,
-                                                                        "project": project,
-                                                                        "description": description,
-                                                                        "licence": licence,
-                                                                        "is_public": is_public,
-                                                                        "tags": tags})
+    return _base_actions.update(context, IMAGE_CLASSIFICATION_DATASETS_URL, pk, {"name": name,
+                                                                                 "project": project,
+                                                                                 "description": description,
+                                                                                 "licence": licence,
+                                                                                 "is_public": is_public,
+                                                                                 "tags": tags})
 
 
-def partial_update(pk: int, *,
+def partial_update(context: UFDLServerContext, pk: int, *,
                    name: OptionallyPresent[str] = Absent,
                    description: OptionallyPresent[str] = Absent,
                    project: OptionallyPresent[int] = Absent,
                    licence: OptionallyPresent[int] = Absent,
                    is_public: OptionallyPresent[bool] = Absent,
                    tags: OptionallyPresent[str] = Absent) -> RawJSONObject:
-    return _base_actions.partial_update(IMAGE_CLASSIFICATION_DATASETS_URL, pk, partial_kwargs(name=name,
-                                                                                              description=description,
-                                                                                              project=project,
-                                                                                              licence=licence,
-                                                                                              is_public=is_public,
-                                                                                              tags=tags))
+    return _base_actions.partial_update(context, IMAGE_CLASSIFICATION_DATASETS_URL, pk, partial_kwargs(name=name,
+                                                                                                       description=description,
+                                                                                                       project=project,
+                                                                                                       licence=licence,
+                                                                                                       is_public=is_public,
+                                                                                                       tags=tags))
 
 
-def destroy(pk: int) -> RawJSONObject:
-    return _base_actions.destroy(IMAGE_CLASSIFICATION_DATASETS_URL, pk)
+def destroy(context: UFDLServerContext, pk: int) -> RawJSONObject:
+    return _base_actions.destroy(context, IMAGE_CLASSIFICATION_DATASETS_URL, pk)
 
 
-def download(pk: int, filetype: str = "zip") -> Iterator[bytes]:
-    return core_download(IMAGE_CLASSIFICATION_DATASETS_URL, pk, filetype)
+def download(context: UFDLServerContext, pk: int, filetype: str = "zip") -> Iterator[bytes]:
+    return core_download(context, IMAGE_CLASSIFICATION_DATASETS_URL, pk, filetype)
 
 
-def add_file(pk: int, filename: str, data: Union[bytes, IO[bytes]]) -> RawJSONObject:
-    return core_add_file(IMAGE_CLASSIFICATION_DATASETS_URL, pk, filename, data)
+def add_file(context: UFDLServerContext, pk: int, filename: str, data: Union[bytes, IO[bytes]]) -> RawJSONObject:
+    return core_add_file(context, IMAGE_CLASSIFICATION_DATASETS_URL, pk, filename, data)
 
 
-def get_file(pk: int, filename: str) -> Iterator[bytes]:
-    return core_get_file(IMAGE_CLASSIFICATION_DATASETS_URL, pk, filename)
+def get_file(context: UFDLServerContext, pk: int, filename: str) -> Iterator[bytes]:
+    return core_get_file(context, IMAGE_CLASSIFICATION_DATASETS_URL, pk, filename)
 
 
-def delete_file(pk: int, filename: str) -> RawJSONObject:
-    return core_delete_file(IMAGE_CLASSIFICATION_DATASETS_URL, pk, filename)
+def delete_file(context: UFDLServerContext, pk: int, filename: str) -> RawJSONObject:
+    return core_delete_file(context, IMAGE_CLASSIFICATION_DATASETS_URL, pk, filename)
 
 
-def set_metadata(pk: int, filename: str, metadata: str) -> str:
-    return core_set_metadata(IMAGE_CLASSIFICATION_DATASETS_URL, pk, filename, metadata)
+def set_metadata(context: UFDLServerContext, pk: int, filename: str, metadata: str) -> str:
+    return core_set_metadata(context, IMAGE_CLASSIFICATION_DATASETS_URL, pk, filename, metadata)
 
 
-def get_metadata(pk: int, filename: str) -> str:
-    return core_get_metadata(IMAGE_CLASSIFICATION_DATASETS_URL, pk, filename)
+def get_metadata(context: UFDLServerContext, pk: int, filename: str) -> str:
+    return core_get_metadata(context, IMAGE_CLASSIFICATION_DATASETS_URL, pk, filename)
 
 
-def copy(pk: int, new_name: OptionallyPresent[str] = Absent) -> RawJSONObject:
-    return core_copy(IMAGE_CLASSIFICATION_DATASETS_URL, pk, **partial_kwargs(new_name=new_name))
+def copy(context: UFDLServerContext, pk: int, new_name: OptionallyPresent[str] = Absent) -> RawJSONObject:
+    return core_copy(context, IMAGE_CLASSIFICATION_DATASETS_URL, pk, **partial_kwargs(new_name=new_name))
 
 
-def hard_delete(pk: int) -> RawJSONObject:
-    return core_hard_delete(IMAGE_CLASSIFICATION_DATASETS_URL, pk)
+def hard_delete(context: UFDLServerContext, pk: int) -> RawJSONObject:
+    return core_hard_delete(context, IMAGE_CLASSIFICATION_DATASETS_URL, pk)
 
 
-def reinstate(pk: int) -> RawJSONObject:
-    return core_reinstate(IMAGE_CLASSIFICATION_DATASETS_URL, pk)
+def reinstate(context: UFDLServerContext, pk: int) -> RawJSONObject:
+    return core_reinstate(context, IMAGE_CLASSIFICATION_DATASETS_URL, pk)
 
 
-def get_categories(pk: int) -> RawJSONObject:
-    return _mixin_actions.get_categories(IMAGE_CLASSIFICATION_DATASETS_URL, pk)
+def get_categories(context: UFDLServerContext, pk: int) -> RawJSONObject:
+    return _mixin_actions.get_categories(context, IMAGE_CLASSIFICATION_DATASETS_URL, pk)
 
 
-def add_categories(pk: int, images: List[str], categories: List[str]) -> RawJSONObject:
-    return _mixin_actions.add_categories(IMAGE_CLASSIFICATION_DATASETS_URL, pk, images, categories)
+def add_categories(context: UFDLServerContext, pk: int, images: List[str], categories: List[str]) -> RawJSONObject:
+    return _mixin_actions.add_categories(context, IMAGE_CLASSIFICATION_DATASETS_URL, pk, images, categories)
 
 
-def remove_categories(pk: int, images: List[str], categories: List[str]) -> RawJSONObject:
-    return _mixin_actions.remove_categories(IMAGE_CLASSIFICATION_DATASETS_URL, pk, images, categories)
+def remove_categories(context: UFDLServerContext, pk: int, images: List[str], categories: List[str]) -> RawJSONObject:
+    return _mixin_actions.remove_categories(context, IMAGE_CLASSIFICATION_DATASETS_URL, pk, images, categories)

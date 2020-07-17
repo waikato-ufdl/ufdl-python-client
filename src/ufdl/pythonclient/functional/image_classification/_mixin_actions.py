@@ -2,22 +2,21 @@ from typing import List
 
 from wai.json.raw import RawJSONObject
 
-from ...core import get, patch
-from .._util import detail_url
+from ...util import detail_url
+from ..._UFDLServerContext import UFDLServerContext
 
 # ================= #
 # CategoriesViewSet #
 # ================= #
 
 
-def get_categories(url: str, pk: int) -> RawJSONObject:
-    return get(detail_url(url, pk) + "categories").json()
+def get_categories(context: UFDLServerContext, url: str, pk: int) -> RawJSONObject:
+    return context.get(detail_url(url, pk) + "categories").json()
 
 
-def add_categories(url: str, pk: int, images: List[str], categories: List[str]) -> RawJSONObject:
-    return patch(detail_url(url, pk) + "categories", {"method": "add", "images": images, "categories": categories}).json()
+def add_categories(context: UFDLServerContext, url: str, pk: int, images: List[str], categories: List[str]) -> RawJSONObject:
+    return context.patch(detail_url(url, pk) + "categories", {"method": "add", "images": images, "categories": categories}).json()
 
 
-def remove_categories(url: str, pk: int, images: List[str], categories: List[str]) -> RawJSONObject:
-    return patch(detail_url(url, pk) + "categories", {"method": "remove", "images": images, "categories": categories}).json()
-
+def remove_categories(context: UFDLServerContext, url: str, pk: int, images: List[str], categories: List[str]) -> RawJSONObject:
+    return context.patch(detail_url(url, pk) + "categories", {"method": "remove", "images": images, "categories": categories}).json()

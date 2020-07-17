@@ -2,36 +2,37 @@ from wai.json.object import Absent, OptionallyPresent
 from wai.json.raw import RawJSONObject, RawJSONArray
 
 from .....constants import HARDWARE_URL
+from .....util import partial_kwargs
+from ....._UFDLServerContext import UFDLServerContext
 from .... import _base_actions
-from ...._util import partial_kwargs
 
 
-def list() -> RawJSONArray:
-    return _base_actions.list(HARDWARE_URL)
+def list(context: UFDLServerContext) -> RawJSONArray:
+    return _base_actions.list(context, HARDWARE_URL)
 
 
-def create(generation: str, compute_capability: str) -> RawJSONObject:
-    return _base_actions.create(HARDWARE_URL, {"generation": generation,
-                                               "compute_capability": compute_capability})
+def create(context: UFDLServerContext, generation: str, compute_capability: str) -> RawJSONObject:
+    return _base_actions.create(context, HARDWARE_URL, {"generation": generation,
+                                                        "compute_capability": compute_capability})
 
 
-def retrieve(pk: int) -> RawJSONObject:
-    return _base_actions.retrieve(HARDWARE_URL, pk)
+def retrieve(context: UFDLServerContext, pk: int) -> RawJSONObject:
+    return _base_actions.retrieve(context, HARDWARE_URL, pk)
 
 
-def update(pk: int, *,
+def update(context: UFDLServerContext, pk: int, *,
            generation: str,
            compute_capability: str) -> RawJSONObject:
-    return _base_actions.update(HARDWARE_URL, pk, {"generation": generation,
-                                                   "compute_capability": compute_capability})
+    return _base_actions.update(context, HARDWARE_URL, pk, {"generation": generation,
+                                                            "compute_capability": compute_capability})
 
 
-def partial_update(pk: int, *,
+def partial_update(context: UFDLServerContext, pk: int, *,
                    generation: OptionallyPresent[str] = Absent,
                    compute_capability: OptionallyPresent[str] = Absent) -> RawJSONObject:
-    return _base_actions.partial_update(HARDWARE_URL, pk, partial_kwargs(generation=generation,
-                                                                         compute_capability=compute_capability))
+    return _base_actions.partial_update(context, HARDWARE_URL, pk, partial_kwargs(generation=generation,
+                                                                                  compute_capability=compute_capability))
 
 
-def destroy(pk: int) -> RawJSONObject:
-    return _base_actions.destroy(HARDWARE_URL, pk)
+def destroy(context: UFDLServerContext, pk: int) -> RawJSONObject:
+    return _base_actions.destroy(context, HARDWARE_URL, pk)

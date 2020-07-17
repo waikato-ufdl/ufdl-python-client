@@ -4,29 +4,29 @@ for all models.
 """
 from wai.json.raw import RawJSONObject, RawJSONArray
 
-from ..core import get, post, patch, put, delete
-from ._util import detail_url
+from ..util import detail_url
+from .._UFDLServerContext import UFDLServerContext
 
 
-def list(url: str) -> RawJSONArray:
-    return get(url).json()
+def list(context: UFDLServerContext, url: str) -> RawJSONArray:
+    return context.get(url).json()
 
 
-def create(url: str, params: RawJSONObject) -> RawJSONObject:
-    return post(url, params).json()
+def create(context: UFDLServerContext, url: str, params: RawJSONObject) -> RawJSONObject:
+    return context.post(url, params).json()
 
 
-def retrieve(url: str, pk: int) -> RawJSONObject:
-    return get(detail_url(url, pk)).json()
+def retrieve(context: UFDLServerContext, url: str, pk: int) -> RawJSONObject:
+    return context.get(detail_url(url, pk)).json()
 
 
-def update(url: str, pk: int, params: RawJSONObject) -> RawJSONObject:
-    return put(detail_url(url, pk), params).json()
+def update(context: UFDLServerContext, url: str, pk: int, params: RawJSONObject) -> RawJSONObject:
+    return context.put(detail_url(url, pk), params).json()
 
 
-def partial_update(url: str, pk: int, params: RawJSONObject) -> RawJSONObject:
-    return patch(detail_url(url, pk), params).json()
+def partial_update(context: UFDLServerContext, url: str, pk: int, params: RawJSONObject) -> RawJSONObject:
+    return context.patch(detail_url(url, pk), params).json()
 
 
-def destroy(url: str, pk: int):
-    delete(detail_url(url, pk))
+def destroy(context: UFDLServerContext, url: str, pk: int):
+    context.delete(detail_url(url, pk))

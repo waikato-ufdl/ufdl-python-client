@@ -5,10 +5,11 @@ from ufdl.json.object_detection import Annotation
 from wai.json.object import OptionallyPresent, Absent
 from wai.json.raw import RawJSONObject, RawJSONArray
 
-from .. import _mixin_actions
 from ....constants import OBJECT_DETECTION_DATASETS_URL
-from ..._util import partial_kwargs
+from ....util import partial_kwargs
+from ...._UFDLServerContext import UFDLServerContext
 from ... import _base_actions
+from .. import _mixin_actions
 
 from ...core import (
     copy as core_copy,
@@ -23,114 +24,115 @@ from ...core import (
 )
 
 
-def list() -> RawJSONArray:
-    return _base_actions.list(OBJECT_DETECTION_DATASETS_URL)
+def list(context: UFDLServerContext) -> RawJSONArray:
+    return _base_actions.list(context, OBJECT_DETECTION_DATASETS_URL)
 
 
-def create(name: str,
+def create(context: UFDLServerContext,
+           name: str,
            project: int,
            licence: int,
            description: str = "",
            is_public: bool = False,
            tags: str = "") -> RawJSONObject:
-    return _base_actions.create(OBJECT_DETECTION_DATASETS_URL, {"name": name,
-                                                                "project": project,
-                                                                "description": description,
-                                                                "licence": licence,
-                                                                "is_public": is_public,
-                                                                "tags": tags})
+    return _base_actions.create(context, OBJECT_DETECTION_DATASETS_URL, {"name": name,
+                                                                         "project": project,
+                                                                         "description": description,
+                                                                         "licence": licence,
+                                                                         "is_public": is_public,
+                                                                         "tags": tags})
 
 
-def retrieve(pk: int) -> RawJSONObject:
-    return _base_actions.retrieve(OBJECT_DETECTION_DATASETS_URL, pk)
+def retrieve(context: UFDLServerContext, pk: int) -> RawJSONObject:
+    return _base_actions.retrieve(context, OBJECT_DETECTION_DATASETS_URL, pk)
 
 
-def update(pk: int, *,
+def update(context: UFDLServerContext, pk: int, *,
            name: str,
            description: str,
            project: int,
            licence: int,
            is_public: bool,
            tags: str) -> RawJSONObject:
-    return _base_actions.update(OBJECT_DETECTION_DATASETS_URL, pk, {"name": name,
-                                                                    "project": project,
-                                                                    "description": description,
-                                                                    "licence": licence,
-                                                                    "is_public": is_public,
-                                                                    "tags": tags})
+    return _base_actions.update(context, OBJECT_DETECTION_DATASETS_URL, pk, {"name": name,
+                                                                             "project": project,
+                                                                             "description": description,
+                                                                             "licence": licence,
+                                                                             "is_public": is_public,
+                                                                             "tags": tags})
 
 
-def partial_update(pk: int, *,
+def partial_update(context: UFDLServerContext, pk: int, *,
                    name: OptionallyPresent[str] = Absent,
                    description: OptionallyPresent[str] = Absent,
                    project: OptionallyPresent[int] = Absent,
                    licence: OptionallyPresent[int] = Absent,
                    is_public: OptionallyPresent[bool] = Absent,
                    tags: OptionallyPresent[str] = Absent) -> RawJSONObject:
-    return _base_actions.partial_update(OBJECT_DETECTION_DATASETS_URL, pk, partial_kwargs(name=name,
-                                                                                          description=description,
-                                                                                          project=project,
-                                                                                          licence=licence,
-                                                                                          is_public=is_public,
-                                                                                          tags=tags))
+    return _base_actions.partial_update(context, OBJECT_DETECTION_DATASETS_URL, pk, partial_kwargs(name=name,
+                                                                                                   description=description,
+                                                                                                   project=project,
+                                                                                                   licence=licence,
+                                                                                                   is_public=is_public,
+                                                                                                   tags=tags))
 
 
-def destroy(pk: int) -> RawJSONObject:
-    return _base_actions.destroy(OBJECT_DETECTION_DATASETS_URL, pk)
+def destroy(context: UFDLServerContext, pk: int) -> RawJSONObject:
+    return _base_actions.destroy(context, OBJECT_DETECTION_DATASETS_URL, pk)
 
 
-def download(pk: int,
+def download(context: UFDLServerContext, pk: int,
              filetype: str = "zip",
              annotations_args: OptionallyPresent[List[str]] = Absent) -> Iterator[bytes]:
-    return core_download(OBJECT_DETECTION_DATASETS_URL,
+    return core_download(context, OBJECT_DETECTION_DATASETS_URL,
                          pk,
                          filetype,
                          **partial_kwargs(annotations_args=annotations_args))
 
 
-def add_file(pk: int, filename: str, data: Union[bytes, IO[bytes]]) -> RawJSONObject:
-    return core_add_file(OBJECT_DETECTION_DATASETS_URL, pk, filename, data)
+def add_file(context: UFDLServerContext, pk: int, filename: str, data: Union[bytes, IO[bytes]]) -> RawJSONObject:
+    return core_add_file(context, OBJECT_DETECTION_DATASETS_URL, pk, filename, data)
 
 
-def get_file(pk: int, filename: str) -> Iterator[bytes]:
-    return core_get_file(OBJECT_DETECTION_DATASETS_URL, pk, filename)
+def get_file(context: UFDLServerContext, pk: int, filename: str) -> Iterator[bytes]:
+    return core_get_file(context, OBJECT_DETECTION_DATASETS_URL, pk, filename)
 
 
-def delete_file(pk: int, filename: str) -> RawJSONObject:
-    return core_delete_file(OBJECT_DETECTION_DATASETS_URL, pk, filename)
+def delete_file(context: UFDLServerContext, pk: int, filename: str) -> RawJSONObject:
+    return core_delete_file(context, OBJECT_DETECTION_DATASETS_URL, pk, filename)
 
 
-def set_metadata(pk: int, filename: str, metadata: str) -> str:
-    return core_set_metadata(OBJECT_DETECTION_DATASETS_URL, pk, filename, metadata)
+def set_metadata(context: UFDLServerContext, pk: int, filename: str, metadata: str) -> str:
+    return core_set_metadata(context, OBJECT_DETECTION_DATASETS_URL, pk, filename, metadata)
 
 
-def get_metadata(pk: int, filename: str) -> str:
-    return core_get_metadata(OBJECT_DETECTION_DATASETS_URL, pk, filename)
+def get_metadata(context: UFDLServerContext, pk: int, filename: str) -> str:
+    return core_get_metadata(context, OBJECT_DETECTION_DATASETS_URL, pk, filename)
 
 
-def copy(pk: int, new_name: OptionallyPresent[str] = Absent) -> RawJSONObject:
-    return core_copy(OBJECT_DETECTION_DATASETS_URL, pk, **partial_kwargs(new_name=new_name))
+def copy(context: UFDLServerContext, pk: int, new_name: OptionallyPresent[str] = Absent) -> RawJSONObject:
+    return core_copy(context, OBJECT_DETECTION_DATASETS_URL, pk, **partial_kwargs(new_name=new_name))
 
 
-def hard_delete(pk: int) -> RawJSONObject:
-    return core_hard_delete(OBJECT_DETECTION_DATASETS_URL, pk)
+def hard_delete(context: UFDLServerContext, pk: int) -> RawJSONObject:
+    return core_hard_delete(context, OBJECT_DETECTION_DATASETS_URL, pk)
 
 
-def reinstate(pk: int) -> RawJSONObject:
-    return core_reinstate(OBJECT_DETECTION_DATASETS_URL, pk)
+def reinstate(context: UFDLServerContext, pk: int) -> RawJSONObject:
+    return core_reinstate(context, OBJECT_DETECTION_DATASETS_URL, pk)
 
 
-def get_annotations(pk: int) -> RawJSONObject:
-    return _mixin_actions.get_annotations(OBJECT_DETECTION_DATASETS_URL, pk)
+def get_annotations(context: UFDLServerContext, pk: int) -> RawJSONObject:
+    return _mixin_actions.get_annotations(context, OBJECT_DETECTION_DATASETS_URL, pk)
 
 
-def get_annotations_for_image(pk: int, image: str) -> RawJSONObject:
-    return _mixin_actions.get_annotations_for_image(OBJECT_DETECTION_DATASETS_URL, pk, image)
+def get_annotations_for_image(context: UFDLServerContext, pk: int, image: str) -> RawJSONObject:
+    return _mixin_actions.get_annotations_for_image(context, OBJECT_DETECTION_DATASETS_URL, pk, image)
 
 
-def set_annotations_for_image(pk: int, image: str, annotations: List[Annotation]):
-    _mixin_actions.set_annotations_for_image(OBJECT_DETECTION_DATASETS_URL, pk, image, annotations)
+def set_annotations_for_image(context: UFDLServerContext, pk: int, image: str, annotations: List[Annotation]):
+    _mixin_actions.set_annotations_for_image(context, OBJECT_DETECTION_DATASETS_URL, pk, image, annotations)
 
 
-def delete_annotations_for_image(pk: int, image: str):
-    _mixin_actions.delete_annotations_for_image(OBJECT_DETECTION_DATASETS_URL, pk, image)
+def delete_annotations_for_image(context: UFDLServerContext, pk: int, image: str):
+    _mixin_actions.delete_annotations_for_image(context, OBJECT_DETECTION_DATASETS_URL, pk, image)

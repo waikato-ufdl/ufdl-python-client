@@ -4,26 +4,26 @@ from ufdl.json.object_detection import Annotation
 
 from wai.json.raw import RawJSONObject
 
-from ...core import get, post, delete
-from .._util import detail_url
+from ...util import detail_url
+from ..._UFDLServerContext import UFDLServerContext
 
 # ================== #
 # AnnotationsViewSet #
 # ================== #
 
 
-def get_annotations(url: str, pk: int) -> RawJSONObject:
-    return get(detail_url(url, pk) + "annotations").json()
+def get_annotations(context: UFDLServerContext, url: str, pk: int) -> RawJSONObject:
+    return context.get(detail_url(url, pk) + "annotations").json()
 
 
-def get_annotations_for_image(url: str, pk: int, image: str) -> RawJSONObject:
-    return get(detail_url(url, pk) + f"annotations/{image}").json()
+def get_annotations_for_image(context: UFDLServerContext, url: str, pk: int, image: str) -> RawJSONObject:
+    return context.get(detail_url(url, pk) + f"annotations/{image}").json()
 
 
-def set_annotations_for_image(url: str, pk: int, image: str, annotations: List[Annotation]):
+def set_annotations_for_image(context: UFDLServerContext, url: str, pk: int, image: str, annotations: List[Annotation]):
     raw_annotations = [annotation.to_raw_json() for annotation in annotations]
-    post(detail_url(url, pk) + f"annotations/{image}", {"annotations": raw_annotations})
+    context.post(detail_url(url, pk) + f"annotations/{image}", {"annotations": raw_annotations})
 
 
-def delete_annotations_for_image(url: str, pk: int, image: str):
-    delete(detail_url(url, pk) + f"annotations/{image}")
+def delete_annotations_for_image(context: UFDLServerContext, url: str, pk: int, image: str):
+    context.delete(detail_url(url, pk) + f"annotations/{image}")
