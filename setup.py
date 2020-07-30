@@ -27,7 +27,7 @@ setup(
     author_email='coreytsterling@gmail.com',
     install_requires=[
         "requests",
-        "wai.common",
+        "wai.common>=0.0.34",
         "wai.json",
         "ufdl-json-messages"
     ]

@@ -1,5 +1,7 @@
 import os
 
+from wai.common.config import get_config_dir
+
 
 def get_ufdl_config_dir() -> str:
     """
@@ -15,9 +17,7 @@ def get_ufdl_config_dir() -> str:
     :return:    The directory string.
     """
     # Get the system app configuration standard location
-    config_dir = os.environ['APPDATA'] if 'APPDATA' in os.environ \
-        else os.environ['XDG_CONFIG_HOME'] if 'XDG_CONFIG_HOME' in os.environ \
-        else os.path.join(os.environ['HOME'], '.config')
+    config_dir = get_config_dir()
 
     # Define a folder for our configuration in the standard location
     ufdl_config_dir = os.path.join(config_dir, 'ufdl')
