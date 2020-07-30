@@ -5,14 +5,7 @@ from wai.common.config import get_config_dir
 
 def get_ufdl_config_dir() -> str:
     """
-    Gets the directory in which to store app configuration. Based on
-    code from https://stackoverflow.com/a/3250952.
-
-    On Windows, %APPDATA%\\ufdl\
-    On Linux, $XDG_CONFIG_HOME/ufdl/
-
-    If the relevant environment variable for the platform is not set,
-    defaults to ~/.config/ufdl/
+    Gets the directory in which to store app configuration.
 
     :return:    The directory string.
     """
