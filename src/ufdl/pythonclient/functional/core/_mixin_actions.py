@@ -82,6 +82,10 @@ def update_membership(context: UFDLServerContext, url: str, pk: int, username: s
     return context.patch(detail_url(url, pk) + "memberships", {"method": "update", "username": username, "permissions": permissions}).json()
 
 
+def get_permissions_for_user(context: UFDLServerContext, url: str, pk: int, username: str) -> str:
+    return context.get(detail_url(url, pk) + "permissions/" + username).json()
+
+
 # ================= #
 # SoftDeleteViewSet #
 # ================= #

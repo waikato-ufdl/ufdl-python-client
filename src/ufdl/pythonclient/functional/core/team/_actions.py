@@ -45,6 +45,10 @@ def update_membership(context: UFDLServerContext, pk: int, username: str, permis
     return _mixin_actions.update_membership(context, TEAMS_URL, pk, username, permissions)
 
 
+def get_permissions_for_user(context: UFDLServerContext, pk: int, username: str) -> str:
+    return _mixin_actions.get_permissions_for_user(context, TEAMS_URL, pk, username)
+
+
 def hard_delete(context: UFDLServerContext, pk: int) -> RawJSONObject:
     return _mixin_actions.hard_delete(context, TEAMS_URL, pk)
 
