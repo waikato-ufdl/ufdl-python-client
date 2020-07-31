@@ -132,8 +132,8 @@ class UFDLServerContext:
     def post(self, url: str, json: RawJSONObject, *, auth: bool = True) -> requests.Response:
         return self.request(auth)(requests.post, url, json=json)
 
-    def get(self, url: str, *, auth: bool = True, **params) -> requests.Response:
-        return self.request(auth)(requests.get, url, params=params)
+    def get(self, url: str, json: Optional[RawJSONObject] = None, *, auth: bool = True, **params) -> requests.Response:
+        return self.request(auth)(requests.get, url, params=params, json={} if json is None else json)
 
     def put(self, url: str, json: RawJSONObject, *, auth: bool = True) -> requests.Response:
         return self.request(auth)(requests.put, url, json=json)
