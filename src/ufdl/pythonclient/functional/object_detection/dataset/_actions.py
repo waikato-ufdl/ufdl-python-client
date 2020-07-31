@@ -1,5 +1,6 @@
-from typing import List, Iterator, Union, IO
+from typing import List, Iterator, Union, IO, Optional
 
+from ufdl.json.core.filter import FilterSpec
 from ufdl.json.object_detection import Annotation
 
 from wai.json.object import OptionallyPresent, Absent
@@ -24,8 +25,8 @@ from ...core import (
 )
 
 
-def list(context: UFDLServerContext) -> RawJSONArray:
-    return _base_actions.list(context, OBJECT_DETECTION_DATASETS_URL)
+def list(context: UFDLServerContext, filter_spec: Optional[FilterSpec] = None) -> RawJSONArray:
+    return _base_actions.list(context, OBJECT_DETECTION_DATASETS_URL, filter_spec)
 
 
 def create(context: UFDLServerContext,

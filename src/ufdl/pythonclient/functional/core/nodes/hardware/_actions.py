@@ -1,3 +1,7 @@
+from typing import Optional
+
+from ufdl.json.core.filter import FilterSpec
+
 from wai.json.object import Absent, OptionallyPresent
 from wai.json.raw import RawJSONObject, RawJSONArray
 
@@ -7,8 +11,8 @@ from ....._UFDLServerContext import UFDLServerContext
 from .... import _base_actions
 
 
-def list(context: UFDLServerContext) -> RawJSONArray:
-    return _base_actions.list(context, HARDWARE_URL)
+def list(context: UFDLServerContext, filter_spec: Optional[FilterSpec] = None) -> RawJSONArray:
+    return _base_actions.list(context, HARDWARE_URL, filter_spec)
 
 
 def create(context: UFDLServerContext, generation: str, compute_capability: str) -> RawJSONObject:
