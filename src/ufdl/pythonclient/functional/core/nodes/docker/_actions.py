@@ -26,7 +26,8 @@ def create(context: UFDLServerContext, name: str,
            framework_version: str,
            domain: str,
            task: str,
-           min_hardware_generation: str) -> RawJSONObject:
+           min_hardware_generation: Optional[str],
+           cpu: bool) -> RawJSONObject:
     return _base_actions.create(context, DOCKER_URL, {"name": name,
                                                       "version": version,
                                                       "url": url,
@@ -38,7 +39,8 @@ def create(context: UFDLServerContext, name: str,
                                                       "framework_version": framework_version,
                                                       "domain": domain,
                                                       "task": task,
-                                                      "min_hardware_generation": min_hardware_generation})
+                                                      "min_hardware_generation": min_hardware_generation,
+                                                      "cpu": cpu})
 
 
 def retrieve(context: UFDLServerContext, pk: int) -> RawJSONObject:
@@ -57,7 +59,8 @@ def update(context: UFDLServerContext, pk: int, *,
            framework_version: str,
            domain: str,
            task: str,
-           min_hardware_generation: str) -> RawJSONObject:
+           min_hardware_generation: Optional[str],
+           cpu: bool) -> RawJSONObject:
     return _base_actions.update(context, DOCKER_URL, pk, {"name": name,
                                                           "version": version,
                                                           "url": url,
@@ -69,7 +72,8 @@ def update(context: UFDLServerContext, pk: int, *,
                                                           "framework_version": framework_version,
                                                           "domain": domain,
                                                           "task": task,
-                                                          "min_hardware_generation": min_hardware_generation})
+                                                          "min_hardware_generation": min_hardware_generation,
+                                                          "cpu": cpu})
 
 
 def partial_update(context: UFDLServerContext, pk: int, *,
@@ -84,7 +88,8 @@ def partial_update(context: UFDLServerContext, pk: int, *,
                    framework_version: OptionallyPresent[str] = Absent,
                    domain: OptionallyPresent[str] = Absent,
                    task: OptionallyPresent[str] = Absent,
-                   min_hardware_generation: OptionallyPresent[str] = Absent) -> RawJSONObject:
+                   min_hardware_generation: OptionallyPresent[Optional[str]] = Absent,
+                   cpu: OptionallyPresent[bool] = Absent) -> RawJSONObject:
     return _base_actions.partial_update(context, DOCKER_URL, pk, partial_kwargs(name=name,
                                                                                 version=version,
                                                                                 url=url,
@@ -96,7 +101,8 @@ def partial_update(context: UFDLServerContext, pk: int, *,
                                                                                 framework_version=framework_version,
                                                                                 domain=domain,
                                                                                 task=task,
-                                                                                min_hardware_generation=min_hardware_generation))
+                                                                                min_hardware_generation=min_hardware_generation,
+                                                                                cpu=cpu))
 
 
 def destroy(context: UFDLServerContext, pk: int) -> RawJSONObject:
