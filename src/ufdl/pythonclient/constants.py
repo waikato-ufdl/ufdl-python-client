@@ -18,6 +18,7 @@ HARDWARE_URL = "v1/core/hardware/"
 CUDA_URL = "v1/core/cuda/"
 DOCKER_URL = "v1/core/docker/"
 DOMAINS_URL = "v1/core/domains/"
+JOB_TYPES_URL = "v1/core/job-types/"
 
 # IMAGE CLASSIFICATION
 IMAGE_CLASSIFICATION_DATASETS_URL = "v1/classify/datasets/"
