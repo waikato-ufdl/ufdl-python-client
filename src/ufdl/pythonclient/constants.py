@@ -20,6 +20,7 @@ DOCKER_URL = "v1/core/docker/"
 DOMAINS_URL = "v1/core/domains/"
 JOB_TYPES_URL = "v1/core/job-types/"
 FRAMEWORKS_URL = "v1/core/frameworks/"
+NODES_URL = "v1/core/nodes/"
 
 # IMAGE CLASSIFICATION
 IMAGE_CLASSIFICATION_DATASETS_URL = "v1/classify/datasets/"
