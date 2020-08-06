@@ -82,7 +82,7 @@ def get_file(context: UFDLServerContext, pk: int, filename: str) -> Iterator[byt
 
 
 def delete_file(context: UFDLServerContext, pk: int, filename: str) -> RawJSONObject:
-    return _mixin_actions.delete_file(context, DATASETS_URL, pk, filename)
+    return _mixin_actions.delete_file_fc(context, DATASETS_URL, pk, filename)
 
 
 def set_metadata(context: UFDLServerContext, pk: int, filename: str, metadata: str) -> str:

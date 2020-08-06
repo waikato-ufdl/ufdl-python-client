@@ -8,6 +8,23 @@ from wai.json.raw import RawJSONObject
 from ...util import detail_url
 from ..._UFDLServerContext import UFDLServerContext
 
+# =================== #
+# AddJobOutputViewSet #
+# =================== #
+
+
+def add_output(context: UFDLServerContext, url: str, pk: int, name: str, data: Union[bytes, IO[bytes]]) -> RawJSONObject:
+    return context.upload(detail_url(url, pk) + "outputs/" + name, name, data).json()
+
+
+def set_output_type(context: UFDLServerContext, url: str, pk: int, name: str, type: str) -> RawJSONObject:
+    return context.patch(detail_url(url, pk) + "outputs/" + name, {"type": type}).json()
+
+
+def delete_output(context: UFDLServerContext, url: str, pk: int, name: str) -> RawJSONObject:
+    return context.delete(detail_url(url, pk) + "outputs/" + name).json()
+
+
 # =============== #
 # CopyableViewSet #
 # =============== #
@@ -40,7 +57,7 @@ def get_file(context: UFDLServerContext, url: str, pk: int, filename: str) -> It
     return context.download(detail_url(url, pk) + "files/" + filename).iter_content(chunk_size=None)
 
 
-def delete_file(context: UFDLServerContext, url: str, pk: int, filename: str) -> RawJSONObject:
+def delete_file_fc(context: UFDLServerContext, url: str, pk: int, filename: str) -> RawJSONObject:
     return context.delete(detail_url(url, pk) + "files/" + filename).json()
 
 
@@ -50,6 +67,27 @@ def set_metadata(context: UFDLServerContext, url: str, pk: int, filename: str, m
 
 def get_metadata(context: UFDLServerContext, url: str, pk: int, filename: str) -> str:
     return context.get(detail_url(url, pk) + "metadata/" + filename).json()['metadata']
+
+
+# ======================= #
+# InputsParametersViewSet #
+# ======================= #
+
+
+def add_input(context: UFDLServerContext, url: str, pk: int, name: str, type: str, options: str) -> RawJSONObject:
+    return context.post(detail_url(url, pk) + "inputs/" + name, {"type": type, "options": options}).json()
+
+
+def delete_input(context: UFDLServerContext, url: str, pk: int, name: str) -> RawJSONObject:
+    return context.delete(detail_url(url, pk) + "inputs/" + name).json()
+
+
+def add_parameter(context: UFDLServerContext, url: str, pk: int, name: str, type: str, default: str) -> RawJSONObject:
+    return context.post(detail_url(url, pk) + "parameters/" + name, {"type": type, "default": default}).json()
+
+
+def delete_parameter(context: UFDLServerContext, url: str, pk: int, name: str) -> RawJSONObject:
+    return context.delete(detail_url(url, pk) + "parameters/" + name).json()
 
 
 # =========================== #
@@ -86,6 +124,19 @@ def get_permissions_for_user(context: UFDLServerContext, url: str, pk: int, user
     return context.get(detail_url(url, pk) + "permissions/" + username).json()
 
 
+# ============== #
+# SetFileViewSet #
+# ============== #
+
+
+def set_file(context: UFDLServerContext, url: str, pk: int, data: Union[bytes, IO[bytes]]) -> RawJSONObject:
+    return context.upload(detail_url(url, pk) + "data", "data", data).json()
+
+
+def delete_file_sf(context: UFDLServerContext, url: str, pk: int) -> RawJSONObject:
+    return context.delete(detail_url(url, pk) + "data").json()
+
+
 # ================= #
 # SoftDeleteViewSet #
 # ================= #
@@ -96,3 +147,4 @@ def hard_delete(context: UFDLServerContext, url: str, pk: int) -> RawJSONObject:
 
 def reinstate(context: UFDLServerContext, url: str, pk: int) -> RawJSONObject:
     return context.delete(detail_url(url, pk) + "reinstate").json()
+

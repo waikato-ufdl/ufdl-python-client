@@ -17,7 +17,7 @@ from ...core import (
     download as core_download,
     add_file as core_add_file,
     get_file as core_get_file,
-    delete_file as core_delete_file,
+    delete_file_fc as core_delete_file,
     set_metadata as core_set_metadata,
     get_metadata as core_get_metadata,
     hard_delete as core_hard_delete,
