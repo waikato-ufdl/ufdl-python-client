@@ -90,7 +90,7 @@ def destroy(context: UFDLServerContext, pk: int) -> RawJSONObject:
 def create_job(context: UFDLServerContext, pk: int,
                docker_image: Union[int, Tuple[str, str]],
                input_values: Dict[str, str],
-               parameter_values: Optional[Dict[str, str]] = None) -> RawJSONObject:
+               parameter_values: OptionallyPresent[Dict[str, str]] = Absent) -> RawJSONObject:
     return _mixin_actions.create_job(context, JOB_TEMPLATES_URL, pk,
                                      docker_image, input_values, parameter_values)
 

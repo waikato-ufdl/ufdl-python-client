@@ -1,11 +1,12 @@
 """
 Contains actions implemented as mixin views on the server.
 """
-from typing import Union, IO, Iterator, List, Tuple, Optional, Dict
+from typing import Union, IO, Iterator, List, Tuple, Dict
 
+from wai.json.object import OptionallyPresent, Absent
 from wai.json.raw import RawJSONObject
 
-from ...util import detail_url
+from ...util import detail_url, partial_kwargs
 from ..._UFDLServerContext import UFDLServerContext
 
 # =================== #
@@ -42,13 +43,14 @@ def copy(context: UFDLServerContext, url: str, pk: int, **params) -> RawJSONObje
 def create_job(context: UFDLServerContext, url: str, pk: int,
                docker_image: Union[int, Tuple[str, str]],
                input_values: Dict[str, str],
-               parameter_values: Optional[Dict[str, str]] = None) -> RawJSONObject:
+               parameter_values: OptionallyPresent[Dict[str, str]] = Absent) -> RawJSONObject:
     return context.post(detail_url(url, pk) + "create-job",
-                        json={"docker_image": (docker_image
-                                               if isinstance(docker_image, int)
-                                               else {"name": docker_image[0], "version": docker_image[1]}),
-                              "input_values": input_values,
-                              "parameter_values": parameter_values}).json()
+                        json=partial_kwargs(
+                            docker_image= (docker_image
+                                           if isinstance(docker_image, int)
+                                           else {"name": docker_image[0], "version": docker_image[1]}),
+                            input_values=input_values,
+                            parameter_values=parameter_values)).json()
 
 
 # =================== #
