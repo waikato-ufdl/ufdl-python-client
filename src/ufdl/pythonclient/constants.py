@@ -23,6 +23,7 @@ FRAMEWORKS_URL = "v1/core/frameworks/"
 NODES_URL = "v1/core/nodes/"
 MODELS_URL = "v1/core/models/"
 PRETRAINED_MODELS_URL = "v1/core/models/pretrained/"
+JOBS_URL = "v1/core/jobs/"
 
 # IMAGE CLASSIFICATION
 IMAGE_CLASSIFICATION_DATASETS_URL = "v1/classify/datasets/"
