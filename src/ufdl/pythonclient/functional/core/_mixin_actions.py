@@ -158,6 +158,7 @@ def delete_file_sf(context: UFDLServerContext, url: str, pk: int) -> RawJSONObje
 # SoftDeleteViewSet #
 # ================= #
 
+
 def hard_delete(context: UFDLServerContext, url: str, pk: int) -> RawJSONObject:
     return context.delete(detail_url(url, pk) + "hard").json()
 
