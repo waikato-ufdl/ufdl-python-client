@@ -20,16 +20,6 @@ def retrieve(context: UFDLServerContext, pk: int) -> RawJSONObject:
     return _base_actions.retrieve(context, JOBS_URL, pk)
 
 
-def update(context: UFDLServerContext, pk: int, *,
-           name: str) -> RawJSONObject:
-    return _base_actions.update(context, JOBS_URL, pk, {"name": name})
-
-
-def partial_update(context: UFDLServerContext, pk: int, *,
-                   name: OptionallyPresent[str] = Absent) -> RawJSONObject:
-    return _base_actions.partial_update(context, JOBS_URL, pk, partial_kwargs(name=name))
-
-
 def destroy(context: UFDLServerContext, pk: int) -> RawJSONObject:
     return _base_actions.destroy(context, JOBS_URL, pk)
 
