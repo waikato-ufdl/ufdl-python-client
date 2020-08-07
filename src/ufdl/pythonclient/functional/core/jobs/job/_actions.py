@@ -1,12 +1,10 @@
-from typing import Optional, Union, IO
+from typing import Optional, Union, IO, Iterator
 
 from ufdl.json.core.filter import FilterSpec
 
-from wai.json.object import OptionallyPresent, Absent
 from wai.json.raw import RawJSONObject, RawJSONArray
 
 from .....constants import JOBS_URL
-from .....util import partial_kwargs
 from ....._UFDLServerContext import UFDLServerContext
 from .... import _base_actions
 from ... import _mixin_actions
@@ -34,6 +32,10 @@ def set_output_type(context: UFDLServerContext, pk: int, name: str, type: str) -
 
 def delete_output(context: UFDLServerContext, pk: int, name: str) -> RawJSONObject:
     return _mixin_actions.delete_output(context, JOBS_URL, pk, name)
+
+
+def get_output(context: UFDLServerContext, pk: int, name: str) -> Iterator[bytes]:
+    return _mixin_actions.get_output(context, JOBS_URL, pk, name)
 
 
 def hard_delete(context: UFDLServerContext, pk: int) -> RawJSONObject:

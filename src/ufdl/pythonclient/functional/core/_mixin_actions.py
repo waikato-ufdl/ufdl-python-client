@@ -26,6 +26,10 @@ def delete_output(context: UFDLServerContext, url: str, pk: int, name: str) -> R
     return context.delete(detail_url(url, pk) + "outputs/" + name).json()
 
 
+def get_output(context: UFDLServerContext, url: str, pk: int, name: str) -> Iterator[bytes]:
+    return context.download(detail_url(url, pk) + "outputs/" + name).iter_content(chunk_size=None)
+
+
 # =============== #
 # CopyableViewSet #
 # =============== #
