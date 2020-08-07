@@ -39,7 +39,7 @@ def copy(context: UFDLServerContext, url: str, pk: int, **params) -> RawJSONObje
 # ================ #
 
 
-def create_job(context: UFDLServerContext, url: str, pk: int, *,
+def create_job(context: UFDLServerContext, url: str, pk: int,
                docker_image: Union[int, Tuple[str, str]],
                input_values: Dict[str, str],
                parameter_values: Optional[Dict[str, str]] = None) -> RawJSONObject:
