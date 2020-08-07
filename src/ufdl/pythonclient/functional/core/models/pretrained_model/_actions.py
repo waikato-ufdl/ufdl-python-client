@@ -17,7 +17,7 @@ def list(context: UFDLServerContext, filter_spec: Optional[FilterSpec] = None) -
 
 
 def create(context: UFDLServerContext,
-           framework: str,
+           framework: int,
            domain: str,
            licence: str,
            url: str,
@@ -34,7 +34,7 @@ def retrieve(context: UFDLServerContext, pk: int) -> RawJSONObject:
 
 
 def update(context: UFDLServerContext, pk: int, *,
-           framework: str,
+           framework: int,
            domain: str,
            licence: str,
            url: str,
@@ -47,7 +47,7 @@ def update(context: UFDLServerContext, pk: int, *,
 
 
 def partial_update(context: UFDLServerContext, pk: int, *,
-                   framework: OptionallyPresent[str] = Absent,
+                   framework: OptionallyPresent[int] = Absent,
                    domain: OptionallyPresent[str] = Absent,
                    licence: OptionallyPresent[str] = Absent,
                    url: OptionallyPresent[str] = Absent,
