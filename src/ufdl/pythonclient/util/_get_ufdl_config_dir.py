@@ -17,6 +17,6 @@ def get_ufdl_config_dir() -> str:
 
     # Make sure the location exists
     if not os.path.exists(ufdl_config_dir):
-        os.mkdir(ufdl_config_dir)
+        os.makedirs(ufdl_config_dir, exist_ok=True)
 
     return ufdl_config_dir
