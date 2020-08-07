@@ -3,6 +3,7 @@ from ._mixin_actions import (
     set_output_type,
     delete_output,
     copy,
+    create_job,
     download,
     add_file,
     get_file,

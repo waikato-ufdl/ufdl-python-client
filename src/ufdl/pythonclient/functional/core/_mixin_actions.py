@@ -1,7 +1,7 @@
 """
 Contains actions implemented as mixin views on the server.
 """
-from typing import Union, IO, Iterator, List
+from typing import Union, IO, Iterator, List, Tuple, Optional, Dict
 
 from wai.json.raw import RawJSONObject
 
@@ -32,6 +32,23 @@ def delete_output(context: UFDLServerContext, url: str, pk: int, name: str) -> R
 
 def copy(context: UFDLServerContext, url: str, pk: int, **params) -> RawJSONObject:
     return context.post(detail_url(url, pk) + "copy", params).json()
+
+
+# ================ #
+# CreateJobViewSet #
+# ================ #
+
+
+def create_job(context: UFDLServerContext, url: str, pk: int, *,
+               docker_image: Union[int, Tuple[str, str]],
+               input_values: Dict[str, str],
+               parameter_values: Optional[Dict[str, str]] = None) -> RawJSONObject:
+    return context.post(detail_url(url, pk) + "create-job",
+                        json={"docker_image": (docker_image
+                                               if isinstance(docker_image, int)
+                                               else {"name": docker_image[0], "version": docker_image[1]}),
+                              "input_values": input_values,
+                              "parameter_values": parameter_values}).json()
 
 
 # =================== #
