@@ -20,14 +20,12 @@ def create(context: UFDLServerContext,
            driver_version: str,
            hardware_generation: str,
            gpu_mem: int,
-           cpu_mem: int,
-           current_job: Optional[int] = None) -> RawJSONObject:
+           cpu_mem: int) -> RawJSONObject:
     return _base_actions.create(context, NODES_URL, {"ip": ip,
                                                      "driver_version": driver_version,
                                                      "hardware_generation": hardware_generation,
                                                      "gpu_mem": gpu_mem,
-                                                     "cpu_mem": cpu_mem,
-                                                     "current_job": current_job})
+                                                     "cpu_mem": cpu_mem})
 
 
 def retrieve(context: UFDLServerContext, pk: int) -> RawJSONObject:
@@ -39,14 +37,12 @@ def update(context: UFDLServerContext, pk: int, *,
            driver_version: str,
            hardware_generation: str,
            gpu_mem: int,
-           cpu_mem: int,
-           current_job: Optional[int] = None) -> RawJSONObject:
+           cpu_mem: int) -> RawJSONObject:
     return _base_actions.update(context, NODES_URL, pk, {"ip": ip,
                                                          "driver_version": driver_version,
                                                          "hardware_generation": hardware_generation,
                                                          "gpu_mem": gpu_mem,
-                                                         "cpu_mem": cpu_mem,
-                                                         "current_job": current_job})
+                                                         "cpu_mem": cpu_mem})
 
 
 def partial_update(context: UFDLServerContext, pk: int, *,
@@ -54,14 +50,12 @@ def partial_update(context: UFDLServerContext, pk: int, *,
                    driver_version: OptionallyPresent[str] = Absent,
                    hardware_generation: OptionallyPresent[str] = Absent,
                    gpu_mem: OptionallyPresent[int] = Absent,
-                   cpu_mem: OptionallyPresent[int] = Absent,
-                   current_job: OptionallyPresent[Optional[int]] = Absent) -> RawJSONObject:
+                   cpu_mem: OptionallyPresent[int] = Absent) -> RawJSONObject:
     return _base_actions.partial_update(context, NODES_URL, pk, partial_kwargs(ip=ip,
                                                                                driver_version=driver_version,
                                                                                hardware_generation=hardware_generation,
                                                                                gpu_mem=gpu_mem,
-                                                                               cpu_mem=cpu_mem,
-                                                                               current_job=current_job))
+                                                                               cpu_mem=cpu_mem))
 
 
 def destroy(context: UFDLServerContext, pk: int) -> RawJSONObject:
