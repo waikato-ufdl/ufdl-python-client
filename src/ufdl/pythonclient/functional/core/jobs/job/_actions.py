@@ -22,12 +22,8 @@ def destroy(context: UFDLServerContext, pk: int) -> RawJSONObject:
     return _base_actions.destroy(context, JOBS_URL, pk)
 
 
-def add_output(context: UFDLServerContext, pk: int, name: str, data: Union[bytes, IO[bytes]]) -> RawJSONObject:
-    return _mixin_actions.add_output(context, JOBS_URL, pk, name, data)
-
-
-def set_output_type(context: UFDLServerContext, pk: int, name: str, type: str) -> RawJSONObject:
-    return _mixin_actions.set_output_type(context, JOBS_URL, pk, name, type)
+def add_output(context: UFDLServerContext, pk: int, name: str, type: str, data: Union[bytes, IO[bytes]]) -> RawJSONObject:
+    return _mixin_actions.add_output(context, JOBS_URL, pk, name, type, data)
 
 
 def delete_output(context: UFDLServerContext, pk: int, name: str) -> RawJSONObject:

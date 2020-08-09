@@ -1,6 +1,5 @@
 from ._mixin_actions import (
     add_output,
-    set_output_type,
     delete_output,
     get_output,
     copy,

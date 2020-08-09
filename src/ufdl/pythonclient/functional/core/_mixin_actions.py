@@ -14,12 +14,8 @@ from ..._UFDLServerContext import UFDLServerContext
 # =================== #
 
 
-def add_output(context: UFDLServerContext, url: str, pk: int, name: str, data: Union[bytes, IO[bytes]]) -> RawJSONObject:
-    return context.upload(detail_url(url, pk) + "outputs/" + name, name, data).json()
-
-
-def set_output_type(context: UFDLServerContext, url: str, pk: int, name: str, type: str) -> RawJSONObject:
-    return context.patch(detail_url(url, pk) + "outputs/" + name, {"type": type}).json()
+def add_output(context: UFDLServerContext, url: str, pk: int, name: str, type: str, data: Union[bytes, IO[bytes]]) -> RawJSONObject:
+    return context.upload(detail_url(url, pk) + f"outputs/{name}/{type}", name, data).json()
 
 
 def delete_output(context: UFDLServerContext, url: str, pk: int, name: str) -> RawJSONObject:
