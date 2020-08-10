@@ -1,6 +1,8 @@
 import os
 from typing import Optional
 
+from wai.json.error import JSONSerialisationError
+
 from ...util import get_ufdl_config_dir
 from ..._Tokens import Tokens
 from .._TokenCache import TokenCache
@@ -66,4 +68,7 @@ class JSONTokenCache(TokenCache):
         if not os.path.exists(self._filename):
             return TokenCacheFile()
 
-        return TokenCacheFile.load_json_from_file(self._filename)
+        try:
+            return TokenCacheFile.load_json_from_file(self._filename)
+        except JSONSerialisationError:
+            return TokenCacheFile()
