@@ -22,6 +22,9 @@ class JSONTokenCache(TokenCache):
 
         self._filename: str = filename
 
+        # Do a quick load/save to make sure we can access the file
+        self._save_file(self._load_file())
+
     def get_cached_tokens(self, host: str, username: str) -> Optional[Tokens]:
         # Load the cache file
         cache = self._load_file()
@@ -72,3 +75,11 @@ class JSONTokenCache(TokenCache):
             return TokenCacheFile.load_json_from_file(self._filename)
         except JSONSerialisationError:
             return TokenCacheFile()
+
+    def _save_file(self, cache: TokenCacheFile):
+        """
+        Saves the token cache file to disk.
+
+        :param cache:   The token cache.
+        """
+        cache.save_json_to_file(self._filename, 2)
