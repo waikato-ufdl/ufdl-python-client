@@ -20,12 +20,14 @@ def create(context: UFDLServerContext,
            password: str,
            email: str,
            first_name: str = "",
-           last_name: str = "") -> RawJSONObject:
+           last_name: str = "",
+           node: Optional[int] = None) -> RawJSONObject:
     return _base_actions.create(context, USERS_URL, {"username": username,
                                                      "password": password,
                                                      "email": email,
                                                      "first_name": first_name,
-                                                     "last_name": last_name})
+                                                     "last_name": last_name,
+                                                     "node": node})
 
 
 def retrieve(context: UFDLServerContext, pk: int) -> RawJSONObject:
@@ -38,13 +40,15 @@ def update(context: UFDLServerContext, pk: int, *,
            first_name: str,
            last_name: str,
            email: str,
-           is_active: bool) -> RawJSONObject:
+           is_active: bool,
+           node: Optional[int]) -> RawJSONObject:
     return _base_actions.update(context, USERS_URL, pk, {"username": username,
                                                          "password": password,
                                                          "email": email,
                                                          "first_name": first_name,
                                                          "last_name": last_name,
-                                                         "is_active": is_active})
+                                                         "is_active": is_active,
+                                                         "node": node})
 
 
 def partial_update(context: UFDLServerContext, pk: int, *,
@@ -53,13 +57,15 @@ def partial_update(context: UFDLServerContext, pk: int, *,
                    first_name: OptionallyPresent[str] = Absent,
                    last_name: OptionallyPresent[str] = Absent,
                    email: OptionallyPresent[str] = Absent,
-                   is_active: OptionallyPresent[bool] = Absent) -> RawJSONObject:
+                   is_active: OptionallyPresent[bool] = Absent,
+                   node: OptionallyPresent[Optional[int]] = Absent) -> RawJSONObject:
     return _base_actions.partial_update(context, USERS_URL, pk, partial_kwargs(username=username,
                                                                                password=password,
                                                                                first_name=first_name,
                                                                                last_name=last_name,
                                                                                email=email,
-                                                                               is_active=is_active))
+                                                                               is_active=is_active,
+                                                                               node=node))
 
 
 def destroy(context: UFDLServerContext, pk: int) -> RawJSONObject:
