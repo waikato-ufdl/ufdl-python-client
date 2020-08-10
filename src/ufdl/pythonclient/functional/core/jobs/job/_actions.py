@@ -40,3 +40,7 @@ def hard_delete(context: UFDLServerContext, pk: int) -> RawJSONObject:
 
 def reinstate(context: UFDLServerContext, pk: int) -> RawJSONObject:
     return _mixin_actions.reinstate(context, JOBS_URL, pk)
+
+
+def acquire_job(context: UFDLServerContext, pk: int) -> RawJSONObject:
+    return _mixin_actions.acquire_job(context, JOBS_URL, pk)

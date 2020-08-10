@@ -9,6 +9,15 @@ from wai.json.raw import RawJSONObject
 from ...util import detail_url, partial_kwargs
 from ..._UFDLServerContext import UFDLServerContext
 
+# ================= #
+# AcquireJobViewSet #
+# ================= #
+
+
+def acquire_job(context: UFDLServerContext, url: str, pk: int) -> RawJSONObject:
+    return context.get(detail_url(url, pk) + "acquire").json()
+
+
 # =================== #
 # AddJobOutputViewSet #
 # =================== #

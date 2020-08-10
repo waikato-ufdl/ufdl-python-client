@@ -6,5 +6,6 @@ from ._actions import (
     delete_output,
     get_output,
     hard_delete,
-    reinstate
+    reinstate,
+    acquire_job
 )
