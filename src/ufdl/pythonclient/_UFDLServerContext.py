@@ -17,11 +17,10 @@ class UFDLServerContext:
     The connection context to a UFDL server.
     """
     def __init__(self,
-                 host: str, port: int,
+                 host: str,
                  username: str, password: str,
                  token_cache: Optional[TokenCache] = None):
         self._host: str = host
-        self._port: int = port
         self._username: str = username
         self._password: str = password
 
@@ -33,14 +32,9 @@ class UFDLServerContext:
     def host(self) -> str:
         return self._host
 
-    @property
-    def port(self) -> int:
-        return self._port
-
-    def change_server(self, host: str, port: int):
+    def change_server(self, host: str):
         self._tokens = None
         self._host = host
-        self._port = port
 
     @property
     def username(self) -> str:
@@ -127,7 +121,7 @@ class UFDLServerContext:
         :param url:     The end-point URL relative to the server.
         :return:        The complete URL.
         """
-        return f"http://{self._host}:{self._port}/{url}"
+        return f"{self._host}/{url}"
 
     def post(self, url: str, json: RawJSONObject, *, auth: bool = True) -> requests.Response:
         return self.request(auth)(requests.post, url, json=json)
