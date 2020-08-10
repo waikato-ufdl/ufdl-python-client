@@ -10,6 +10,7 @@ from ._mixin_actions import (
     delete_file_fc,
     set_metadata,
     get_metadata,
+    get_hardware_generation,
     add_input,
     delete_input,
     add_parameter,

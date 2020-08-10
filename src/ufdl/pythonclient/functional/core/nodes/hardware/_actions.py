@@ -9,6 +9,7 @@ from .....constants import HARDWARE_URL
 from .....util import partial_kwargs
 from ....._UFDLServerContext import UFDLServerContext
 from .... import _base_actions
+from ... import _mixin_actions
 
 
 def list(context: UFDLServerContext, filter_spec: Optional[FilterSpec] = None) -> RawJSONArray:
@@ -40,3 +41,7 @@ def partial_update(context: UFDLServerContext, pk: int, *,
 
 def destroy(context: UFDLServerContext, pk: int) -> RawJSONObject:
     return _base_actions.destroy(context, HARDWARE_URL, pk)
+
+
+def get_hardware_generation(context: UFDLServerContext, compute: float) -> RawJSONObject:
+    return _mixin_actions.get_hardware_generation(context, HARDWARE_URL, compute)

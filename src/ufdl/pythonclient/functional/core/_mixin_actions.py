@@ -88,6 +88,15 @@ def get_metadata(context: UFDLServerContext, url: str, pk: int, filename: str) -
     return context.get(detail_url(url, pk) + "metadata/" + filename).json()['metadata']
 
 
+# ============================ #
+# GetHardwareGenerationViewSet #
+# ============================ #
+
+
+def get_hardware_generation(context: UFDLServerContext, url: str, compute: float) -> RawJSONObject:
+    return context.get(url + f"get-hardware-generation/{compute}").json()
+
+
 # ======================= #
 # InputsParametersViewSet #
 # ======================= #
