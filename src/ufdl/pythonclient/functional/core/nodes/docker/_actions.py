@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 
 from ufdl.json.core.filter import FilterSpec
 
@@ -24,7 +24,7 @@ def create(context: UFDLServerContext, name: str,
            cuda_version: str,
            framework: int,
            domain: str,
-           task: str,
+           tasks: List[str],
            min_hardware_generation: Optional[str],
            cpu: bool) -> RawJSONObject:
     return _base_actions.create(context, DOCKER_URL, {"name": name,
@@ -36,7 +36,7 @@ def create(context: UFDLServerContext, name: str,
                                                       "cuda_version": cuda_version,
                                                       "framework": framework,
                                                       "domain": domain,
-                                                      "task": task,
+                                                      "tasks": tasks,
                                                       "min_hardware_generation": min_hardware_generation,
                                                       "cpu": cpu})
 
@@ -55,7 +55,7 @@ def update(context: UFDLServerContext, pk: int, *,
            cuda_version: str,
            framework: int,
            domain: str,
-           task: str,
+           tasks: List[str],
            min_hardware_generation: Optional[str],
            cpu: bool) -> RawJSONObject:
     return _base_actions.update(context, DOCKER_URL, pk, {"name": name,
@@ -67,7 +67,7 @@ def update(context: UFDLServerContext, pk: int, *,
                                                           "cuda_version": cuda_version,
                                                           "framework": framework,
                                                           "domain": domain,
-                                                          "task": task,
+                                                          "tasks": tasks,
                                                           "min_hardware_generation": min_hardware_generation,
                                                           "cpu": cpu})
 
@@ -82,7 +82,7 @@ def partial_update(context: UFDLServerContext, pk: int, *,
                    cuda_version: OptionallyPresent[str] = Absent,
                    framework: OptionallyPresent[int] = Absent,
                    domain: OptionallyPresent[str] = Absent,
-                   task: OptionallyPresent[str] = Absent,
+                   tasks: OptionallyPresent[List[str]] = Absent,
                    min_hardware_generation: OptionallyPresent[Optional[str]] = Absent,
                    cpu: OptionallyPresent[bool] = Absent) -> RawJSONObject:
     return _base_actions.partial_update(context, DOCKER_URL, pk, partial_kwargs(name=name,
@@ -94,7 +94,7 @@ def partial_update(context: UFDLServerContext, pk: int, *,
                                                                                 cuda_version=cuda_version,
                                                                                 framework=framework,
                                                                                 domain=domain,
-                                                                                task=task,
+                                                                                tasks=tasks,
                                                                                 min_hardware_generation=min_hardware_generation,
                                                                                 cpu=cpu))
 
