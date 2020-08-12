@@ -18,7 +18,7 @@ def list(context: UFDLServerContext, filter_spec: Optional[FilterSpec] = None) -
 def create(context: UFDLServerContext,
            ip: str,
            driver_version: str,
-           hardware_generation: str,
+           hardware_generation: int,
            gpu_mem: int,
            cpu_mem: int) -> RawJSONObject:
     return _base_actions.create(context, NODES_URL, {"ip": ip,
@@ -35,7 +35,7 @@ def retrieve(context: UFDLServerContext, pk: int) -> RawJSONObject:
 def update(context: UFDLServerContext, pk: int, *,
            ip: str,
            driver_version: str,
-           hardware_generation: str,
+           hardware_generation: int,
            gpu_mem: int,
            cpu_mem: int) -> RawJSONObject:
     return _base_actions.update(context, NODES_URL, pk, {"ip": ip,
@@ -48,7 +48,7 @@ def update(context: UFDLServerContext, pk: int, *,
 def partial_update(context: UFDLServerContext, pk: int, *,
                    ip: OptionallyPresent[str] = Absent,
                    driver_version: OptionallyPresent[str] = Absent,
-                   hardware_generation: OptionallyPresent[str] = Absent,
+                   hardware_generation: OptionallyPresent[int] = Absent,
                    gpu_mem: OptionallyPresent[int] = Absent,
                    cpu_mem: OptionallyPresent[int] = Absent) -> RawJSONObject:
     return _base_actions.partial_update(context, NODES_URL, pk, partial_kwargs(ip=ip,

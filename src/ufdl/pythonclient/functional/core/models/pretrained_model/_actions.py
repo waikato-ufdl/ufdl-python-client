@@ -19,7 +19,7 @@ def list(context: UFDLServerContext, filter_spec: Optional[FilterSpec] = None) -
 def create(context: UFDLServerContext,
            framework: int,
            domain: str,
-           licence: str,
+           licence: int,
            url: str,
            description: str) -> RawJSONObject:
     return _base_actions.create(context, PRETRAINED_MODELS_URL, {"framework": framework,
@@ -36,7 +36,7 @@ def retrieve(context: UFDLServerContext, pk: int) -> RawJSONObject:
 def update(context: UFDLServerContext, pk: int, *,
            framework: int,
            domain: str,
-           licence: str,
+           licence: int,
            url: str,
            description: str) -> RawJSONObject:
     return _base_actions.update(context, PRETRAINED_MODELS_URL, pk, {"framework": framework,
@@ -49,7 +49,7 @@ def update(context: UFDLServerContext, pk: int, *,
 def partial_update(context: UFDLServerContext, pk: int, *,
                    framework: OptionallyPresent[int] = Absent,
                    domain: OptionallyPresent[str] = Absent,
-                   licence: OptionallyPresent[str] = Absent,
+                   licence: OptionallyPresent[int] = Absent,
                    url: OptionallyPresent[str] = Absent,
                    description: OptionallyPresent[str] = Absent) -> RawJSONObject:
     return _base_actions.partial_update(context, PRETRAINED_MODELS_URL, pk, partial_kwargs(framework=framework,
