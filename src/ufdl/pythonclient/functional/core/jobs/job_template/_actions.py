@@ -25,7 +25,8 @@ def create(context: UFDLServerContext,
            type: str,
            executor_class: str,
            required_packages: str,
-           body: str) -> RawJSONObject:
+           body: str,
+           licence: int) -> RawJSONObject:
     return _base_actions.create(context, JOB_TEMPLATES_URL, {"name": name,
                                                              "version": version,
                                                              "scope": scope,
@@ -34,7 +35,8 @@ def create(context: UFDLServerContext,
                                                              "type": type,
                                                              "executor_class": executor_class,
                                                              "required_packages": required_packages,
-                                                             "body": body})
+                                                             "body": body,
+                                                             "licence": licence})
 
 
 def retrieve(context: UFDLServerContext, pk: int) -> RawJSONObject:
@@ -50,7 +52,8 @@ def update(context: UFDLServerContext, pk: int, *,
            type: str,
            executor_class: str,
            required_packages: str,
-           body: str) -> RawJSONObject:
+           body: str,
+           licence: int) -> RawJSONObject:
     return _base_actions.update(context, JOB_TEMPLATES_URL, pk, {"name": name,
                                                                  "version": version,
                                                                  "scope": scope,
@@ -59,7 +62,8 @@ def update(context: UFDLServerContext, pk: int, *,
                                                                  "type": type,
                                                                  "executor_class": executor_class,
                                                                  "required_packages": required_packages,
-                                                                 "body": body})
+                                                                 "body": body,
+                                                                 "licence": licence})
 
 
 def partial_update(context: UFDLServerContext, pk: int, *,
@@ -71,7 +75,8 @@ def partial_update(context: UFDLServerContext, pk: int, *,
                    type: OptionallyPresent[str] = Absent,
                    executor_class: OptionallyPresent[str] = Absent,
                    required_packages: OptionallyPresent[str] = Absent,
-                   body: OptionallyPresent[str] = Absent) -> RawJSONObject:
+                   body: OptionallyPresent[str] = Absent,
+                   licence: OptionallyPresent[int] = Absent) -> RawJSONObject:
     return _base_actions.partial_update(context, JOB_TEMPLATES_URL, pk, partial_kwargs(name=name,
                                                                                        version=version,
                                                                                        scope=scope,
@@ -80,7 +85,8 @@ def partial_update(context: UFDLServerContext, pk: int, *,
                                                                                        type=type,
                                                                                        executor_class=executor_class,
                                                                                        required_packages=required_packages,
-                                                                                       body=body))
+                                                                                       body=body,
+                                                                                       licence=licence))
 
 
 def destroy(context: UFDLServerContext, pk: int) -> RawJSONObject:
