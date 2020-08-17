@@ -21,12 +21,14 @@ def create(context: UFDLServerContext,
            domain: str,
            licence: int,
            url: str,
-           description: str) -> RawJSONObject:
+           description: str,
+           name: str) -> RawJSONObject:
     return _base_actions.create(context, PRETRAINED_MODELS_URL, {"framework": framework,
                                                                  "domain": domain,
                                                                  "licence": licence,
                                                                  "url": url,
-                                                                 "description": description})
+                                                                 "description": description,
+                                                                 "name": name})
 
 
 def retrieve(context: UFDLServerContext, pk: int) -> RawJSONObject:
@@ -38,12 +40,14 @@ def update(context: UFDLServerContext, pk: int, *,
            domain: str,
            licence: int,
            url: str,
-           description: str) -> RawJSONObject:
+           description: str,
+           name: str) -> RawJSONObject:
     return _base_actions.update(context, PRETRAINED_MODELS_URL, pk, {"framework": framework,
                                                                      "domain": domain,
                                                                      "licence": licence,
                                                                      "url": url,
-                                                                     "description": description})
+                                                                     "description": description,
+                                                                     "name": name})
 
 
 def partial_update(context: UFDLServerContext, pk: int, *,
@@ -51,12 +55,14 @@ def partial_update(context: UFDLServerContext, pk: int, *,
                    domain: OptionallyPresent[str] = Absent,
                    licence: OptionallyPresent[int] = Absent,
                    url: OptionallyPresent[str] = Absent,
-                   description: OptionallyPresent[str] = Absent) -> RawJSONObject:
+                   description: OptionallyPresent[str] = Absent,
+                   name: OptionallyPresent[str] = Absent) -> RawJSONObject:
     return _base_actions.partial_update(context, PRETRAINED_MODELS_URL, pk, partial_kwargs(framework=framework,
                                                                                            domain=domain,
                                                                                            licence=licence,
                                                                                            url=url,
-                                                                                           description=description))
+                                                                                           description=description,
+                                                                                           name=name))
 
 
 def destroy(context: UFDLServerContext, pk: int) -> RawJSONObject:
