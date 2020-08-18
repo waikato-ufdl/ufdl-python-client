@@ -101,16 +101,24 @@ def create_job(context: UFDLServerContext, pk: int,
                                      docker_image, input_values, parameter_values)
 
 
-def add_input(context: UFDLServerContext, pk: int, name: str, type: str, options: str) -> RawJSONObject:
-    return _mixin_actions.add_input(context, JOB_TEMPLATES_URL, pk, name, type, options)
+def add_input(context: UFDLServerContext, pk: int,
+              name: str,
+              type: str,
+              options: OptionallyPresent[str] = Absent,
+              help: OptionallyPresent[str] = Absent) -> RawJSONObject:
+    return _mixin_actions.add_input(context, JOB_TEMPLATES_URL, pk, name, type, options, help)
 
 
 def delete_input(context: UFDLServerContext, pk: int, name: str) -> RawJSONObject:
     return _mixin_actions.delete_input(context, JOB_TEMPLATES_URL, pk, name)
 
 
-def add_parameter(context: UFDLServerContext, pk: int, name: str, type: str, default: str) -> RawJSONObject:
-    return _mixin_actions.add_parameter(context, JOB_TEMPLATES_URL, pk, name, type, default)
+def add_parameter(context: UFDLServerContext, pk: int,
+                  name: str,
+                  type: str,
+                  default: OptionallyPresent[str] = Absent,
+                  help: OptionallyPresent[str] = Absent) -> RawJSONObject:
+    return _mixin_actions.add_parameter(context, JOB_TEMPLATES_URL, pk, name, type, default, help)
 
 
 def delete_parameter(context: UFDLServerContext, pk: int, name: str) -> RawJSONObject:

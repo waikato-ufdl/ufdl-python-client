@@ -111,16 +111,24 @@ def get_hardware_generation(context: UFDLServerContext, url: str, compute: float
 # ======================= #
 
 
-def add_input(context: UFDLServerContext, url: str, pk: int, name: str, type: str, options: str) -> RawJSONObject:
-    return context.post(detail_url(url, pk) + "inputs/" + name, {"type": type, "options": options}).json()
+def add_input(context: UFDLServerContext, url: str, pk: int,
+              name: str,
+              type: str,
+              options: OptionallyPresent[str] = Absent,
+              help: OptionallyPresent[str] = Absent) -> RawJSONObject:
+    return context.post(detail_url(url, pk) + "inputs/" + name, partial_kwargs(type=type, options=options, help=help)).json()
 
 
 def delete_input(context: UFDLServerContext, url: str, pk: int, name: str) -> RawJSONObject:
     return context.delete(detail_url(url, pk) + "inputs/" + name).json()
 
 
-def add_parameter(context: UFDLServerContext, url: str, pk: int, name: str, type: str, default: str) -> RawJSONObject:
-    return context.post(detail_url(url, pk) + "parameters/" + name, {"type": type, "default": default}).json()
+def add_parameter(context: UFDLServerContext, url: str, pk: int,
+                  name: str,
+                  type: str,
+                  default: OptionallyPresent[str] = Absent,
+                  help: OptionallyPresent[str] = Absent) -> RawJSONObject:
+    return context.post(detail_url(url, pk) + "parameters/" + name, partial_kwargs(type=type, default=default, help=help)).json()
 
 
 def delete_parameter(context: UFDLServerContext, url: str, pk: int, name: str) -> RawJSONObject:
