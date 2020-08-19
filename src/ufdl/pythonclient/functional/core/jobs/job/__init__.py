@@ -7,5 +7,7 @@ from ._actions import (
     get_output,
     hard_delete,
     reinstate,
-    acquire_job
+    acquire_job,
+    start_job,
+    finish_job
 )

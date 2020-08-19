@@ -18,6 +18,19 @@ def acquire_job(context: UFDLServerContext, url: str, pk: int) -> RawJSONObject:
     return context.get(detail_url(url, pk) + "acquire").json()
 
 
+def start_job(context: UFDLServerContext, url: str, pk: int, send_notification: str) -> RawJSONObject:
+    return context.post(detail_url(url, pk) + "start", {"send_notification": send_notification}).json()
+
+
+def finish_job(context: UFDLServerContext, url: str, pk: int,
+               success: bool,
+               send_notification: str,
+               error: OptionallyPresent[str] = Absent) -> RawJSONObject:
+    return context.post(detail_url(url, pk) + "finish", partial_kwargs(success=success,
+                                                                       send_notification=send_notification,
+                                                                       error=error)).json()
+
+
 # =================== #
 # AddJobOutputViewSet #
 # =================== #

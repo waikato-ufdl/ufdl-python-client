@@ -2,6 +2,7 @@ from typing import Optional, Union, IO, Iterator
 
 from ufdl.json.core.filter import FilterSpec
 
+from wai.json.object import OptionallyPresent, Absent
 from wai.json.raw import RawJSONObject, RawJSONArray
 
 from .....constants import JOBS_URL
@@ -44,3 +45,14 @@ def reinstate(context: UFDLServerContext, pk: int) -> RawJSONObject:
 
 def acquire_job(context: UFDLServerContext, pk: int) -> RawJSONObject:
     return _mixin_actions.acquire_job(context, JOBS_URL, pk)
+
+
+def start_job(context: UFDLServerContext, pk: int, send_notification: str) -> RawJSONObject:
+    return _mixin_actions.start_job(context, JOBS_URL, pk, send_notification)
+
+
+def finish_job(context: UFDLServerContext, pk: int,
+               success: bool,
+               send_notification: str,
+               error: OptionallyPresent[str] = Absent) -> RawJSONObject:
+    return _mixin_actions.finish_job(context, JOBS_URL, pk, success, send_notification, error)
