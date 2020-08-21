@@ -20,7 +20,8 @@ from ...core import (
     set_metadata as core_set_metadata,
     get_metadata as core_get_metadata,
     hard_delete as core_hard_delete,
-    reinstate as core_reinstate
+    reinstate as core_reinstate,
+    merge as core_merge
 )
 
 
@@ -112,6 +113,10 @@ def get_metadata(context: UFDLServerContext, pk: int, filename: str) -> str:
 
 def copy(context: UFDLServerContext, pk: int, new_name: OptionallyPresent[str] = Absent) -> RawJSONObject:
     return core_copy(context, IMAGE_CLASSIFICATION_DATASETS_URL, pk, **partial_kwargs(new_name=new_name))
+
+
+def merge(context: UFDLServerContext, pk: int, source_pk: int, delete: bool) -> RawJSONObject:
+    return core_merge(context, IMAGE_CLASSIFICATION_DATASETS_URL, pk, source_pk, delete)
 
 
 def hard_delete(context: UFDLServerContext, pk: int) -> RawJSONObject:

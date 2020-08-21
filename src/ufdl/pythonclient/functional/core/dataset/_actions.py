@@ -97,6 +97,10 @@ def copy(context: UFDLServerContext, pk: int, new_name: OptionallyPresent[str] =
     return _mixin_actions.copy(context, DATASETS_URL, pk, **partial_kwargs(new_name=new_name))
 
 
+def merge(context: UFDLServerContext, pk: int, source_pk: int, delete: bool) -> RawJSONObject:
+    return _mixin_actions.merge(context, DATASETS_URL, pk, source_pk, delete)
+
+
 def hard_delete(context: UFDLServerContext, pk: int) -> RawJSONObject:
     return _mixin_actions.hard_delete(context, DATASETS_URL, pk)
 

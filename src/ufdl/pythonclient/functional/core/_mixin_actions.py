@@ -182,6 +182,15 @@ def get_permissions_for_user(context: UFDLServerContext, url: str, pk: int, user
     return context.get(detail_url(url, pk) + "permissions/" + username).json()
 
 
+# ============ #
+# MergeViewSet #
+# ============ #
+
+
+def merge(context: UFDLServerContext, url: str, pk: int, source_pk: int, delete: bool) -> RawJSONObject:
+    return context.post(detail_url(url, pk) + f"merge/{source_pk}", {"delete": delete}).json()
+
+
 # ============== #
 # SetFileViewSet #
 # ============== #

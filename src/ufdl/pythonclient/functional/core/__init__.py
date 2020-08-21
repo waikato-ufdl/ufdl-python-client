@@ -24,6 +24,7 @@ from ._mixin_actions import (
     remove_membership,
     update_membership,
     get_permissions_for_user,
+    merge,
     set_file,
     delete_file_sf,
     hard_delete,

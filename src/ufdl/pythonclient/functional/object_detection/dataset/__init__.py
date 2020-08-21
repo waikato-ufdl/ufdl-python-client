@@ -15,6 +15,7 @@ from ._actions import (
     get_metadata,
 
     copy,
+    merge,
 
     hard_delete,
     reinstate,

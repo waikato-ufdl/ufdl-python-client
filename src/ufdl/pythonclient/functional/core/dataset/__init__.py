@@ -16,6 +16,8 @@ from ._actions import (
 
     copy,
 
+    merge,
+
     hard_delete,
     reinstate
 )
