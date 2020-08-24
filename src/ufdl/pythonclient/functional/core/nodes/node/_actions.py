@@ -17,11 +17,13 @@ def list(context: UFDLServerContext, filter_spec: Optional[FilterSpec] = None) -
 
 def create(context: UFDLServerContext,
            ip: str,
+           index: int,
            driver_version: str,
            hardware_generation: int,
            gpu_mem: int,
            cpu_mem: int) -> RawJSONObject:
     return _base_actions.create(context, NODES_URL, {"ip": ip,
+                                                     "index": index,
                                                      "driver_version": driver_version,
                                                      "hardware_generation": hardware_generation,
                                                      "gpu_mem": gpu_mem,
@@ -34,11 +36,13 @@ def retrieve(context: UFDLServerContext, pk: int) -> RawJSONObject:
 
 def update(context: UFDLServerContext, pk: int, *,
            ip: str,
+           index: int,
            driver_version: str,
            hardware_generation: int,
            gpu_mem: int,
            cpu_mem: int) -> RawJSONObject:
     return _base_actions.update(context, NODES_URL, pk, {"ip": ip,
+                                                         "index": index,
                                                          "driver_version": driver_version,
                                                          "hardware_generation": hardware_generation,
                                                          "gpu_mem": gpu_mem,
@@ -47,11 +51,13 @@ def update(context: UFDLServerContext, pk: int, *,
 
 def partial_update(context: UFDLServerContext, pk: int, *,
                    ip: OptionallyPresent[str] = Absent,
+                   index: OptionallyPresent[int] = Absent,
                    driver_version: OptionallyPresent[str] = Absent,
                    hardware_generation: OptionallyPresent[int] = Absent,
                    gpu_mem: OptionallyPresent[int] = Absent,
                    cpu_mem: OptionallyPresent[int] = Absent) -> RawJSONObject:
     return _base_actions.partial_update(context, NODES_URL, pk, partial_kwargs(ip=ip,
+                                                                               index=index,
                                                                                driver_version=driver_version,
                                                                                hardware_generation=hardware_generation,
                                                                                gpu_mem=gpu_mem,

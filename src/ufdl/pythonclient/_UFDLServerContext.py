@@ -26,6 +26,8 @@ class UFDLServerContext:
 
         self._token_cache = token_cache if token_cache is not None else JSONTokenCache()
 
+        self._node_id: Optional[str] = None
+
         self._tokens: Optional[Tokens] = None
 
     @property
@@ -35,6 +37,9 @@ class UFDLServerContext:
     def change_server(self, host: str):
         self._tokens = None
         self._host = host
+
+    def set_node_id(self, node_id: Optional[int]):
+        self._node_id = str(node_id) if node_id is not None else None
 
     @property
     def username(self) -> str:
@@ -51,7 +56,10 @@ class UFDLServerContext:
 
     @property
     def _auth_headers(self) -> Headers:
-        return {"Authorization": f"Bearer {self.access_token}"}
+        headers = {"Authorization": f"Bearer {self.access_token}"}
+        if self._node_id is not None:
+            headers["Node-Id"] = self._node_id
+        return headers
 
     @property
     def access_token(self) -> str:
