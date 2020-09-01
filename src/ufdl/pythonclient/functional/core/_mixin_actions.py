@@ -65,14 +65,16 @@ def copy(context: UFDLServerContext, url: str, pk: int, **params) -> RawJSONObje
 def create_job(context: UFDLServerContext, url: str, pk: int,
                docker_image: Union[int, Tuple[str, str]],
                input_values: Dict[str, str],
-               parameter_values: OptionallyPresent[Dict[str, str]] = Absent) -> RawJSONObject:
+               parameter_values: OptionallyPresent[Dict[str, str]] = Absent,
+               description: OptionallyPresent[str] = Absent) -> RawJSONObject:
     return context.post(detail_url(url, pk) + "create-job",
                         json=partial_kwargs(
                             docker_image= (docker_image
                                            if isinstance(docker_image, int)
                                            else {"name": docker_image[0], "version": docker_image[1]}),
                             input_values=input_values,
-                            parameter_values=parameter_values)).json()
+                            parameter_values=parameter_values,
+                            description=description)).json()
 
 
 # =================== #

@@ -19,6 +19,7 @@ def list(context: UFDLServerContext, filter_spec: Optional[FilterSpec] = None) -
 def create(context: UFDLServerContext,
            name: str,
            version: str,
+           description: str,
            scope: str,
            framework: int,
            domain: str,
@@ -29,6 +30,7 @@ def create(context: UFDLServerContext,
            licence: int) -> RawJSONObject:
     return _base_actions.create(context, JOB_TEMPLATES_URL, {"name": name,
                                                              "version": version,
+                                                             "description": description,
                                                              "scope": scope,
                                                              "framework": framework,
                                                              "domain": domain,
@@ -46,6 +48,7 @@ def retrieve(context: UFDLServerContext, pk: int) -> RawJSONObject:
 def update(context: UFDLServerContext, pk: int, *,
            name: str,
            version: str,
+           description: str,
            scope: str,
            framework: int,
            domain: str,
@@ -56,6 +59,7 @@ def update(context: UFDLServerContext, pk: int, *,
            licence: int) -> RawJSONObject:
     return _base_actions.update(context, JOB_TEMPLATES_URL, pk, {"name": name,
                                                                  "version": version,
+                                                                 "description": description,
                                                                  "scope": scope,
                                                                  "framework": framework,
                                                                  "domain": domain,
@@ -69,6 +73,7 @@ def update(context: UFDLServerContext, pk: int, *,
 def partial_update(context: UFDLServerContext, pk: int, *,
                    name: OptionallyPresent[str] = Absent,
                    version: OptionallyPresent[str] = Absent,
+                   description: OptionallyPresent[str] = Absent,
                    scope: OptionallyPresent[str] = Absent,
                    framework: OptionallyPresent[int] = Absent,
                    domain: OptionallyPresent[str] = Absent,
@@ -79,6 +84,7 @@ def partial_update(context: UFDLServerContext, pk: int, *,
                    licence: OptionallyPresent[int] = Absent) -> RawJSONObject:
     return _base_actions.partial_update(context, JOB_TEMPLATES_URL, pk, partial_kwargs(name=name,
                                                                                        version=version,
+                                                                                       description=description,
                                                                                        scope=scope,
                                                                                        framework=framework,
                                                                                        domain=domain,
@@ -96,9 +102,10 @@ def destroy(context: UFDLServerContext, pk: int) -> RawJSONObject:
 def create_job(context: UFDLServerContext, pk: int,
                docker_image: Union[int, Tuple[str, str]],
                input_values: Dict[str, str],
-               parameter_values: OptionallyPresent[Dict[str, str]] = Absent) -> RawJSONObject:
+               parameter_values: OptionallyPresent[Dict[str, str]] = Absent,
+               description: OptionallyPresent[str] = Absent) -> RawJSONObject:
     return _mixin_actions.create_job(context, JOB_TEMPLATES_URL, pk,
-                                     docker_image, input_values, parameter_values)
+                                     docker_image, input_values, parameter_values, description)
 
 
 def add_input(context: UFDLServerContext, pk: int,
