@@ -83,7 +83,7 @@ def destroy(context: UFDLServerContext, pk: int) -> RawJSONObject:
 
 
 def download(context: UFDLServerContext, pk: int,
-             filetype: str = "zip",
+             filetype: OptionallyPresent[str] = Absent,
              annotations_args: OptionallyPresent[List[str]] = Absent) -> Iterator[bytes]:
     return core_download(context, SPEECH_DATASETS_URL,
                          pk,

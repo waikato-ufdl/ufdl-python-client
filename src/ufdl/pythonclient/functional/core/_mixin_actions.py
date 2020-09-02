@@ -82,9 +82,11 @@ def create_job(context: UFDLServerContext, url: str, pk: int,
 # =================== #
 
 
-def download(context: UFDLServerContext, url: str, pk: int, filetype: str, **params) -> Iterator[bytes]:
-    return context.download(f"{url}/{pk}/download",
-                            filetype=filetype, **params).iter_content(chunk_size=None)
+def download(context: UFDLServerContext, url: str, pk: int,
+             filetype: OptionallyPresent[str] = Absent,
+             **params) -> Iterator[bytes]:
+    return context.download(f"{url}/{pk}/download", partial_kwargs(filetype=filetype,
+                                                                   params=params)).iter_content(chunk_size=None)
 
 
 # ==================== #
