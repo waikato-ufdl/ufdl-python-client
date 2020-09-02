@@ -41,11 +41,11 @@ def add_output(context: UFDLServerContext, url: str, pk: int, name: str, type: s
 
 
 def delete_output(context: UFDLServerContext, url: str, pk: int, name: str) -> RawJSONObject:
-    return context.delete(f"{url}/{pk}/outputs/" + name).json()
+    return context.delete(f"{url}/{pk}/outputs/{name}").json()
 
 
 def get_output(context: UFDLServerContext, url: str, pk: int, name: str) -> Iterator[bytes]:
-    return context.download(f"{url}/{pk}/outputs/" + name).iter_content(chunk_size=None)
+    return context.download(f"{url}/{pk}/outputs/{name}").iter_content(chunk_size=None)
 
 
 # =============== #
