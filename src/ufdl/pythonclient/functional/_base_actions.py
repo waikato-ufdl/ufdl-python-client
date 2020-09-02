@@ -8,7 +8,6 @@ from ufdl.json.core.filter import FilterSpec
 
 from wai.json.raw import RawJSONObject, RawJSONArray
 
-from ..util import detail_url
 from .._UFDLServerContext import UFDLServerContext
 
 
@@ -21,16 +20,16 @@ def create(context: UFDLServerContext, url: str, params: RawJSONObject) -> RawJS
 
 
 def retrieve(context: UFDLServerContext, url: str, pk: int) -> RawJSONObject:
-    return context.get(detail_url(url, pk)).json()
+    return context.get(f"{url}/{pk}").json()
 
 
 def update(context: UFDLServerContext, url: str, pk: int, params: RawJSONObject) -> RawJSONObject:
-    return context.put(detail_url(url, pk), params).json()
+    return context.put(f"{url}/{pk}", params).json()
 
 
 def partial_update(context: UFDLServerContext, url: str, pk: int, params: RawJSONObject) -> RawJSONObject:
-    return context.patch(detail_url(url, pk), params).json()
+    return context.patch(f"{url}/{pk}", params).json()
 
 
 def destroy(context: UFDLServerContext, url: str, pk: int):
-    context.delete(detail_url(url, pk))
+    context.delete(f"{url}/{pk}")

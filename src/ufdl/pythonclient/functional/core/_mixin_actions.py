@@ -6,7 +6,7 @@ from typing import Union, IO, Iterator, List, Tuple, Dict
 from wai.json.object import OptionallyPresent, Absent
 from wai.json.raw import RawJSONObject
 
-from ...util import detail_url, partial_kwargs
+from ...util import partial_kwargs
 from ..._UFDLServerContext import UFDLServerContext
 
 # ================= #
@@ -15,18 +15,18 @@ from ..._UFDLServerContext import UFDLServerContext
 
 
 def acquire_job(context: UFDLServerContext, url: str, pk: int) -> RawJSONObject:
-    return context.get(detail_url(url, pk) + "acquire").json()
+    return context.get(f"{url}/{pk}/acquire").json()
 
 
 def start_job(context: UFDLServerContext, url: str, pk: int, send_notification: str) -> RawJSONObject:
-    return context.post(detail_url(url, pk) + "start", {"send_notification": send_notification}).json()
+    return context.post(f"{url}/{pk}/start", {"send_notification": send_notification}).json()
 
 
 def finish_job(context: UFDLServerContext, url: str, pk: int,
                success: bool,
                send_notification: str,
                error: OptionallyPresent[str] = Absent) -> RawJSONObject:
-    return context.post(detail_url(url, pk) + "finish", partial_kwargs(success=success,
+    return context.post(f"{url}/{pk}/finish", partial_kwargs(success=success,
                                                                        send_notification=send_notification,
                                                                        error=error)).json()
 
@@ -37,15 +37,15 @@ def finish_job(context: UFDLServerContext, url: str, pk: int,
 
 
 def add_output(context: UFDLServerContext, url: str, pk: int, name: str, type: str, data: Union[bytes, IO[bytes]]) -> RawJSONObject:
-    return context.upload(detail_url(url, pk) + f"outputs/{name}/{type}", name, data).json()
+    return context.upload(f"{url}/{pk}/outputs/{name}/{type}", name, data).json()
 
 
 def delete_output(context: UFDLServerContext, url: str, pk: int, name: str) -> RawJSONObject:
-    return context.delete(detail_url(url, pk) + "outputs/" + name).json()
+    return context.delete(f"{url}/{pk}/outputs/" + name).json()
 
 
 def get_output(context: UFDLServerContext, url: str, pk: int, name: str) -> Iterator[bytes]:
-    return context.download(detail_url(url, pk) + "outputs/" + name).iter_content(chunk_size=None)
+    return context.download(f"{url}/{pk}/outputs/" + name).iter_content(chunk_size=None)
 
 
 # =============== #
@@ -54,7 +54,7 @@ def get_output(context: UFDLServerContext, url: str, pk: int, name: str) -> Iter
 
 
 def copy(context: UFDLServerContext, url: str, pk: int, **params) -> RawJSONObject:
-    return context.post(detail_url(url, pk) + "copy", params).json()
+    return context.post(f"{url}/{pk}/copy", params).json()
 
 
 # ================ #
@@ -67,7 +67,7 @@ def create_job(context: UFDLServerContext, url: str, pk: int,
                input_values: Dict[str, str],
                parameter_values: OptionallyPresent[Dict[str, str]] = Absent,
                description: OptionallyPresent[str] = Absent) -> RawJSONObject:
-    return context.post(detail_url(url, pk) + "create-job",
+    return context.post(f"{url}/{pk}/create-job",
                         json=partial_kwargs(
                             docker_image= (docker_image
                                            if isinstance(docker_image, int)
@@ -83,7 +83,7 @@ def create_job(context: UFDLServerContext, url: str, pk: int,
 
 
 def download(context: UFDLServerContext, url: str, pk: int, filetype: str, **params) -> Iterator[bytes]:
-    return context.download(detail_url(url, pk) + "download",
+    return context.download(f"{url}/{pk}/download",
                             filetype=filetype, **params).iter_content(chunk_size=None)
 
 
@@ -93,23 +93,23 @@ def download(context: UFDLServerContext, url: str, pk: int, filetype: str, **par
 
 
 def add_file(context: UFDLServerContext, url: str, pk: int, filename: str, data: Union[bytes, IO[bytes]]) -> RawJSONObject:
-    return context.upload(detail_url(url, pk) + "files/" + filename, filename, data).json()
+    return context.upload(f"{url}/{pk}/files/{filename}", filename, data).json()
 
 
 def get_file(context: UFDLServerContext, url: str, pk: int, filename: str) -> Iterator[bytes]:
-    return context.download(detail_url(url, pk) + "files/" + filename).iter_content(chunk_size=None)
+    return context.download(f"{url}/{pk}/files/{filename}").iter_content(chunk_size=None)
 
 
 def delete_file_fc(context: UFDLServerContext, url: str, pk: int, filename: str) -> RawJSONObject:
-    return context.delete(detail_url(url, pk) + "files/" + filename).json()
+    return context.delete(f"{url}/{pk}/files/{filename}").json()
 
 
 def set_metadata(context: UFDLServerContext, url: str, pk: int, filename: str, metadata: str) -> str:
-    return context.post(detail_url(url, pk) + "metadata/" + filename, {"metadata": metadata}).json()['metadata']
+    return context.post(f"{url}/{pk}/metadata/{filename}", {"metadata": metadata}).json()['metadata']
 
 
 def get_metadata(context: UFDLServerContext, url: str, pk: int, filename: str) -> str:
-    return context.get(detail_url(url, pk) + "metadata/" + filename).json()['metadata']
+    return context.get(f"{url}/{pk}/metadata/{filename}").json()['metadata']
 
 
 # ============================ #
@@ -118,7 +118,7 @@ def get_metadata(context: UFDLServerContext, url: str, pk: int, filename: str) -
 
 
 def get_hardware_generation(context: UFDLServerContext, url: str, compute: float) -> RawJSONObject:
-    return context.get(url + f"get-hardware-generation/{compute}").json()
+    return context.get(f"{url}/get-hardware-generation/{compute}").json()
 
 
 # ======================= #
@@ -131,11 +131,11 @@ def add_input(context: UFDLServerContext, url: str, pk: int,
               type: str,
               options: OptionallyPresent[str] = Absent,
               help: OptionallyPresent[str] = Absent) -> RawJSONObject:
-    return context.post(detail_url(url, pk) + "inputs/" + name, partial_kwargs(type=type, options=options, help=help)).json()
+    return context.post(f"{url}/{pk}/inputs/{name}", partial_kwargs(type=type, options=options, help=help)).json()
 
 
 def delete_input(context: UFDLServerContext, url: str, pk: int, name: str) -> RawJSONObject:
-    return context.delete(detail_url(url, pk) + "inputs/" + name).json()
+    return context.delete(f"{url}/{pk}/inputs/{name}").json()
 
 
 def add_parameter(context: UFDLServerContext, url: str, pk: int,
@@ -143,11 +143,11 @@ def add_parameter(context: UFDLServerContext, url: str, pk: int,
                   type: str,
                   default: OptionallyPresent[str] = Absent,
                   help: OptionallyPresent[str] = Absent) -> RawJSONObject:
-    return context.post(detail_url(url, pk) + "parameters/" + name, partial_kwargs(type=type, default=default, help=help)).json()
+    return context.post(f"{url}/{pk}/parameters/{name}", partial_kwargs(type=type, default=default, help=help)).json()
 
 
 def delete_parameter(context: UFDLServerContext, url: str, pk: int, name: str) -> RawJSONObject:
-    return context.delete(detail_url(url, pk) + "parameters/" + name).json()
+    return context.delete(f"{url}/{pk}/parameters/{name}").json()
 
 
 # =========================== #
@@ -156,11 +156,11 @@ def delete_parameter(context: UFDLServerContext, url: str, pk: int, name: str) -
 
 
 def add_subdescriptors(context: UFDLServerContext, url: str, pk: int, type: str, names: List[Union[int, str]]) -> RawJSONObject:
-    return context.patch(detail_url(url, pk) + "subdescriptors/", {"method": "add", "type": type, "names": names}).json()
+    return context.patch(f"{url}/{pk}/subdescriptors", {"method": "add", "type": type, "names": names}).json()
 
 
 def remove_subdescriptors(context: UFDLServerContext, url: str, pk: int, type: str, names: List[Union[int, str]]) -> RawJSONObject:
-    return context.patch(detail_url(url, pk) + "subdescriptors/", {"method": "remove", "type": type, "names": names}).json()
+    return context.patch(f"{url}/{pk}/subdescriptors", {"method": "remove", "type": type, "names": names}).json()
 
 
 # ================= #
@@ -169,19 +169,19 @@ def remove_subdescriptors(context: UFDLServerContext, url: str, pk: int, type: s
 
 
 def add_membership(context: UFDLServerContext, url: str, pk: int, username: str, permissions: str = "R") -> RawJSONObject:
-    return context.patch(detail_url(url, pk) + "memberships", {"method": "add", "username": username, "permissions": permissions}).json()
+    return context.patch(f"{url}/{pk}/memberships", {"method": "add", "username": username, "permissions": permissions}).json()
 
 
 def remove_membership(context: UFDLServerContext, url: str, pk: int, username: str) -> RawJSONObject:
-    return context.patch(detail_url(url, pk) + "memberships", {"method": "remove", "username": username}).json()
+    return context.patch(f"{url}/{pk}/memberships", {"method": "remove", "username": username}).json()
 
 
 def update_membership(context: UFDLServerContext, url: str, pk: int, username: str, permissions: str = "R") -> RawJSONObject:
-    return context.patch(detail_url(url, pk) + "memberships", {"method": "update", "username": username, "permissions": permissions}).json()
+    return context.patch(f"{url}/{pk}/memberships", {"method": "update", "username": username, "permissions": permissions}).json()
 
 
 def get_permissions_for_user(context: UFDLServerContext, url: str, pk: int, username: str) -> str:
-    return context.get(detail_url(url, pk) + "permissions/" + username).json()
+    return context.get(f"{url}/{pk}/permissions/{username}").json()
 
 
 # ============ #
@@ -190,7 +190,7 @@ def get_permissions_for_user(context: UFDLServerContext, url: str, pk: int, user
 
 
 def merge(context: UFDLServerContext, url: str, pk: int, source_pk: int, delete: bool) -> RawJSONObject:
-    return context.post(detail_url(url, pk) + f"merge/{source_pk}", {"delete": delete}).json()
+    return context.post(f"{url}/{pk}/merge/{source_pk}", {"delete": delete}).json()
 
 
 # ============== #
@@ -199,11 +199,11 @@ def merge(context: UFDLServerContext, url: str, pk: int, source_pk: int, delete:
 
 
 def set_file(context: UFDLServerContext, url: str, pk: int, data: Union[bytes, IO[bytes]]) -> RawJSONObject:
-    return context.upload(detail_url(url, pk) + "data", "data", data).json()
+    return context.upload(f"{url}/{pk}/data", "data", data).json()
 
 
 def delete_file_sf(context: UFDLServerContext, url: str, pk: int) -> RawJSONObject:
-    return context.delete(detail_url(url, pk) + "data").json()
+    return context.delete(f"{url}/{pk}/data").json()
 
 
 # ================= #
@@ -212,9 +212,9 @@ def delete_file_sf(context: UFDLServerContext, url: str, pk: int) -> RawJSONObje
 
 
 def hard_delete(context: UFDLServerContext, url: str, pk: int) -> RawJSONObject:
-    return context.delete(detail_url(url, pk) + "hard").json()
+    return context.delete(f"{url}/{pk}/hard").json()
 
 
 def reinstate(context: UFDLServerContext, url: str, pk: int) -> RawJSONObject:
-    return context.delete(detail_url(url, pk) + "reinstate").json()
+    return context.delete(f"{url}/{pk}/reinstate").json()
 

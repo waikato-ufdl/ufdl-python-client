@@ -221,7 +221,7 @@ class UFDLServerContext:
 
         :return:    The JWT tokens.
         """
-        json_tokens = self.post(JWT_OBTAIN_TOKEN_URL, {
+        json_tokens = self.post(f"{JWT_OBTAIN_TOKEN_URL}/", {
             "username": self.username,
             "password": self.password
         }, auth=False).json()
@@ -235,7 +235,7 @@ class UFDLServerContext:
         :param refresh_token:   The refresh token.
         :return:                The new access token.
         """
-        return self.post(JWT_REFRESH_TOKEN_URL, {"refresh": refresh_token}, auth=False).json()['access']
+        return self.post(f"{JWT_REFRESH_TOKEN_URL}/", {"refresh": refresh_token}, auth=False).json()['access']
 
     def _jwt_verify(self, token: str) -> bool:
         """
@@ -245,6 +245,6 @@ class UFDLServerContext:
         :return:        True if the token is valid, False if not.
         """
         try:
-            return self.post(JWT_VERIFY_TOKEN_URL, {"token": token}, auth=False).status_code == 200
+            return self.post(f"{JWT_VERIFY_TOKEN_URL}/", {"token": token}, auth=False).status_code == 200
         except requests.HTTPError:
             return False
