@@ -131,11 +131,11 @@ class UFDLServerContext:
         """
         return f"{self._host}/{url}"
 
+    def get(self, url: str, *, auth: bool = True) -> requests.Response:
+        return self.request(auth)(requests.get, url)
+
     def post(self, url: str, json: RawJSONObject, *, auth: bool = True) -> requests.Response:
         return self.request(auth)(requests.post, url, json=json)
-
-    def get(self, url: str, json: Optional[RawJSONObject] = None, *, auth: bool = True) -> requests.Response:
-        return self.request(auth)(requests.get, url, json={} if json is None else json)
 
     def put(self, url: str, json: RawJSONObject, *, auth: bool = True) -> requests.Response:
         return self.request(auth)(requests.put, url, json=json)
@@ -159,7 +159,11 @@ class UFDLServerContext:
                                   })
 
     def download(self, url: str, json: Optional[RawJSONObject] = None, *, auth: bool = True) -> requests.Response:
-        return self.request(auth)(requests.get, url, json={} if json is None else json, stream=True)
+        # Must use POST if given a JSON body, as GET disallows request body
+        if json is None:
+            return self.request(auth)(requests.get, url, stream=True)
+        else:
+            return self.request(auth)(requests.post, url, json=json, stream=True)
 
     def request(self, auth: bool):
         """

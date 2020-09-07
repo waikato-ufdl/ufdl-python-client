@@ -12,11 +12,11 @@ from .._UFDLServerContext import UFDLServerContext
 
 
 def list(context: UFDLServerContext, url: str, filter_spec: Optional[FilterSpec] = None) -> RawJSONArray:
-    return context.get(url, json=None if filter_spec is None else filter_spec.to_raw_json()).json()
+    return context.post(f"{url}/list", json=None if filter_spec is None else filter_spec.to_raw_json()).json()
 
 
 def create(context: UFDLServerContext, url: str, params: RawJSONObject) -> RawJSONObject:
-    return context.post(url, params).json()
+    return context.post(f"{url}/create", params).json()
 
 
 def retrieve(context: UFDLServerContext, url: str, pk: int) -> RawJSONObject:
