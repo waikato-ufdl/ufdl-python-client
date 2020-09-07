@@ -116,8 +116,8 @@ def copy(context: UFDLServerContext, pk: int, new_name: OptionallyPresent[str] =
     return core_copy(context, OBJECT_DETECTION_DATASETS_URL, pk, **partial_kwargs(new_name=new_name))
 
 
-def merge(context: UFDLServerContext, pk: int, source_pk: int, delete: bool) -> RawJSONObject:
-    return core_merge(context, OBJECT_DETECTION_DATASETS_URL, pk, source_pk, delete)
+def merge(context: UFDLServerContext, pk: int, source_pk: int, delete: bool, hard: OptionallyPresent[bool] = Absent) -> RawJSONObject:
+    return core_merge(context, OBJECT_DETECTION_DATASETS_URL, pk, source_pk, delete, hard)
 
 
 def hard_delete(context: UFDLServerContext, pk: int) -> RawJSONObject:

@@ -191,8 +191,11 @@ def get_permissions_for_user(context: UFDLServerContext, url: str, pk: int, user
 # ============ #
 
 
-def merge(context: UFDLServerContext, url: str, pk: int, source_pk: int, delete: bool) -> RawJSONObject:
-    return context.post(f"{url}/{pk}/merge/{source_pk}", {"delete": delete}).json()
+def merge(context: UFDLServerContext, url: str, pk: int,
+          source_pk: int,
+          delete: bool,
+          hard: OptionallyPresent[bool] = Absent) -> RawJSONObject:
+    return context.post(f"{url}/{pk}/merge/{source_pk}", partial_kwargs(delete=delete, hard=hard)).json()
 
 
 # ============== #
