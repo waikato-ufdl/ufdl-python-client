@@ -14,6 +14,8 @@ from ._mixin_actions import (
     set_metadata,
     get_metadata,
     get_hardware_generation,
+    import_template,
+    export_template,
     add_input,
     delete_input,
     add_parameter,

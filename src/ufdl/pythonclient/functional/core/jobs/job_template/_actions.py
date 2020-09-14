@@ -1,6 +1,7 @@
 from typing import Optional, Union, Tuple, Dict
 
 from ufdl.json.core.filter import FilterSpec
+from ufdl.json.core.jobs import JobTemplateMigrationSpec
 
 from wai.json.object import OptionallyPresent, Absent
 from wai.json.raw import RawJSONObject, RawJSONArray
@@ -140,3 +141,9 @@ def reinstate(context: UFDLServerContext, pk: int) -> RawJSONObject:
     return _mixin_actions.reinstate(context, JOB_TEMPLATES_URL, pk)
 
 
+def import_template(context: UFDLServerContext, template: JobTemplateMigrationSpec) -> RawJSONObject:
+    return _mixin_actions.import_template(context, JOB_TEMPLATES_URL, template)
+
+
+def export_template(context: UFDLServerContext, pk: int) -> RawJSONObject:
+    return _mixin_actions.export_template(context, JOB_TEMPLATES_URL, pk)

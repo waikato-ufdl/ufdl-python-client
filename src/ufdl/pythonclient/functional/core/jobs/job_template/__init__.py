@@ -11,5 +11,7 @@ from ._actions import (
     add_parameter,
     delete_parameter,
     hard_delete,
-    reinstate
+    reinstate,
+    import_template,
+    export_template
 )

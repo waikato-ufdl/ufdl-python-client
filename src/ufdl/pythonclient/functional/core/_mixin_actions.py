@@ -3,6 +3,8 @@ Contains actions implemented as mixin views on the server.
 """
 from typing import Union, IO, Iterator, List, Tuple, Dict
 
+from ufdl.json.core.jobs import JobTemplateMigrationSpec
+
 from wai.json.object import OptionallyPresent, Absent
 from wai.json.raw import RawJSONObject
 
@@ -113,6 +115,19 @@ def get_metadata(context: UFDLServerContext, url: str, pk: int, filename: str) -
 
 def get_hardware_generation(context: UFDLServerContext, url: str, compute: float) -> RawJSONObject:
     return context.get(f"{url}/get-hardware-generation/{compute}").json()
+
+# endregion
+
+# region ImportTemplateViewSet
+
+
+def import_template(context: UFDLServerContext, url: str, template: JobTemplateMigrationSpec) -> RawJSONObject:
+    return context.post(f"{url}/import", template.to_raw_json()).json()
+
+
+def export_template(context: UFDLServerContext, url: str, pk: int) -> RawJSONObject:
+    return context.get(f"{url}/{pk}/export").json()
+
 
 # endregion
 
