@@ -9,9 +9,7 @@ from wai.json.raw import RawJSONObject
 from ...util import partial_kwargs
 from ..._UFDLServerContext import UFDLServerContext
 
-# ================= #
-# AcquireJobViewSet #
-# ================= #
+# region AcquireJobViewSet
 
 
 def acquire_job(context: UFDLServerContext, url: str, pk: int) -> RawJSONObject:
@@ -27,13 +25,12 @@ def finish_job(context: UFDLServerContext, url: str, pk: int,
                send_notification: str,
                error: OptionallyPresent[str] = Absent) -> RawJSONObject:
     return context.post(f"{url}/{pk}/finish", partial_kwargs(success=success,
-                                                                       send_notification=send_notification,
-                                                                       error=error)).json()
+                                                             send_notification=send_notification,
+                                                             error=error)).json()
 
+# endregion
 
-# =================== #
-# AddJobOutputViewSet #
-# =================== #
+# region AddJobOutputViewSet
 
 
 def add_output(context: UFDLServerContext, url: str, pk: int, name: str, type: str, data: Union[bytes, IO[bytes]]) -> RawJSONObject:
@@ -47,19 +44,17 @@ def delete_output(context: UFDLServerContext, url: str, pk: int, name: str) -> R
 def get_output(context: UFDLServerContext, url: str, pk: int, name: str) -> Iterator[bytes]:
     return context.download(f"{url}/{pk}/outputs/{name}").iter_content(chunk_size=None)
 
+# endregion
 
-# =============== #
-# CopyableViewSet #
-# =============== #
+# region CopyableViewSet
 
 
 def copy(context: UFDLServerContext, url: str, pk: int, **params) -> RawJSONObject:
     return context.post(f"{url}/{pk}/copy", params).json()
 
+# endregion
 
-# ================ #
-# CreateJobViewSet #
-# ================ #
+# region CreateJobViewSet
 
 
 def create_job(context: UFDLServerContext, url: str, pk: int,
@@ -76,10 +71,9 @@ def create_job(context: UFDLServerContext, url: str, pk: int,
                             parameter_values=parameter_values,
                             description=description)).json()
 
+# endregion
 
-# =================== #
-# DownloadableViewSet #
-# =================== #
+# region DownloadableViewSet
 
 
 def download(context: UFDLServerContext, url: str, pk: int,
@@ -88,10 +82,9 @@ def download(context: UFDLServerContext, url: str, pk: int,
     return context.download(f"{url}/{pk}/download", partial_kwargs(filetype=filetype,
                                                                    params=params)).iter_content(chunk_size=None)
 
+# endregion
 
-# ==================== #
-# FileContainerViewSet #
-# ==================== #
+# region FileContainerViewSet
 
 
 def add_file(context: UFDLServerContext, url: str, pk: int, filename: str, data: Union[bytes, IO[bytes]]) -> RawJSONObject:
@@ -113,19 +106,17 @@ def set_metadata(context: UFDLServerContext, url: str, pk: int, filename: str, m
 def get_metadata(context: UFDLServerContext, url: str, pk: int, filename: str) -> str:
     return context.get(f"{url}/{pk}/metadata/{filename}").json()['metadata']
 
+# endregion
 
-# ============================ #
-# GetHardwareGenerationViewSet #
-# ============================ #
+# region GetHardwareGenerationViewSet
 
 
 def get_hardware_generation(context: UFDLServerContext, url: str, compute: float) -> RawJSONObject:
     return context.get(f"{url}/get-hardware-generation/{compute}").json()
 
+# endregion
 
-# ======================= #
-# InputsParametersViewSet #
-# ======================= #
+# region InputsParametersViewSet
 
 
 def add_input(context: UFDLServerContext, url: str, pk: int,
@@ -151,10 +142,9 @@ def add_parameter(context: UFDLServerContext, url: str, pk: int,
 def delete_parameter(context: UFDLServerContext, url: str, pk: int, name: str) -> RawJSONObject:
     return context.delete(f"{url}/{pk}/parameters/{name}").json()
 
+# endregion
 
-# =========================== #
-# LicenceSubdescriptorViewSet #
-# =========================== #
+# region LicenceSubdescriptorViewSet
 
 
 def add_subdescriptors(context: UFDLServerContext, url: str, pk: int, type: str, names: List[Union[int, str]]) -> RawJSONObject:
@@ -164,10 +154,9 @@ def add_subdescriptors(context: UFDLServerContext, url: str, pk: int, type: str,
 def remove_subdescriptors(context: UFDLServerContext, url: str, pk: int, type: str, names: List[Union[int, str]]) -> RawJSONObject:
     return context.patch(f"{url}/{pk}/subdescriptors", {"method": "remove", "type": type, "names": names}).json()
 
+# endregion
 
-# ================= #
-# MembershipViewSet #
-# ================= #
+# region MembershipViewSet
 
 
 def add_membership(context: UFDLServerContext, url: str, pk: int, username: str, permissions: str = "R") -> RawJSONObject:
@@ -185,10 +174,9 @@ def update_membership(context: UFDLServerContext, url: str, pk: int, username: s
 def get_permissions_for_user(context: UFDLServerContext, url: str, pk: int, username: str) -> str:
     return context.get(f"{url}/{pk}/permissions/{username}").json()
 
+# endregion
 
-# ============ #
-# MergeViewSet #
-# ============ #
+# region MergeViewSet
 
 
 def merge(context: UFDLServerContext, url: str, pk: int,
@@ -197,10 +185,9 @@ def merge(context: UFDLServerContext, url: str, pk: int,
           hard: OptionallyPresent[bool] = Absent) -> RawJSONObject:
     return context.post(f"{url}/{pk}/merge/{source_pk}", partial_kwargs(delete=delete, hard=hard)).json()
 
+# endregion
 
-# ============== #
-# SetFileViewSet #
-# ============== #
+# region SetFileViewSet
 
 
 def set_file(context: UFDLServerContext, url: str, pk: int, data: Union[bytes, IO[bytes]]) -> RawJSONObject:
@@ -210,10 +197,9 @@ def set_file(context: UFDLServerContext, url: str, pk: int, data: Union[bytes, I
 def delete_file_sf(context: UFDLServerContext, url: str, pk: int) -> RawJSONObject:
     return context.delete(f"{url}/{pk}/data").json()
 
+# endregion
 
-# ================= #
-# SoftDeleteViewSet #
-# ================= #
+# region SoftDeleteViewSet
 
 
 def hard_delete(context: UFDLServerContext, url: str, pk: int) -> RawJSONObject:
@@ -223,3 +209,4 @@ def hard_delete(context: UFDLServerContext, url: str, pk: int) -> RawJSONObject:
 def reinstate(context: UFDLServerContext, url: str, pk: int) -> RawJSONObject:
     return context.delete(f"{url}/{pk}/reinstate").json()
 
+#endregion
