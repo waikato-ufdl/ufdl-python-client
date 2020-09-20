@@ -93,6 +93,10 @@ def get_metadata(context: UFDLServerContext, pk: int, filename: str) -> str:
     return _mixin_actions.get_metadata(context, DATASETS_URL, pk, filename)
 
 
+def get_all_metadata(context: UFDLServerContext, pk: int) -> str:
+    return _mixin_actions.get_all_metadata(context, DATASETS_URL, pk)
+
+
 def copy(context: UFDLServerContext, pk: int, new_name: OptionallyPresent[str] = Absent) -> RawJSONObject:
     return _mixin_actions.copy(context, DATASETS_URL, pk, **partial_kwargs(new_name=new_name))
 

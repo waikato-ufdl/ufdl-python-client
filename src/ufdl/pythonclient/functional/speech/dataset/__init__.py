@@ -13,6 +13,7 @@ from ._actions import (
     delete_file,
     set_metadata,
     get_metadata,
+    get_all_metadata,
 
     copy,
     merge,

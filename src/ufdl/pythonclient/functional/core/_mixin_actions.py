@@ -108,6 +108,10 @@ def set_metadata(context: UFDLServerContext, url: str, pk: int, filename: str, m
 def get_metadata(context: UFDLServerContext, url: str, pk: int, filename: str) -> str:
     return context.get(f"{url}/{pk}/metadata/{filename}").json()['metadata']
 
+
+def get_all_metadata(context: UFDLServerContext, url: str, pk: int) -> str:
+    return context.get(f"{url}/{pk}/metadata").json()
+
 # endregion
 
 # region GetHardwareGenerationViewSet

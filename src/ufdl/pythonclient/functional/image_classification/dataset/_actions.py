@@ -19,6 +19,7 @@ from ...core import (
     delete_file_fc as core_delete_file,
     set_metadata as core_set_metadata,
     get_metadata as core_get_metadata,
+    get_all_metadata as core_get_all_metadata,
     hard_delete as core_hard_delete,
     reinstate as core_reinstate,
     merge as core_merge
@@ -109,6 +110,10 @@ def set_metadata(context: UFDLServerContext, pk: int, filename: str, metadata: s
 
 def get_metadata(context: UFDLServerContext, pk: int, filename: str) -> str:
     return core_get_metadata(context, IMAGE_CLASSIFICATION_DATASETS_URL, pk, filename)
+
+
+def get_all_metadata(context: UFDLServerContext, pk: int) -> str:
+    return core_get_all_metadata(context, IMAGE_CLASSIFICATION_DATASETS_URL, pk)
 
 
 def copy(context: UFDLServerContext, pk: int, new_name: OptionallyPresent[str] = Absent) -> RawJSONObject:
