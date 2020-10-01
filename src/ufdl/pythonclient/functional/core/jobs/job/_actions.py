@@ -27,12 +27,12 @@ def add_output(context: UFDLServerContext, pk: int, name: str, type: str, data: 
     return _mixin_actions.add_output(context, JOBS_URL, pk, name, type, data)
 
 
-def delete_output(context: UFDLServerContext, pk: int, name: str) -> RawJSONObject:
-    return _mixin_actions.delete_output(context, JOBS_URL, pk, name)
+def delete_output(context: UFDLServerContext, pk: int, name: str, type: str) -> RawJSONObject:
+    return _mixin_actions.delete_output(context, JOBS_URL, pk, name, type)
 
 
-def get_output(context: UFDLServerContext, pk: int, name: str) -> Iterator[bytes]:
-    return _mixin_actions.get_output(context, JOBS_URL, pk, name)
+def get_output(context: UFDLServerContext, pk: int, name: str, type: str) -> Iterator[bytes]:
+    return _mixin_actions.get_output(context, JOBS_URL, pk, name, type)
 
 
 def hard_delete(context: UFDLServerContext, pk: int) -> RawJSONObject:

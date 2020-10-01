@@ -39,12 +39,12 @@ def add_output(context: UFDLServerContext, url: str, pk: int, name: str, type: s
     return context.upload(f"{url}/{pk}/outputs/{name}/{type}", name, data).json()
 
 
-def delete_output(context: UFDLServerContext, url: str, pk: int, name: str) -> RawJSONObject:
-    return context.delete(f"{url}/{pk}/outputs/{name}").json()
+def delete_output(context: UFDLServerContext, url: str, pk: int, name: str, type: str) -> RawJSONObject:
+    return context.delete(f"{url}/{pk}/outputs/{name}/{type}").json()
 
 
-def get_output(context: UFDLServerContext, url: str, pk: int, name: str) -> Iterator[bytes]:
-    return context.download(f"{url}/{pk}/outputs/{name}").iter_content(chunk_size=None)
+def get_output(context: UFDLServerContext, url: str, pk: int, name: str, type: str) -> Iterator[bytes]:
+    return context.download(f"{url}/{pk}/outputs/{name}/{type}").iter_content(chunk_size=None)
 
 # endregion
 
