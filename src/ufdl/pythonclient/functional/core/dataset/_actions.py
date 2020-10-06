@@ -111,3 +111,7 @@ def hard_delete(context: UFDLServerContext, pk: int) -> RawJSONObject:
 
 def reinstate(context: UFDLServerContext, pk: int) -> RawJSONObject:
     return _mixin_actions.reinstate(context, DATASETS_URL, pk)
+
+
+def clear(context: UFDLServerContext, pk: int) -> RawJSONObject:
+    return _mixin_actions.clear(context, DATASETS_URL, pk)

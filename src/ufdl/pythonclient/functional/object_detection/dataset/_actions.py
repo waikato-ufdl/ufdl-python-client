@@ -23,7 +23,8 @@ from ...core import (
     get_all_metadata as core_get_all_metadata,
     hard_delete as core_hard_delete,
     reinstate as core_reinstate,
-    merge as core_merge
+    merge as core_merge,
+    clear as core_clear
 )
 
 
@@ -131,6 +132,10 @@ def hard_delete(context: UFDLServerContext, pk: int) -> RawJSONObject:
 
 def reinstate(context: UFDLServerContext, pk: int) -> RawJSONObject:
     return core_reinstate(context, OBJECT_DETECTION_DATASETS_URL, pk)
+
+
+def clear(context: UFDLServerContext, pk: int) -> RawJSONObject:
+    return core_clear(context, OBJECT_DETECTION_DATASETS_URL, pk)
 
 
 def get_annotations(context: UFDLServerContext, pk: int) -> RawJSONObject:

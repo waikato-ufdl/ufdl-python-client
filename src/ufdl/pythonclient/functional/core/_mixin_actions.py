@@ -48,6 +48,14 @@ def get_output(context: UFDLServerContext, url: str, pk: int, name: str, type: s
 
 # endregion
 
+# region ClearDatasetViewSet
+
+
+def clear(context: UFDLServerContext, url: str, pk: int) -> RawJSONObject:
+    return context.delete(f"{url}/{pk}/clear").json()
+
+# endregion
+
 # region CopyableViewSet
 
 

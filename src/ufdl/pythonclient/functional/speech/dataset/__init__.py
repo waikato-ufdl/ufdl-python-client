@@ -21,6 +21,8 @@ from ._actions import (
     hard_delete,
     reinstate,
 
+    clear,
+
     get_transcriptions,
     get_transcription_for_file,
     set_transcription_for_file

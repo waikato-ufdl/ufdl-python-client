@@ -20,5 +20,7 @@ from ._actions import (
     merge,
 
     hard_delete,
-    reinstate
+    reinstate,
+
+    clear
 )

@@ -5,6 +5,7 @@ from ._mixin_actions import (
     add_output,
     delete_output,
     get_output,
+    clear,
     copy,
     create_job,
     download,

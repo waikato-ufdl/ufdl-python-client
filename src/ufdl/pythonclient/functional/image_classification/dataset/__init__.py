@@ -21,6 +21,8 @@ from ._actions import (
     hard_delete,
     reinstate,
 
+    clear,
+
     get_categories,
     add_categories,
     remove_categories
