@@ -147,3 +147,7 @@ def set_annotations_for_image(context: UFDLServerContext, pk: int, image: str, a
 
 def delete_annotations_for_image(context: UFDLServerContext, pk: int, image: str):
     _mixin_actions.delete_annotations_for_image(context, OBJECT_DETECTION_DATASETS_URL, pk, image)
+
+
+def get_labels(context: UFDLServerContext, pk: int) -> List[str]:
+    return _mixin_actions.get_labels(context, OBJECT_DETECTION_DATASETS_URL, pk)

@@ -26,3 +26,7 @@ def set_annotations_for_image(context: UFDLServerContext, url: str, pk: int, ima
 
 def delete_annotations_for_image(context: UFDLServerContext, url: str, pk: int, image: str):
     context.delete(f"{url}/{pk}/annotations/{image}")
+
+
+def get_labels(context: UFDLServerContext, url: str, pk: int) -> List[str]:
+    return context.get(f"{url}/{pk}/labels").json()
