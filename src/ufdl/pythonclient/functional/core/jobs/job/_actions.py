@@ -56,3 +56,7 @@ def finish_job(context: UFDLServerContext, pk: int,
                send_notification: str,
                error: OptionallyPresent[str] = Absent) -> RawJSONObject:
     return _mixin_actions.finish_job(context, JOBS_URL, pk, success, send_notification, error)
+
+
+def reset_job(context: UFDLServerContext, pk: int) -> RawJSONObject:
+    return _mixin_actions.reset_job(context, JOBS_URL, pk)

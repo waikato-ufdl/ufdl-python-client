@@ -9,5 +9,6 @@ from ._actions import (
     reinstate,
     acquire_job,
     start_job,
-    finish_job
+    finish_job,
+    reset_job
 )

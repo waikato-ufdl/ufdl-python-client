@@ -30,6 +30,10 @@ def finish_job(context: UFDLServerContext, url: str, pk: int,
                                                              send_notification=send_notification,
                                                              error=error)).json()
 
+
+def reset_job(context: UFDLServerContext, url: str, pk: int) -> RawJSONObject:
+    return context.delete(f"{url}/{pk}/reset").json()
+
 # endregion
 
 # region AddJobOutputViewSet
