@@ -47,6 +47,10 @@ def acquire_job(context: UFDLServerContext, pk: int) -> RawJSONObject:
     return _mixin_actions.acquire_job(context, JOBS_URL, pk)
 
 
+def release_job(context: UFDLServerContext, pk: int) -> RawJSONObject:
+    return _mixin_actions.release_job(context, JOBS_URL, pk)
+
+
 def start_job(context: UFDLServerContext, pk: int, send_notification: str) -> RawJSONObject:
     return _mixin_actions.start_job(context, JOBS_URL, pk, send_notification)
 
@@ -59,4 +63,8 @@ def finish_job(context: UFDLServerContext, pk: int,
 
 
 def reset_job(context: UFDLServerContext, pk: int) -> RawJSONObject:
+    return _mixin_actions.reset_job(context, JOBS_URL, pk)
+
+
+def abort_job(context: UFDLServerContext, pk: int) -> RawJSONObject:
     return _mixin_actions.reset_job(context, JOBS_URL, pk)

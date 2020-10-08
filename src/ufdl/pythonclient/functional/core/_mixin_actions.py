@@ -18,6 +18,10 @@ def acquire_job(context: UFDLServerContext, url: str, pk: int) -> RawJSONObject:
     return context.get(f"{url}/{pk}/acquire").json()
 
 
+def release_job(context: UFDLServerContext, url: str, pk: int) -> RawJSONObject:
+    return context.get(f"{url}/{pk}/release").json()
+
+
 def start_job(context: UFDLServerContext, url: str, pk: int, send_notification: str) -> RawJSONObject:
     return context.post(f"{url}/{pk}/start", {"send_notification": send_notification}).json()
 
@@ -33,6 +37,10 @@ def finish_job(context: UFDLServerContext, url: str, pk: int,
 
 def reset_job(context: UFDLServerContext, url: str, pk: int) -> RawJSONObject:
     return context.delete(f"{url}/{pk}/reset").json()
+
+
+def abort_job(context: UFDLServerContext, url: str, pk: int) -> RawJSONObject:
+    return context.delete(f"{url}/{pk}/abort").json()
 
 # endregion
 

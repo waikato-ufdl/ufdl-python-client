@@ -8,7 +8,9 @@ from ._actions import (
     hard_delete,
     reinstate,
     acquire_job,
+    release_job,
     start_job,
     finish_job,
-    reset_job
+    reset_job,
+    abort_job
 )
