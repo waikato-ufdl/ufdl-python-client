@@ -226,6 +226,14 @@ def merge(context: UFDLServerContext, url: str, pk: int,
 
 # endregion
 
+# region PingNodeViewSet
+
+
+def ping(context: UFDLServerContext, url: str):
+    context.get(f"{url}/ping")
+
+# endregion
+
 # region SetFileViewSet
 
 

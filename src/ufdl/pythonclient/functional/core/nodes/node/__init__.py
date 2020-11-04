@@ -4,5 +4,6 @@ from ._actions import (
     retrieve,
     update,
     partial_update,
-    destroy
+    destroy,
+    ping
 )

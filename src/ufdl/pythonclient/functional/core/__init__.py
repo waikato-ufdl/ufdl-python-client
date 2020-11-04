@@ -32,6 +32,7 @@ from ._mixin_actions import (
     update_membership,
     get_permissions_for_user,
     merge,
+    ping,
     set_file,
     delete_file_sf,
     hard_delete,

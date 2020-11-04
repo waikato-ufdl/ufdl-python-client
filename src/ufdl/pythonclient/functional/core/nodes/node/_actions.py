@@ -9,6 +9,7 @@ from .....constants import NODES_URL
 from .....util import partial_kwargs
 from ....._UFDLServerContext import UFDLServerContext
 from .... import _base_actions
+from ... import _mixin_actions
 
 
 def list(context: UFDLServerContext, filter_spec: Optional[FilterSpec] = None) -> RawJSONArray:
@@ -66,3 +67,7 @@ def partial_update(context: UFDLServerContext, pk: int, *,
 
 def destroy(context: UFDLServerContext, pk: int) -> RawJSONObject:
     return _base_actions.destroy(context, NODES_URL, pk)
+
+
+def ping(context: UFDLServerContext):
+    _mixin_actions.ping(context, NODES_URL)
