@@ -59,6 +59,7 @@ def finish_job(context: UFDLServerContext, pk: int,
                success: bool,
                send_notification: str,
                error: OptionallyPresent[str] = Absent) -> RawJSONObject:
+    # TODO: Infer success based on presence/absence of error
     return _mixin_actions.finish_job(context, JOBS_URL, pk, success, send_notification, error)
 
 

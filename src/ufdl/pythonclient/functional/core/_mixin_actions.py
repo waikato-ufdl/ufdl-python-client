@@ -1,9 +1,9 @@
 """
 Contains actions implemented as mixin views on the server.
 """
-from typing import Union, IO, Iterator, List, Tuple, Dict
+from typing import Union, IO, Iterator, List, Dict
 
-from ufdl.json.core.jobs import JobTemplateMigrationSpec
+from ufdl.json.core.jobs import JobTemplateSpec
 
 from wai.json.object import OptionallyPresent, Absent
 from wai.json.raw import RawJSONObject
@@ -79,19 +79,22 @@ def copy(context: UFDLServerContext, url: str, pk: int, **params) -> RawJSONObje
 # region CreateJobViewSet
 
 
-def create_job(context: UFDLServerContext, url: str, pk: int,
-               docker_image: Union[int, Tuple[str, str]],
-               input_values: Dict[str, str],
-               parameter_values: OptionallyPresent[Dict[str, str]] = Absent,
-               description: OptionallyPresent[str] = Absent) -> RawJSONObject:
-    return context.post(f"{url}/{pk}/create-job",
-                        json=partial_kwargs(
-                            docker_image= (docker_image
-                                           if isinstance(docker_image, int)
-                                           else {"name": docker_image[0], "version": docker_image[1]}),
-                            input_values=input_values,
-                            parameter_values=parameter_values,
-                            description=description)).json()
+def create_job(
+        context: UFDLServerContext,
+        url: str,
+        pk: int,
+        input_values: Dict[str, Dict[str, str]],
+        parameter_values: OptionallyPresent[Dict[str, str]] = Absent,
+        description: OptionallyPresent[str] = Absent
+) -> RawJSONObject:
+    return context.post(
+        f"{url}/{pk}/create-job",
+        json=partial_kwargs(
+            input_values=input_values,
+            parameter_values=parameter_values,
+            description=description
+        )
+    ).json()
 
 # endregion
 
@@ -145,41 +148,13 @@ def get_hardware_generation(context: UFDLServerContext, url: str, compute: float
 # region ImportTemplateViewSet
 
 
-def import_template(context: UFDLServerContext, url: str, template: JobTemplateMigrationSpec) -> RawJSONObject:
+def import_template(context: UFDLServerContext, url: str, template: JobTemplateSpec) -> RawJSONObject:
     return context.post(f"{url}/import", template.to_raw_json()).json()
 
 
 def export_template(context: UFDLServerContext, url: str, pk: int) -> RawJSONObject:
     return context.get(f"{url}/{pk}/export").json()
 
-
-# endregion
-
-# region InputsParametersViewSet
-
-
-def add_input(context: UFDLServerContext, url: str, pk: int,
-              name: str,
-              type: str,
-              options: OptionallyPresent[str] = Absent,
-              help: OptionallyPresent[str] = Absent) -> RawJSONObject:
-    return context.post(f"{url}/{pk}/inputs/{name}", partial_kwargs(type=type, options=options, help=help)).json()
-
-
-def delete_input(context: UFDLServerContext, url: str, pk: int, name: str) -> RawJSONObject:
-    return context.delete(f"{url}/{pk}/inputs/{name}").json()
-
-
-def add_parameter(context: UFDLServerContext, url: str, pk: int,
-                  name: str,
-                  type: str,
-                  default: OptionallyPresent[str] = Absent,
-                  help: OptionallyPresent[str] = Absent) -> RawJSONObject:
-    return context.post(f"{url}/{pk}/parameters/{name}", partial_kwargs(type=type, default=default, help=help)).json()
-
-
-def delete_parameter(context: UFDLServerContext, url: str, pk: int, name: str) -> RawJSONObject:
-    return context.delete(f"{url}/{pk}/parameters/{name}").json()
 
 # endregion
 
