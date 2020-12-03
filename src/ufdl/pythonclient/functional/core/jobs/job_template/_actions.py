@@ -1,9 +1,8 @@
-from typing import Optional, Dict, Tuple
+from typing import Optional
 
 from ufdl.json.core.filter import FilterSpec
-from ufdl.json.core.jobs import JobTemplateSpec
+from ufdl.json.core.jobs import JobTemplateSpec, CreateJobSpec
 
-from wai.json.object import OptionallyPresent, Absent
 from wai.json.raw import RawJSONObject, RawJSONArray
 
 from .....constants import JOB_TEMPLATES_URL
@@ -25,18 +24,15 @@ def destroy(context: UFDLServerContext, pk: int) -> RawJSONObject:
 
 
 def create_job(
-        context: UFDLServerContext, pk: int,
-        input_values: Dict[str, Tuple[str, str]],
-        parameter_values: OptionallyPresent[Dict[str, str]] = Absent,
-        description: OptionallyPresent[str] = Absent
+        context: UFDLServerContext,
+        pk: int,
+        specification: CreateJobSpec
 ) -> RawJSONObject:
     return _mixin_actions.create_job(
         context,
         JOB_TEMPLATES_URL,
         pk,
-        input_values,
-        parameter_values,
-        description
+        specification
     )
 
 

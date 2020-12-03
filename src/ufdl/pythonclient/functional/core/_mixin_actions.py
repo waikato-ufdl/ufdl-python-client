@@ -1,9 +1,9 @@
 """
 Contains actions implemented as mixin views on the server.
 """
-from typing import Union, IO, Iterator, List, Dict, Tuple
+from typing import Union, IO, Iterator, List
 
-from ufdl.json.core.jobs import JobTemplateSpec
+from ufdl.json.core.jobs import JobTemplateSpec, CreateJobSpec
 
 from wai.json.object import OptionallyPresent, Absent
 from wai.json.raw import RawJSONObject
@@ -83,23 +83,11 @@ def create_job(
         context: UFDLServerContext,
         url: str,
         pk: int,
-        input_values: Dict[str, Tuple[str, str]],
-        parameter_values: OptionallyPresent[Dict[str, str]] = Absent,
-        description: OptionallyPresent[str] = Absent
+        specification: CreateJobSpec
 ) -> RawJSONObject:
     return context.post(
         f"{url}/{pk}/create-job",
-        json=partial_kwargs(
-            input_values={
-                name: {
-                    "value": value_type_pair[0],
-                    "type": value_type_pair[1]
-                }
-                for name, value_type_pair in input_values.items()
-            },
-            parameter_values=parameter_values,
-            description=description
-        )
+        json=specification.to_raw_json()
     ).json()
 
 # endregion
