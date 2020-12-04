@@ -1,5 +1,5 @@
 from io import BytesIO
-from typing import Iterator
+from typing import Iterator, IO
 
 
 def download_all(iterator: Iterator[bytes]) -> bytes:
@@ -15,11 +15,25 @@ def download_all(iterator: Iterator[bytes]) -> bytes:
     buffer = BytesIO()
 
     # Consume each chunk of data
-    for chunk in iterator:
-        buffer.write(chunk)
+    download_all_into(iterator, buffer)
 
     # Reset the buffer's cursor to the beginning
     buffer.seek(0)
 
     # Return the contents of the buffer
     return buffer.read()
+
+
+def download_all_into(iterator: Iterator[bytes], into: IO[bytes]):
+    """
+    Downloads the entire stream into a given file-like object.
+
+    :param iterator:
+                The iterator of chunks from the data-stream.
+    :param into:
+                The file-like object to write the data-stream into.
+    """
+    assert into.writable(), "File-like object 'into' must be writable"
+
+    for chunk in iterator:
+        into.write(chunk)
