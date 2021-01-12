@@ -62,5 +62,5 @@ def partial_update(context: UFDLServerContext, pk: int, *,
                                                                                is_active=is_active))
 
 
-def destroy(context: UFDLServerContext, pk: int) -> RawJSONObject:
+def destroy(context: UFDLServerContext, pk: int):
     return _base_actions.destroy(context, USERS_URL, pk)
