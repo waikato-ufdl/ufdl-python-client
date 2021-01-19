@@ -19,8 +19,8 @@ def retrieve(context: UFDLServerContext, pk: int) -> RawJSONObject:
     return _base_actions.retrieve(context, JOB_TEMPLATES_URL, pk)
 
 
-def destroy(context: UFDLServerContext, pk: int) -> RawJSONObject:
-    return _base_actions.destroy(context, JOB_TEMPLATES_URL, pk)
+def destroy(context: UFDLServerContext, pk: int):
+    _base_actions.destroy(context, JOB_TEMPLATES_URL, pk)
 
 
 def create_job(
