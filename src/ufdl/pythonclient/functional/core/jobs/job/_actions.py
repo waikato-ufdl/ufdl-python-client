@@ -3,7 +3,7 @@ from typing import Optional, Union, IO, Iterator
 from ufdl.json.core.filter import FilterSpec
 
 from wai.json.object import OptionallyPresent, Absent
-from wai.json.raw import RawJSONObject, RawJSONArray
+from wai.json.raw import RawJSONObject, RawJSONArray, RawJSONElement
 
 from .....constants import JOBS_URL
 from ....._UFDLServerContext import UFDLServerContext
@@ -53,6 +53,21 @@ def release_job(context: UFDLServerContext, pk: int) -> RawJSONObject:
 
 def start_job(context: UFDLServerContext, pk: int, send_notification: str) -> RawJSONObject:
     return _mixin_actions.start_job(context, JOBS_URL, pk, send_notification)
+
+
+def progress_job(
+        context: UFDLServerContext,
+        pk: int,
+        progress: float,
+        **data: RawJSONElement
+) -> RawJSONObject:
+    return _mixin_actions.progress_job(
+        context,
+        JOBS_URL,
+        pk,
+        progress,
+        **data
+    )
 
 
 def finish_job(context: UFDLServerContext, pk: int,

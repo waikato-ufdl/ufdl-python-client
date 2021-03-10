@@ -2,6 +2,7 @@ from ._mixin_actions import (
     acquire_job,
     release_job,
     start_job,
+    progress_job,
     finish_job,
     reset_job,
     abort_job,

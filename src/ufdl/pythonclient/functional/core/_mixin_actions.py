@@ -6,7 +6,7 @@ from typing import Union, IO, Iterator, List
 from ufdl.json.core.jobs import JobTemplateSpec, CreateJobSpec
 
 from wai.json.object import OptionallyPresent, Absent
-from wai.json.raw import RawJSONObject
+from wai.json.raw import RawJSONObject, RawJSONElement
 
 from ...util import partial_kwargs
 from ..._UFDLServerContext import UFDLServerContext
@@ -24,6 +24,16 @@ def release_job(context: UFDLServerContext, url: str, pk: int) -> RawJSONObject:
 
 def start_job(context: UFDLServerContext, url: str, pk: int, send_notification: str) -> RawJSONObject:
     return context.post(f"{url}/{pk}/start", {"send_notification": send_notification}).json()
+
+
+def progress_job(
+        context: UFDLServerContext,
+        url: str,
+        pk: int,
+        progress: float,
+        **data: RawJSONElement
+) -> RawJSONObject:
+    return context.post(f"{url}/{pk}/progress/{progress}", data).json()
 
 
 def finish_job(context: UFDLServerContext, url: str, pk: int,
