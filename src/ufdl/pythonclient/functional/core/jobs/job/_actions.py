@@ -35,6 +35,21 @@ def get_output(context: UFDLServerContext, pk: int, name: str, type: str) -> Ite
     return _mixin_actions.get_output(context, JOBS_URL, pk, name, type)
 
 
+def get_output_info(
+        context: UFDLServerContext,
+        pk: int,
+        name: str,
+        type: str
+) -> RawJSONObject:
+    return _mixin_actions.get_output_info(
+        context,
+        JOBS_URL,
+        pk,
+        name,
+        type
+    )
+
+
 def hard_delete(context: UFDLServerContext, pk: int) -> RawJSONObject:
     return _mixin_actions.hard_delete(context, JOBS_URL, pk)
 

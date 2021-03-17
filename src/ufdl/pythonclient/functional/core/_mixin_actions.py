@@ -68,6 +68,16 @@ def delete_output(context: UFDLServerContext, url: str, pk: int, name: str, type
 def get_output(context: UFDLServerContext, url: str, pk: int, name: str, type: str) -> Iterator[bytes]:
     return context.download(f"{url}/{pk}/outputs/{name}/{type}").iter_content(chunk_size=None)
 
+
+def get_output_info(
+        context: UFDLServerContext,
+        url: str,
+        pk: int,
+        name: str,
+        type: str
+) -> RawJSONObject:
+    return context.get(f"{url}/{pk}/outputs/{name}/{type}/info").json()
+
 # endregion
 
 # region ClearDatasetViewSet
