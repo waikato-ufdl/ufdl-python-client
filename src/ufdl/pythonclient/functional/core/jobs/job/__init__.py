@@ -14,5 +14,6 @@ from ._actions import (
     progress_job,
     finish_job,
     reset_job,
-    abort_job
+    abort_job,
+    cancel_job
 )

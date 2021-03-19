@@ -99,3 +99,10 @@ def reset_job(context: UFDLServerContext, pk: int) -> RawJSONObject:
 
 def abort_job(context: UFDLServerContext, pk: int) -> RawJSONObject:
     return _mixin_actions.abort_job(context, JOBS_URL, pk)
+
+
+def cancel_job(
+        context: UFDLServerContext,
+        pk: int
+) -> RawJSONObject:
+    return _mixin_actions.cancel_job(context, JOBS_URL, pk)

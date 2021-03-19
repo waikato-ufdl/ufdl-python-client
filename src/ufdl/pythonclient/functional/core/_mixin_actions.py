@@ -52,6 +52,14 @@ def reset_job(context: UFDLServerContext, url: str, pk: int) -> RawJSONObject:
 def abort_job(context: UFDLServerContext, url: str, pk: int) -> RawJSONObject:
     return context.delete(f"{url}/{pk}/abort").json()
 
+
+def cancel_job(
+        context: UFDLServerContext,
+        url: str,
+        pk: int
+) -> RawJSONObject:
+    return context.delete(f"{url}/{pk}/cancel").json()
+
 # endregion
 
 # region AddJobOutputViewSet

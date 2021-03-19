@@ -6,6 +6,7 @@ from ._mixin_actions import (
     finish_job,
     reset_job,
     abort_job,
+    cancel_job,
     add_output,
     delete_output,
     get_output,
