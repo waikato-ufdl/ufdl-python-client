@@ -16,4 +16,4 @@ def get_transcription_for_file(context: UFDLServerContext, url: str, pk: int, fi
 
 
 def set_transcription_for_file(context: UFDLServerContext, url: str, pk: int, filename: str, transcription: str) -> RawJSONObject:
-    return context.post(f"{url}/{pk}/transcriptions/" + filename, {"transcription": transcription}).json()
+    return context.post(f"{url}/{pk}/transcriptions/{filename}", {"transcription": transcription}).json()
