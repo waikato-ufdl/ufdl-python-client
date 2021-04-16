@@ -19,7 +19,7 @@ def acquire_job(context: UFDLServerContext, url: str, pk: int) -> RawJSONObject:
 
 
 def release_job(context: UFDLServerContext, url: str, pk: int) -> RawJSONObject:
-    return context.get(f"{url}/{pk}/release").json()
+    return context.delete(f"{url}/{pk}/release").json()
 
 
 def start_job(context: UFDLServerContext, url: str, pk: int, send_notification: str) -> RawJSONObject:
