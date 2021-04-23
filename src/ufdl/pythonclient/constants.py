@@ -26,7 +26,6 @@ PRETRAINED_MODELS_URL = "v1/pretrained-models"
 JOBS_URL = "v1/jobs"
 JOB_TEMPLATES_URL = "v1/job-templates"
 JOB_OUTPUTS_URL = "v1/job-outputs"
-WORKABLE_TEMPLATES_URL = "v1/workable-templates"
 
 # IMAGE CLASSIFICATION
 IMAGE_CLASSIFICATION_DATASETS_URL = "v1/classify/datasets"
