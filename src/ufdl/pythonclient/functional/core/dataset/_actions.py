@@ -77,6 +77,19 @@ def add_file(context: UFDLServerContext, pk: int, filename: str, data: Union[byt
     return _mixin_actions.add_file(context, DATASETS_URL, pk, filename, data)
 
 
+def add_files(
+        context: UFDLServerContext,
+        pk: int,
+        files: Union[bytes, IO[bytes]]
+) -> RawJSONObject:
+    return _mixin_actions.add_files(
+        context,
+        DATASETS_URL,
+        pk,
+        files
+    )
+
+
 def get_file(context: UFDLServerContext, pk: int, filename: str) -> Iterator[bytes]:
     return _mixin_actions.get_file(context, DATASETS_URL, pk, filename)
 

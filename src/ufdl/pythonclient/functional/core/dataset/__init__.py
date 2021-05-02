@@ -9,6 +9,7 @@ from ._actions import (
     download,
 
     add_file,
+    add_files,
     get_file,
     delete_file,
     set_metadata,

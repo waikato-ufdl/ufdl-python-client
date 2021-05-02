@@ -138,6 +138,19 @@ def add_file(context: UFDLServerContext, url: str, pk: int, filename: str, data:
     return context.upload(f"{url}/{pk}/files/{filename}", filename, data).json()
 
 
+def add_files(
+        context: UFDLServerContext,
+        url: str,
+        pk: int,
+        files: Union[bytes, IO[bytes]]
+) -> RawJSONObject:
+    return context.upload(
+        f"{url}/{pk}/files-multi",
+        "data",
+        files
+    ).json()
+
+
 def get_file(context: UFDLServerContext, url: str, pk: int, filename: str) -> Iterator[bytes]:
     return context.download(f"{url}/{pk}/files/{filename}").iter_content(chunk_size=None)
 

@@ -16,6 +16,7 @@ from ._mixin_actions import (
     create_job,
     download,
     add_file,
+    add_files,
     get_file,
     delete_file_fc,
     set_metadata,
