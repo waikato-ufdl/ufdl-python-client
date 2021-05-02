@@ -1,6 +1,7 @@
 from typing import List, Iterator, Union, IO, Optional
 
 from ufdl.json.core.filter import FilterSpec
+from ufdl.json.image_classification import CategoriesFile
 
 from wai.json.object import OptionallyPresent, Absent
 from wai.json.raw import RawJSONObject, RawJSONArray
@@ -139,6 +140,19 @@ def clear(context: UFDLServerContext, pk: int) -> RawJSONObject:
 
 def get_categories(context: UFDLServerContext, pk: int) -> RawJSONObject:
     return _mixin_actions.get_categories(context, IMAGE_CLASSIFICATION_DATASETS_URL, pk)
+
+
+def set_categories(
+        context: UFDLServerContext,
+        pk: int,
+        categories: CategoriesFile
+) -> RawJSONObject:
+    return _mixin_actions.set_categories(
+        context,
+        IMAGE_CLASSIFICATION_DATASETS_URL,
+        pk,
+        categories
+    )
 
 
 def add_categories(context: UFDLServerContext, pk: int, images: List[str], categories: List[str]) -> RawJSONObject:

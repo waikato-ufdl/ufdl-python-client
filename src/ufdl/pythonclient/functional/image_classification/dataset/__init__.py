@@ -24,6 +24,7 @@ from ._actions import (
     clear,
 
     get_categories,
+    set_categories,
     add_categories,
     remove_categories
 )
