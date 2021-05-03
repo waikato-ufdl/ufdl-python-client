@@ -9,6 +9,7 @@ from ....constants import USERS_URL
 from ....util import partial_kwargs
 from ...._UFDLServerContext import UFDLServerContext
 from ... import _base_actions
+from .. import _mixin_actions
 
 
 def list(context: UFDLServerContext, filter_spec: Optional[FilterSpec] = None) -> RawJSONArray:
@@ -64,3 +65,14 @@ def partial_update(context: UFDLServerContext, pk: int, *,
 
 def destroy(context: UFDLServerContext, pk: int):
     return _base_actions.destroy(context, USERS_URL, pk)
+
+
+def get_by_name(
+        context: UFDLServerContext,
+        name: str
+) -> RawJSONArray:
+    return _mixin_actions.get_by_name(
+        context,
+        USERS_URL,
+        name
+    )

@@ -22,6 +22,7 @@ from ._mixin_actions import (
     set_metadata,
     get_metadata,
     get_all_metadata,
+    get_by_name,
     get_hardware_generation,
     import_template,
     export_template,

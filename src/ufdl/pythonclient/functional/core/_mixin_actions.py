@@ -6,7 +6,7 @@ from typing import Union, IO, Iterator, List
 from ufdl.json.core.jobs import JobTemplateSpec, CreateJobSpec
 
 from wai.json.object import OptionallyPresent, Absent
-from wai.json.raw import RawJSONObject, RawJSONElement
+from wai.json.raw import RawJSONObject, RawJSONElement, RawJSONArray
 
 from ...util import partial_kwargs
 from ..._UFDLServerContext import UFDLServerContext
@@ -169,6 +169,20 @@ def get_metadata(context: UFDLServerContext, url: str, pk: int, filename: str) -
 
 def get_all_metadata(context: UFDLServerContext, url: str, pk: int) -> str:
     return context.get(f"{url}/{pk}/metadata").json()
+
+# endregion
+
+# region GetByNameViewSet
+
+
+def get_by_name(
+        context: UFDLServerContext,
+        url: str,
+        name: string
+) -> RawJSONArray:
+    return context.get(
+        f"{url}/{name}"
+    ).json()
 
 # endregion
 
