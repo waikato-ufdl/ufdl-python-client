@@ -178,7 +178,7 @@ def get_all_metadata(context: UFDLServerContext, url: str, pk: int) -> str:
 def get_by_name(
         context: UFDLServerContext,
         url: str,
-        name: string
+        name: str
 ) -> RawJSONArray:
     return context.get(
         f"{url}/{name}"
