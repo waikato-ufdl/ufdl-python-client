@@ -1,4 +1,4 @@
-from typing import Union, IO, Iterator, Optional
+from typing import List, Union, IO, Iterator, Optional
 
 from ufdl.json.core.filter import FilterSpec
 
@@ -110,8 +110,18 @@ def get_all_metadata(context: UFDLServerContext, pk: int) -> str:
     return _mixin_actions.get_all_metadata(context, DATASETS_URL, pk)
 
 
-def copy(context: UFDLServerContext, pk: int, new_name: OptionallyPresent[str] = Absent) -> RawJSONObject:
-    return _mixin_actions.copy(context, DATASETS_URL, pk, **partial_kwargs(new_name=new_name))
+def copy(
+        context: UFDLServerContext,
+        pk: int,
+        new_name: OptionallyPresent[str] = Absent,
+        only_files: OptionallyPresent[List[str]] = Absent
+) -> RawJSONObject:
+    return _mixin_actions.copy(
+        context,
+        DATASETS_URL,
+        pk,
+        **partial_kwargs(new_name=new_name, only_files=only_files)
+    )
 
 
 def merge(context: UFDLServerContext, pk: int, source_pk: int, delete: bool, hard: OptionallyPresent[bool] = Absent) -> RawJSONObject:

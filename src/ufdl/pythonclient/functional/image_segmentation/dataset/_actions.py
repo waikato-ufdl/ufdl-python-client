@@ -233,14 +233,16 @@ def get_all_metadata(
 def copy(
         context: UFDLServerContext,
         pk: int,
-        new_name: OptionallyPresent[str] = Absent
+        new_name: OptionallyPresent[str] = Absent,
+        only_files: OptionallyPresent[str] = Absent
 ) -> RawJSONObject:
     return core_copy(
         context,
         IMAGE_SEGMENTATION_DATASETS_URL,
         pk,
         **partial_kwargs(
-            new_name=new_name
+            new_name=new_name,
+            only_files=only_files
         )
     )
 

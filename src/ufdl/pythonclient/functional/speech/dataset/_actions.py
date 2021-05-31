@@ -117,8 +117,18 @@ def get_all_metadata(context: UFDLServerContext, pk: int) -> str:
     return core_get_all_metadata(context, SPEECH_DATASETS_URL, pk)
 
 
-def copy(context: UFDLServerContext, pk: int, new_name: OptionallyPresent[str] = Absent) -> RawJSONObject:
-    return core_copy(context, SPEECH_DATASETS_URL, pk, **partial_kwargs(new_name=new_name))
+def copy(
+        context: UFDLServerContext,
+        pk: int,
+        new_name: OptionallyPresent[str] = Absent,
+        only_files: OptionallyPresent[str] = Absent
+) -> RawJSONObject:
+    return core_copy(
+        context,
+        SPEECH_DATASETS_URL,
+        pk,
+        **partial_kwargs(new_name=new_name, only_files=only_files)
+    )
 
 
 def merge(context: UFDLServerContext, pk: int, source_pk: int, delete: bool, hard: OptionallyPresent[bool] = Absent) -> RawJSONObject:
