@@ -50,3 +50,37 @@ def import_template(context: UFDLServerContext, template: JobTemplateSpec) -> Ra
 
 def export_template(context: UFDLServerContext, pk: int) -> RawJSONObject:
     return _mixin_actions.export_template(context, JOB_TEMPLATES_URL, pk)
+
+
+def get_all_matching_templates(
+        context: UFDLServerContext,
+        contract_name: str,
+        **types: str
+) -> RawJSONArray:
+    return _mixin_actions.get_all_matching_templates(
+        context,
+        JOB_TEMPLATES_URL,
+        contract_name,
+        **types
+    )
+
+
+def get_all_parameters(
+        context: UFDLServerContext,
+        pk: int
+) -> RawJSONObject:
+    return _mixin_actions.get_all_parameters(context, JOB_TEMPLATES_URL, pk)
+
+
+def get_types(
+        context: UFDLServerContext,
+        pk: int
+) -> RawJSONObject:
+    return _mixin_actions.get_types(context, JOB_TEMPLATES_URL, pk)
+
+
+def get_outputs(
+        context: UFDLServerContext,
+        pk: int
+) -> RawJSONObject:
+    return _mixin_actions.get_outputs(context, JOB_TEMPLATES_URL, pk)

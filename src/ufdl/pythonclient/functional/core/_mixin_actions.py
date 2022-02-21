@@ -172,6 +172,64 @@ def get_all_metadata(context: UFDLServerContext, url: str, pk: int) -> str:
 
 # endregion
 
+# region GetAllMatchingTemplatesViewSet
+
+
+def get_all_matching_templates(
+        context: UFDLServerContext,
+        url: str,
+        contract_name: str,
+        **types: str
+) -> RawJSONArray:
+    url = f"{url}/get-all-matching-templates/{contract_name}"
+    if len(types) > 0:
+        param_string = "&".join(
+            f"{name}={type}"
+            for name, type in types.items()
+        )
+        url = f"{url}?{param_string}"
+    return context.get(url).json()
+
+
+def get_all_parameters(
+        context: UFDLServerContext,
+        url: str,
+        pk: int
+) -> RawJSONObject:
+    return context.get(f"{url}/{pk}/get-all-parameters").json()
+
+
+def get_types(
+        context: UFDLServerContext,
+        url: str,
+        pk: int
+) -> RawJSONObject:
+    return context.get(f"{url}/{pk}/get-types").json()
+
+
+def get_outputs(
+        context: UFDLServerContext,
+        url: str,
+        pk: int
+) -> RawJSONObject:
+    return context.get(f"{url}/{pk}/get-outputs").json()
+
+# endregion
+
+# region GetAllValuesOfTypeViewSet
+
+
+def get_all_values_of_type(
+        context: UFDLServerContext,
+        url: str,
+        type_string: str
+) -> RawJSONArray:
+    return context.get(
+        f"{url}/get-all-values/{type_string}"
+    ).json()
+
+# endregion
+
 # region GetByNameViewSet
 
 

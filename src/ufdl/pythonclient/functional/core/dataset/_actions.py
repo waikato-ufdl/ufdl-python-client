@@ -69,8 +69,15 @@ def destroy(context: UFDLServerContext, pk: int) -> RawJSONObject:
     return _base_actions.destroy(context, DATASETS_URL, pk)
 
 
-def download(context: UFDLServerContext, pk: int, filetype: str = "zip") -> Iterator[bytes]:
-    return _mixin_actions.download(context, DATASETS_URL, pk, filetype)
+def download(context: UFDLServerContext, pk: int, filetype: str = "zip",
+             annotations_args: OptionallyPresent[List[str]] = Absent) -> Iterator[bytes]:
+    return _mixin_actions.download(
+        context,
+        DATASETS_URL,
+        pk,
+        filetype,
+        **partial_kwargs(annotations_args=annotations_args)
+    )
 
 
 def add_file(context: UFDLServerContext, pk: int, filename: str, data: Union[bytes, IO[bytes]]) -> RawJSONObject:

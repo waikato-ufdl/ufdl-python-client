@@ -4,6 +4,5 @@ from ._actions import (
     retrieve,
     update,
     partial_update,
-    destroy,
-    get_all_values_of_type
+    destroy
 )
