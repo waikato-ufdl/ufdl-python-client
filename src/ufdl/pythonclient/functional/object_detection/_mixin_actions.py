@@ -1,8 +1,8 @@
-from typing import List
+from typing import List, Optional, Union
 
-from ufdl.json.object_detection import Annotation
+from ufdl.json.object_detection import ImageAnnotation, VideoAnnotation, AnnotationsFile
 
-from wai.json.raw import RawJSONObject
+from wai.json.raw import RawJSONObject, RawJSONArray
 
 from ..._UFDLServerContext import UFDLServerContext
 
@@ -11,22 +11,196 @@ from ..._UFDLServerContext import UFDLServerContext
 # ================== #
 
 
-def get_annotations(context: UFDLServerContext, url: str, pk: int) -> RawJSONObject:
-    return context.get(f"{url}/{pk}/annotations").json()
+def get_labels(
+        context: UFDLServerContext,
+        url: str,
+        pk: int
+) -> List[str]:
+    return context.get(
+        f"{url}/{pk}/labels"
+    ).json()
 
 
-def get_annotations_for_image(context: UFDLServerContext, url: str, pk: int, image: str) -> RawJSONObject:
-    return context.get(f"{url}/{pk}/annotations/{image}").json()
+def add_labels(
+        context: UFDLServerContext,
+        url: str,
+        pk: int,
+        *labels: str
+):
+    context.post(
+        f"{url}/{pk}/labels",
+        labels
+    )
 
 
-def set_annotations_for_image(context: UFDLServerContext, url: str, pk: int, image: str, annotations: List[Annotation]):
-    raw_annotations = [annotation.to_raw_json() for annotation in annotations]
-    context.post(f"{url}/{pk}/annotations/{image}", {"annotations": raw_annotations})
+def delete_label(
+        context: UFDLServerContext,
+        url: str,
+        pk: int,
+        label: str
+):
+    context.delete(
+        f"{url}/{pk}/labels/{label}"
+    )
 
 
-def delete_annotations_for_image(context: UFDLServerContext, url: str, pk: int, image: str):
-    context.delete(f"{url}/{pk}/annotations/{image}")
+def get_prefixes(
+        context: UFDLServerContext,
+        url: str,
+        pk: int
+) -> List[str]:
+    return context.get(
+        f"{url}/{pk}/prefixes"
+    ).json()
 
 
-def get_labels(context: UFDLServerContext, url: str, pk: int) -> List[str]:
-    return context.get(f"{url}/{pk}/labels").json()
+def add_prefixes(
+        context: UFDLServerContext,
+        url: str,
+        pk: int,
+        *prefixes: str
+):
+    context.post(
+        f"{url}/{pk}/prefixes",
+        prefixes
+    )
+
+
+def delete_prefix(
+        context: UFDLServerContext,
+        url: str,
+        pk: int,
+        prefix: str
+):
+    context.delete(
+        f"{url}/{pk}/prefixes/{prefix}"
+    )
+
+
+def get_file_type(
+        context: UFDLServerContext,
+        url: str,
+        pk: int,
+        filename: str
+) -> RawJSONObject:
+    return context.get(
+        f"{url}/{pk}/file-type/{filename}"
+    ).json()
+
+
+def set_file_type(
+        context: UFDLServerContext,
+        url: str,
+        pk: int,
+        filename: str,
+        format: str,
+        width: int,
+        height: int,
+        length: Optional[float]
+):
+    context.post(
+        f"{url}/{pk}/file-type/{filename}",
+        {
+            "format": format,
+            "dimensions": [width, height],
+            "length": length
+        }
+    )
+
+
+def get_file_types(
+        context: UFDLServerContext,
+        url: str,
+        pk: int
+) -> RawJSONObject:
+    return context.get(
+        f"{url}/{pk}/file-types"
+    ).json()
+
+
+def get_annotations(
+        context: UFDLServerContext,
+        url: str,
+        pk: int
+) -> RawJSONObject:
+    return context.get(
+        f"{url}/{pk}/annotations"
+    ).json()
+
+
+def set_annotations(
+        context: UFDLServerContext,
+        url: str,
+        pk: int,
+        annotations: AnnotationsFile
+):
+    context.post(
+        f"{url}/{pk}/annotations",
+        annotations.to_raw_json()
+    )
+
+
+def clear_annotations(
+        context: UFDLServerContext,
+        url: str,
+        pk: int
+):
+    context.delete(
+        f"{url}/{pk}/annotations"
+    )
+
+
+def get_annotations_for_file(
+        context: UFDLServerContext,
+        url: str,
+        pk: int,
+        filename: str
+) -> RawJSONArray:
+    return context.get(
+        f"{url}/{pk}/annotations/{filename}"
+    ).json()
+
+
+def set_annotations_for_file(
+        context: UFDLServerContext,
+        url: str,
+        pk: int,
+        filename: str,
+        annotations: Union[List[ImageAnnotation], List[VideoAnnotation]]
+):
+    raw_annotations = [
+        annotation.to_raw_json()
+        for annotation in annotations
+    ]
+    context.post(
+        f"{url}/{pk}/annotations/{filename}",
+        raw_annotations
+    )
+
+
+def add_annotations_to_file(
+        context: UFDLServerContext,
+        url: str,
+        pk: int,
+        filename: str,
+        annotations: Union[List[ImageAnnotation], List[VideoAnnotation]]
+):
+    raw_annotations = [
+        annotation.to_raw_json()
+        for annotation in annotations
+    ]
+    context.patch(
+        f"{url}/{pk}/annotations/{filename}",
+        raw_annotations
+    )
+
+
+def delete_annotations_for_file(
+        context: UFDLServerContext,
+        url: str,
+        pk: int,
+        filename: str
+):
+    context.delete(
+        f"{url}/{pk}/annotations/{filename}"
+    )

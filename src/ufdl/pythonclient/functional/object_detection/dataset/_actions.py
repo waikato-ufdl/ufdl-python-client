@@ -1,7 +1,7 @@
 from typing import List, Iterator, Union, IO, Optional
 
 from ufdl.json.core.filter import FilterSpec
-from ufdl.json.object_detection import Annotation
+from ufdl.json.object_detection import Annotation, AnnotationsFile, ImageAnnotation, VideoAnnotation
 
 from wai.json.object import OptionallyPresent, Absent
 from wai.json.raw import RawJSONObject, RawJSONArray
@@ -148,21 +148,211 @@ def clear(context: UFDLServerContext, pk: int) -> RawJSONObject:
     return core_clear(context, OBJECT_DETECTION_DATASETS_URL, pk)
 
 
-def get_annotations(context: UFDLServerContext, pk: int) -> RawJSONObject:
-    return _mixin_actions.get_annotations(context, OBJECT_DETECTION_DATASETS_URL, pk)
+def get_labels(
+        context: UFDLServerContext,
+        pk: int
+) -> List[str]:
+    return _mixin_actions.get_labels(
+        context,
+        OBJECT_DETECTION_DATASETS_URL,
+        pk
+    )
 
 
-def get_annotations_for_image(context: UFDLServerContext, pk: int, image: str) -> RawJSONObject:
-    return _mixin_actions.get_annotations_for_image(context, OBJECT_DETECTION_DATASETS_URL, pk, image)
+def add_labels(
+        context: UFDLServerContext,
+        pk: int,
+        *labels: str
+):
+    return _mixin_actions.add_labels(
+        context,
+        OBJECT_DETECTION_DATASETS_URL,
+        pk,
+        *labels
+    )
 
 
-def set_annotations_for_image(context: UFDLServerContext, pk: int, image: str, annotations: List[Annotation]):
-    _mixin_actions.set_annotations_for_image(context, OBJECT_DETECTION_DATASETS_URL, pk, image, annotations)
+def delete_label(
+        context: UFDLServerContext,
+        pk: int,
+        label: str
+):
+    return _mixin_actions.delete_label(
+        context,
+        OBJECT_DETECTION_DATASETS_URL,
+        pk,
+        label
+    )
 
 
-def delete_annotations_for_image(context: UFDLServerContext, pk: int, image: str):
-    _mixin_actions.delete_annotations_for_image(context, OBJECT_DETECTION_DATASETS_URL, pk, image)
+def get_prefixes(
+        context: UFDLServerContext,
+        pk: int
+) -> List[str]:
+    return _mixin_actions.get_prefixes(
+        context,
+        OBJECT_DETECTION_DATASETS_URL,
+        pk
+    )
 
 
-def get_labels(context: UFDLServerContext, pk: int) -> List[str]:
-    return _mixin_actions.get_labels(context, OBJECT_DETECTION_DATASETS_URL, pk)
+def add_prefixes(
+        context: UFDLServerContext,
+        pk: int,
+        *prefixes: str
+):
+    return _mixin_actions.add_prefixes(
+        context,
+        OBJECT_DETECTION_DATASETS_URL,
+        pk,
+        *prefixes
+    )
+
+
+def delete_prefix(
+        context: UFDLServerContext,
+        pk: int,
+        prefix: str
+):
+    return _mixin_actions.delete_prefix(
+        context,
+        OBJECT_DETECTION_DATASETS_URL,
+        pk,
+        prefix
+    )
+
+
+def get_file_type(
+        context: UFDLServerContext,
+        pk: int,
+        filename: str
+):
+    return _mixin_actions.get_file_type(
+        context,
+        OBJECT_DETECTION_DATASETS_URL,
+        pk,
+        filename
+    )
+
+
+def set_file_type(
+        context: UFDLServerContext,
+        pk: int,
+        filename: str,
+        format: str,
+        width: int,
+        height: int,
+        length: Optional[float]
+):
+    return _mixin_actions.set_file_type(
+        context,
+        OBJECT_DETECTION_DATASETS_URL,
+        pk,
+        filename,
+        format,
+        width,
+        height,
+        length
+    )
+
+
+def get_file_types(
+        context: UFDLServerContext,
+        pk: int
+):
+    return _mixin_actions.get_file_types(
+        context,
+        OBJECT_DETECTION_DATASETS_URL,
+        pk
+    )
+
+
+def get_annotations(
+        context: UFDLServerContext,
+        pk: int
+) -> RawJSONObject:
+    return _mixin_actions.get_annotations(
+        context,
+        OBJECT_DETECTION_DATASETS_URL,
+        pk
+    )
+
+
+def set_annotations(
+        context: UFDLServerContext,
+        pk: int,
+        annotations: AnnotationsFile
+):
+    return _mixin_actions.set_annotations(
+        context,
+        OBJECT_DETECTION_DATASETS_URL,
+        pk,
+        annotations
+    )
+
+
+def clear_annotations(
+        context: UFDLServerContext,
+        pk: int
+):
+    return _mixin_actions.clear_annotations(
+        context,
+        OBJECT_DETECTION_DATASETS_URL,
+        pk
+    )
+
+
+def get_annotations_for_file(
+        context: UFDLServerContext,
+        pk: int,
+        filename: str
+) -> RawJSONArray:
+    return _mixin_actions.get_annotations_for_file(
+        context,
+        OBJECT_DETECTION_DATASETS_URL,
+        pk,
+        filename
+    )
+
+
+def set_annotations_for_file(
+        context: UFDLServerContext,
+        pk: int,
+        filename: str,
+        annotations: Union[List[ImageAnnotation], List[VideoAnnotation]]
+):
+    return _mixin_actions.set_annotations_for_file(
+        context,
+        OBJECT_DETECTION_DATASETS_URL,
+        pk,
+        filename,
+        annotations
+    )
+
+
+def add_annotations_to_file(
+        context: UFDLServerContext,
+        pk: int,
+        filename: str,
+        annotations: Union[List[ImageAnnotation], List[VideoAnnotation]]
+):
+    return _mixin_actions.add_annotations_to_file(
+        context,
+        OBJECT_DETECTION_DATASETS_URL,
+        pk,
+        filename,
+        annotations
+    )
+
+
+def delete_annotations_for_file(
+        context: UFDLServerContext,
+        pk: int,
+        filename: str
+):
+    _mixin_actions.delete_annotations_for_file(
+        context,
+        OBJECT_DETECTION_DATASETS_URL,
+        pk,
+        filename
+    )

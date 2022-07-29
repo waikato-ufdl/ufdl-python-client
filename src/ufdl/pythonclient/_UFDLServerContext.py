@@ -2,7 +2,7 @@ from typing import Optional, Union, IO, Dict, Any
 
 import requests
 
-from wai.json.raw import RawJSONObject
+from wai.json.raw import RawJSONElement
 
 from .util import raise_for_response
 from .token_cache import TokenCache
@@ -134,13 +134,13 @@ class UFDLServerContext:
     def get(self, url: str, *, auth: bool = True) -> requests.Response:
         return self.request(auth)(requests.get, url)
 
-    def post(self, url: str, json: RawJSONObject, *, auth: bool = True) -> requests.Response:
+    def post(self, url: str, json: RawJSONElement, *, auth: bool = True) -> requests.Response:
         return self.request(auth)(requests.post, url, json=json)
 
-    def put(self, url: str, json: RawJSONObject, *, auth: bool = True) -> requests.Response:
+    def put(self, url: str, json: RawJSONElement, *, auth: bool = True) -> requests.Response:
         return self.request(auth)(requests.put, url, json=json)
 
-    def patch(self, url: str, json: RawJSONObject, *, auth: bool = True) -> requests.Response:
+    def patch(self, url: str, json: RawJSONElement, *, auth: bool = True) -> requests.Response:
         return self.request(auth)(requests.patch, url, json=json)
 
     def delete(self, url: str, *, auth: bool = True) -> requests.Response:
@@ -158,7 +158,7 @@ class UFDLServerContext:
                                       "Content-Type": "application/data"
                                   })
 
-    def download(self, url: str, json: Optional[RawJSONObject] = None, *, auth: bool = True) -> requests.Response:
+    def download(self, url: str, json: Optional[RawJSONElement] = None, *, auth: bool = True) -> requests.Response:
         # Must use POST if given a JSON body, as GET disallows request body
         if json is None:
             return self.request(auth)(requests.get, url, stream=True)
