@@ -98,13 +98,17 @@ def set_file_type(
         height: int,
         length: Optional[float]
 ):
+    body = {
+        "format": format,
+        "dimensions": [width, height]
+    }
+
+    if length is not None:
+        body['length'] = length
+
     context.post(
         f"{url}/{pk}/file-type/{filename}",
-        {
-            "format": format,
-            "dimensions": [width, height],
-            "length": length
-        }
+        body
     )
 
 
